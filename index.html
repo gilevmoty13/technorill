@@ -82,7 +82,7 @@
   <div class="notification" id="notification">Почта скопирована!</div>
 
   <header>
-    <img src="logo.png" alt="TechnoRill Logo">
+    <img src="logo1.png" alt="TechnoRill Logo">
     <h1>TechnoRill</h1>
     <p>Блог о технологиях</p>
   </header>
@@ -116,26 +116,26 @@
       const notification = document.getElementById('notification');
       
       emailElement.addEventListener('click', function() {
-        // Создаем временный элемент для копирования
+        
         const tempInput = document.createElement('input');
         tempInput.value = 'garkovivan8430@gmail.com';
         document.body.appendChild(tempInput);
         
-        // Выделяем и копируем текст
+        
         tempInput.select();
-        tempInput.setSelectionRange(0, 99999); // Для мобильных устройств
+        tempInput.setSelectionRange(0, 99999); //
         
         try {
           document.execCommand('copy');
           
-          // Показываем уведомление
+          
           notification.style.display = 'block';
           setTimeout(function() {
             notification.style.display = 'none';
           }, 2000);
         } catch (err) {
           console.error('Ошибка при копировании: ', err);
-          // Альтернативный метод для современных браузеров
+          
           navigator.clipboard.writeText('garkovivan8430@gmail.com').then(function() {
             notification.style.display = 'block';
             setTimeout(function() {
