@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechnoRill — Блог о технике</title>
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #cccccc;
+      background: #000 url('logo.png') center/contain no-repeat fixed;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header img {
+      width: 120px;
+      height: auto;
+      border-radius: 50%;
+    }
+    h1 {
+      margin-top: 20px;
+      font-size: 2.5rem;
+      color: #00cc66;
+    }
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(0,0,0,0.75);
+      padding: 30px;
+      border-radius: 15px;
+    }
+    .post {
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #eeeeee;
+    }
+    footer {
+      background: rgba(0,0,0,0.7);
+      text-align: center;
+      padding: 20px;
+      color: #888888;
+    }
+    a {
+      color: #00cc66;
+      cursor: pointer;
+      text-decoration: none;
+      border-bottom: 1px dashed #00cc66;
+    }
+    a:hover {
+      color: #00ff80;
+      border-bottom: 1px solid #00ff80;
+    }
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 200, 100, 0.9);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 1000;
+    }
+    .telegram-link {
+      color: #00cc66;
+      text-decoration: none;
+      border-bottom: 1px dashed #00cc66;
+    }
+    .telegram-link:hover {
+      color: #00ff80;
+      border-bottom: 1px solid #00ff80;
+    }
+  </style>
+</head>
+<body>
+  <div class="notification" id="notification">Почта скопирована!</div>
+
+  <header>
+    <img src="logo.png" alt="TechnoRill Logo">
+    <h1>TechnoRill</h1>
+    <p>Блог о технологиях</p>
+  </header>
+
+  <div class="content">
+    <div class="post">
+      <h1>Добро пожаловать!</h1>
+      
+    </div>
+
+    <div class="post" id="contacts">
+      <h2>Контакты</h2>
+      <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
+      <p><strong>Почта для предложений:</strong> 
+        <span id="email" style="color:#00cc66; cursor: pointer; border-bottom: 1px dashed #00cc66;">garkovivan8430@gmail.com</span>
+        <span style="margin-left: 5px; font-size: 0.9em; color: #888;">(кликните чтобы скопировать)</span>
+      </p>
+      <p><strong>По вопросам написать:</strong> 
+        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Кирилл.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailElement = document.getElementById('email');
+      const notification = document.getElementById('notification');
+      
+      emailElement.addEventListener('click', function() {
+        // Создаем временный элемент для копирования
+        const tempInput = document.createElement('input');
+        tempInput.value = 'garkovivan8430@gmail.com';
+        document.body.appendChild(tempInput);
+        
+        // Выделяем и копируем текст
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); // Для мобильных устройств
+        
+        try {
+          document.execCommand('copy');
+          
+          // Показываем уведомление
+          notification.style.display = 'block';
+          setTimeout(function() {
+            notification.style.display = 'none';
+          }, 2000);
+        } catch (err) {
+          console.error('Ошибка при копировании: ', err);
+          // Альтернативный метод для современных браузеров
+          navigator.clipboard.writeText('garkovivan8430@gmail.com').then(function() {
+            notification.style.display = 'block';
+            setTimeout(function() {
+              notification.style.display = 'none';
+            }, 2000);
+          });
+        }
+        
+        // Удаляем временный элемент
+        document.body.removeChild(tempInput);
+      });
+      
+      // Добавляем эффект при наведении на email
+      emailElement.addEventListener('mouseover', function() {
+        this.style.color = '#00ff80';
+        this.style.borderBottom = '1px solid #00ff80';
+      });
+      
+      emailElement.addEventListener('mouseout', function() {
+        this.style.color = '#00cc66';
+        this.style.borderBottom = '1px dashed #00cc66';
+      });
+    });
+  </script>
+</body>
+</html>
