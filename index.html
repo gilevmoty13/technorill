@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechnoRill — Блог о технике</title>
   <link rel="icon" href="logo.png" type="image/png">
+  <!-- Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       margin: 0;
@@ -76,6 +78,93 @@
       color: #00ff80;
       border-bottom: 1px solid #00ff80;
     }
+    
+    
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #333;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      color: #888;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .tab.active {
+      color: #00cc66;
+      border-bottom: 3px solid #00cc66;
+    }
+    .tab:hover {
+      color: #00ff80;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .news-item {
+      background: rgba(30, 30, 30, 0.5);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border-left: 3px solid #00cc66;
+    }
+    .news-date {
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+    
+    
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background: rgba(50, 50, 50, 0.5);
+      border-radius: 8px;
+      transition: all 0.3s;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .social-link:hover {
+      background: rgba(70, 70, 70, 0.7);
+      border-color: #00cc66;
+      transform: translateY(-2px);
+    }
+    .social-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      width: 30px;
+      text-align: center;
+    }
+    .tiktok-icon {
+      color: #000000;
+    }
+    .youtube-icon {
+      color: #FF0000;
+    }
+    .instagram-icon {
+      color: #E4405F;
+    }
+    .social-text {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .social-description {
+      font-size: 0.9em;
+      color: #aaa;
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -88,26 +177,104 @@
   </header>
 
   <div class="content">
-    <div class="post">
-      <h1>Добро пожаловать!</h1>
-      
+    <!-- Гойда -->
+    <div class="tabs">
+      <div class="tab active" data-tab="main">Главная</div>
+      <div class="tab" data-tab="news">Новости</div>
+      <div class="tab" data-tab="contacts">Контакты</div>
     </div>
 
-    <div class="post" id="contacts">
-      <h2>Контакты</h2>
-      <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
-      <p><strong>Почта для предложений:</strong> 
-        <span id="email" style="color:#00cc66; cursor: pointer; border-bottom: 1px dashed #00cc66;">garkovivan8430@gmail.com</span>
-        <span style="margin-left: 5px; font-size: 0.9em; color: #888;">(кликните чтобы скопировать)</span>
-      </p>
-      <p><strong>По вопросам написать:</strong> 
-        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
-      </p>
+    
+    <div id="main" class="tab-content active">
+      <div class="post">
+        <h1>Добро пожаловать!</h1>
+        <p>Канал TechnoRill рассказывает о технике и гаджетах!</p>
+        
+      </div>
+    </div>
+
+   
+    <div id="news" class="tab-content">
+      <div class="post">
+        <h1>Последние новости</h1>
+        
+        <div class="news-item">
+          <div class="news-date">26 сентября 2025</div>
+          <h3>Вышло новое видео!</h3>
+          
+          <p>Поставить ринтон на iPhone стало проще?!</p>
+          <div class="social-links">
+            <a href="https://www.tiktok.com/@technorill/video/7551795893159070998" target="_blank" class="social-link">
+              <i class="fab fa-tiktok social-icon tiktok-icon"></i>
+              <div>
+                <div class="social-text">TikTok</div>
+                <div class="social-description"></div>
+              </div>
+            </a>
+            
+            <a href="https://youtube.com/shorts/kuOezu_uI84" target="_blank" class="social-link">
+              <i class="fab fa-youtube social-icon youtube-icon"></i>
+              <div>
+                <div class="social-text">YouTube</div>
+                <div class="social-description"></div>
+              </div>
+            </a>
+            
+            <a href="https://www.instagram.com/reel/DOyV8n3jzXE/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+              <i class="fab fa-instagram social-icon instagram-icon"></i>
+              <div>
+                <div class="social-text">Instagram</div>
+                <div class="social-description"></div>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+        <div class="news-item">
+          
+          
+        
+        </div>
+      </div>
+    </div>
+
+    
+    <div id="contacts" class="tab-content">
+      <div class="post">
+        <h2>Контакты</h2>
+        <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
+        <p><strong>Почта для предложений:</strong> 
+          <span id="email" style="color:#00cc66; cursor: pointer; border-bottom: 1px dashed #00cc66;">garkovivan8430@gmail.com</span>
+          <span style="margin-left: 5px; font-size: 0.9em; color: #888;">(кликните чтобы скопировать)</span>
+        </p>
+        <p><strong>По вопросам написать:</strong> 
+          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
+        </p>
+        
+        <div class="social-links" style="margin-top: 30px;">
+          <p><strong>Мы в социальных сетях:</strong></p>
+          <a href="https://tiktok.com/@technorill" target="_blank" class="social-link">
+            <i class="fab fa-tiktok social-icon tiktok-icon"></i>
+            <div class="social-text">TikTok</div>
+          </a>
+          
+          <a href="https://youtube.com/@technorill" target="_blank" class="social-link">
+            <i class="fab fa-youtube social-icon youtube-icon"></i>
+            <div class="social-text">YouTube</div>
+          </a>
+          
+          <a href="https://www.instagram.com/techno.rill/" target="_blank" class="social-link">
+            <i class="fab fa-instagram social-icon instagram-icon"></i>
+            <div class="social-text">Instagram</div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
   <footer>
     © 2025 Кирилл.
+    <p style="margin-top: 10px; font-size: 0.8em;">*компания Meta признана экстремистской на территории России</p>
   </footer>
 
   <script>
@@ -115,19 +282,17 @@
       const emailElement = document.getElementById('email');
       const notification = document.getElementById('notification');
       
+      
       emailElement.addEventListener('click', function() {
-        
         const tempInput = document.createElement('input');
         tempInput.value = 'garkovivan8430@gmail.com';
         document.body.appendChild(tempInput);
         
-        
         tempInput.select();
-        tempInput.setSelectionRange(0, 99999); //
+        tempInput.setSelectionRange(0, 99999);
         
         try {
           document.execCommand('copy');
-          
           
           notification.style.display = 'block';
           setTimeout(function() {
@@ -144,11 +309,10 @@
           });
         }
         
-        // Удаляем временный элемент
         document.body.removeChild(tempInput);
       });
       
-      // Добавляем эффект при наведении на email
+      // Эффекты при наведении на email
       emailElement.addEventListener('mouseover', function() {
         this.style.color = '#00ff80';
         this.style.borderBottom = '1px solid #00ff80';
@@ -157,6 +321,24 @@
       emailElement.addEventListener('mouseout', function() {
         this.style.color = '#00cc66';
         this.style.borderBottom = '1px dashed #00cc66';
+      });
+      
+      // Функционал переключения вкладок
+      const tabs = document.querySelectorAll('.tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const targetTab = tab.getAttribute('data-tab');
+          
+          // Убираем активный класс у всех вкладок и контента
+          tabs.forEach(t => t.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Добавляем активный класс к выбранной вкладке и контенту
+          tab.classList.add('active');
+          document.getElementById(targetTab).classList.add('active');
+        });
       });
     });
   </script>
