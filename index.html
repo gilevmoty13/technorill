@@ -5,183 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TechnoRill — Блог о технике</title>
   <link rel="icon" href="logo1.png" type="image/png">
-  <!-- Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: #cccccc;
-      background: #000 url('logo.png') center/contain no-repeat fixed;
-    }
-    header {
-      background: rgba(0, 0, 0, 0.7);
-      text-align: center;
-      padding: 40px 20px;
-    }
-    header img {
-      width: 120px;
-      height: auto;
-      border-radius: 50%;
-    }
-    h1 {
-      margin-top: 20px;
-      font-size: 2.5rem;
-      color: #00cc66;
-    }
-    .content {
-      max-width: 800px;
-      margin: 40px auto;
-      background: rgba(0,0,0,0.75);
-      padding: 30px;
-      border-radius: 15px;
-    }
-    .post {
-      margin-bottom: 30px;
-    }
-    h2 {
-      color: #eeeeee;
-    }
-    footer {
-      background: rgba(0,0,0,0.7);
-      text-align: center;
-      padding: 20px;
-      color: #888888;
-    }
-    a {
-      color: #00cc66;
-      cursor: pointer;
-      text-decoration: none;
-      border-bottom: 1px dashed #00cc66;
-    }
-    a:hover {
-      color: #00ff80;
-      border-bottom: 1px solid #00ff80;
-    }
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(0, 200, 100, 0.9);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      display: none;
-      z-index: 1000;
-    }
-    .telegram-link {
-      color: #00cc66;
-      text-decoration: none;
-      border-bottom: 1px dashed #00cc66;
-    }
-    .telegram-link:hover {
-      color: #00ff80;
-      border-bottom: 1px solid #00ff80;
-    }
-    
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-      border-bottom: 1px solid #333;
-    }
-    .tab {
-      padding: 10px 20px;
-      cursor: pointer;
-      color: #888;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s;
-    }
-    .tab.active {
-      color: #00cc66;
-      border-bottom: 3px solid #00cc66;
-    }
-    .tab:hover {
-      color: #00ff80;
-    }
-    .tab-content {
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    .news-item {
-      background: rgba(30, 30, 30, 0.5);
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border-left: 3px solid #00cc66;
-    }
-    .news-date {
-      color: #888;
-      font-size: 0.9em;
-      margin-bottom: 5px;
-    }
-    
-    .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .social-link {
-      display: flex;
-      align-items: center;
-      padding: 10px 15px;
-      background: rgba(50, 50, 50, 0.5);
-      border-radius: 8px;
-      transition: all 0.3s;
-      text-decoration: none;
-      border: 1px solid transparent;
-    }
-    .social-link:hover {
-      background: rgba(70, 70, 70, 0.7);
-      border-color: #00cc66;
-      transform: translateY(-2px);
-    }
-    .social-icon {
-      font-size: 24px;
-      margin-right: 15px;
-      width: 30px;
-      text-align: center;
-    }
-    .tiktok-icon {
-      color: #FFFFFF;
-    }
-    .youtube-icon {
-      color: #FF0000;
-    }
-    .instagram-icon {
-      color: #E4405F;
-    }
-    .social-text {
-      font-size: 1.1em;
-      font-weight: bold;
-    }
-    .social-description {
-      font-size: 0.9em;
-      color: #aaa;
-      margin-top: 5px;
-    }
-    
-    /* Стили для центрирования контактов */
-    #contacts .post {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    #contacts .social-links {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    
-    #contacts .social-link {
-      justify-content: center;
-      text-align: left;
-    }
+    body { margin:0; font-family:Arial,sans-serif; color:#ccc; background:#000 url('logo.png') center/contain no-repeat fixed; }
+    header { background:rgba(0,0,0,.7); text-align:center; padding:40px 20px; }
+    header img { width:120px; height:auto; border-radius:50%; }
+    h1 { margin-top:20px; font-size:2.5rem; color:#00cc66; }
+    .content { max-width:800px; margin:40px auto; background:rgba(0,0,0,.75); padding:30px; border-radius:15px; }
+    .post { margin-bottom:30px; }
+    h2 { color:#eee; }
+    footer { background:rgba(0,0,0,.7); text-align:center; padding:20px; color:#888; }
+    a { color:#00cc66; cursor:pointer; text-decoration:none; border-bottom:1px dashed #00cc66; }
+    a:hover { color:#00ff80; border-bottom:1px solid #00ff80; }
+    .notification { position:fixed; top:20px; right:20px; background:rgba(0,200,100,.9); color:#fff; padding:10px 20px; border-radius:5px; display:none; z-index:1000; }
+    .tabs { display:flex; justify-content:center; margin-bottom:30px; border-bottom:1px solid #333; }
+    .tab { padding:10px 20px; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all .3s; }
+    .tab.active { color:#00cc66; border-bottom:3px solid #00cc66; }
+    .tab:hover { color:#00ff80; }
+    .tab-content { display:none; } .tab-content.active { display:block; }
+    .news-item { background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
+    .news-date { color:#888; font-size:.9em; margin-bottom:5px; }
+    .social-links { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
+    .social-link { display:flex; align-items:center; padding:10px 15px; background:rgba(50,50,50,.5); border-radius:8px; transition:all .3s; text-decoration:none; border:1px solid transparent; }
+    .social-link:hover { background:rgba(70,70,70,.7); border-color:#00cc66; transform:translateY(-2px); }
+    .social-icon { font-size:24px; margin-right:15px; width:30px; text-align:center; }
+    .tiktok-icon { color:#fff; } .youtube-icon{ color:#f00; } .instagram-icon{ color:#E4405F; }
+    #contacts .post { text-align:center; display:flex; flex-direction:column; align-items:center; }
+    #contacts .social-links { width:100%; max-width:400px; margin:0 auto; }
+    #contacts .social-link { justify-content:center; text-align:left; }
+    /* Панель публикации адаптивная */
+    #publishPanel{ box-sizing:border-box; width:min(520px,96vw); right:12px; bottom:12px; max-height:90vh; overflow:auto; position:fixed; background:rgba(0,0,0,.92); border:1px solid #00cc66; border-radius:12px; padding:16px; z-index:1199; display:none; }
+    #publishPanel textarea{ width:100%; min-height:160px; }
+    #publishPanel .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:560px){ #publishPanel{ left:8px; right:8px; top:8px; bottom:8px; width:auto; max-height:calc(100vh - 16px);} #publishPanel .two-col{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -194,194 +50,268 @@
   </header>
 
   <div class="content">
-    <!-- Гойда -->
     <div class="tabs">
       <div class="tab active" data-tab="main">Главная</div>
       <div class="tab" data-tab="news">Новости</div>
       <div class="tab" data-tab="contacts">Контакты</div>
     </div>
 
-    
     <div id="main" class="tab-content active">
       <div class="post">
         <h1>Добро пожаловать!</h1>
         <p>Канал TechnoRill рассказывает о технике и гаджетах!</p>
-        
       </div>
     </div>
 
-   
     <div id="news" class="tab-content">
       <div class="post">
         <h1>Видео за месяц</h1>
-        
-          
-      <div class="news-item">
-  <div class="news-date">27 сентября 2025</div>
-  <h3>Очищать память на iPhone стало легче?</h3>
-  <p>В этом видео ты узнаешь об очень полезном приложении для iPhone!</p>
-  <div class="social-links">
-    <a href="https://www.tiktok.com/@technorill/video/7553701581309480214" target="_blank" class="social-link">
-      <i class="fab fa-tiktok social-icon tiktok-icon"></i>
-      <div>
-        <div class="social-text">TikTok</div>
-      </div>
-    </a>
-    <a href="https://youtube.com/shorts/Yrtjg5RFcFE" target="_blank" class="social-link">
-      <i class="fab fa-youtube social-icon youtube-icon"></i>
-      <div>
-        <div class="social-text">YouTube</div>
-      </div>
-    </a>
-    <a href="https://www.instagram.com/reel/DO_prhlDivv/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
-      <i class="fab fa-instagram social-icon instagram-icon"></i>
-      <div>
-        <div class="social-text">Instagram*</div>
-      </div>
-    </a>
-  </div>
-</div>
-
-       <div class="news-item">
-  <div class="news-date">26 сентября 2025</div>
-  <h3>Поставить ринтон на iPhone стало проще?!</h3>
-  <p>В этом видео ты узнаешь об очень полезном приложении для iPhone!</p>
-  <div class="social-links">
-    <a href="https://www.tiktok.com/@technorill/video/7551795893159070998" target="_blank" class="social-link">
-      <i class="fab fa-tiktok social-icon tiktok-icon"></i>
-      <div>
-        <div class="social-text">TikTok</div>
-      </div>
-    </a>
-    <a href="https://youtube.com/shorts/kuOezu_uI84" target="_blank" class="social-link">
-      <i class="fab fa-youtube social-icon youtube-icon"></i>
-      <div>
-        <div class="social-text">YouTube</div>
-      </div>
-    </a>
-    <a href="https://www.instagram.com/reel/DOyV8n3jzXE" target="_blank" class="social-link">
-      <i class="fab fa-instagram social-icon instagram-icon"></i>
-      <div>
-        <div class="social-text">Instagram*</div>
-      </div>
-    </a>
-  </div>
-</div>
-
-
-
-        
-         
-          
-          
-        
-       
+        <!-- NEWS-START -->
+        <div class="news-item">
+          <div class="news-date">27 сентября 2025</div>
+          <h3>Очищать память на iPhone стало легче?</h3>
+          <p>В этом видео ты узнаешь об очень полезном приложении для iPhone!</p>
+          <div class="social-links">
+            <a href="https://www.tiktok.com/@technorill/video/7553701581309480214" target="_blank" class="social-link">
+              <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+            </a>
+            <a href="https://youtube.com/shorts/Yrtjg5RFcFE" target="_blank" class="social-link">
+              <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+            </a>
+            <a href="https://www.instagram.com/reel/DO_prhlDivv" target="_blank" class="social-link">
+              <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+            </a>
+          </div>
+        </div>
+        <!-- NEWS-END -->
       </div>
     </div>
 
-    
     <div id="contacts" class="tab-content">
       <div class="post">
         <h2>Контакты</h2>
         <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
         <p><strong>Почта для предложений:</strong> 
-          <span id="email" style="color:#00cc66; cursor: pointer; border-bottom: 1px dashed #00cc66;">garkovivan8430@gmail.com</span>
-          <span style="margin-left: 5px; font-size: 0.9em; color: #888;">(кликните чтобы скопировать)</span>
+          <span id="email" style="color:#00cc66; cursor:pointer; border-bottom:1px dashed #00cc66;">garkovivan8430@gmail.com</span>
+          <span style="margin-left:5px; font-size:.9em; color:#888;">(кликните чтобы скопировать)</span>
         </p>
         <p><strong>По вопросам писать:</strong> 
           <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
         </p>
-        
-        <div class="social-links" style="margin-top: 30px;">
-          <p><strong>Мы в социальных сетях:</strong></p>
-          <a href="https://tiktok.com/@technorill" target="_blank" class="social-link">
-            <i class="fab fa-tiktok social-icon tiktok-icon"></i>
-            <div class="social-text">TikTok</div>
-          </a>
-          
-          <a href="https://youtube.com/@technorill" target="_blank" class="social-link">
-            <i class="fab fa-youtube social-icon youtube-icon"></i>
-            <div class="social-text">YouTube</div>
-          </a>
-          
-          <a href="https://www.instagram.com/techno.rill/" target="_blank" class="social-link">
-            <i class="fab fa-instagram social-icon instagram-icon"></i>
-            <div class="social-text">Instagram*</div>
-          </a>
-        </div>
       </div>
     </div>
   </div>
 
   <footer>
     © 2025 Кирилл.
-    <p style="margin-top: 10px; font-size: 0.8em;">*компания Meta признана экстремистской на территории России</p>
+    <p style="margin-top:10px; font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
   </footer>
 
+  <!-- Модал логина -->
+  <div id="adminModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1200; align-items:center; justify-content:center;">
+    <div style="background:#111; border:1px solid #00cc66; border-radius:12px; width:min(520px,92vw); padding:20px;">
+      <h3 style="margin:0 0 10px; color:#00ff80">Вход для администратора</h3>
+      <label style="display:block; margin:10px 0 6px;">Логин</label>
+      <input id="adminLogin" type="text" placeholder="Логин" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+      <label style="display:block; margin:12px 0 6px;">Пароль</label>
+      <input id="adminPass" type="password" placeholder="Пароль" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+      <div style="display:flex; gap:10px; margin-top:14px;">
+        <button id="adminLoginBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer">Войти</button>
+        <button id="adminCancelBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #444; background:#222; color:#bbb; cursor:pointer">Отмена</button>
+      </div>
+      <p id="adminErr" style="color:#ff6b6b; display:none; margin-top:10px;">Неверные данные</p>
+    </div>
+  </div>
+
+  <!-- Панель публикации -->
+  <div id="publishPanel">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+      <strong style="color:#00ff80;">Публикация новости</strong>
+      <button id="closePublish" title="Свернуть" style="border:1px solid #444; background:#111; color:#bbb; border-radius:8px; padding:6px 10px; cursor:pointer;">×</button>
+    </div>
+
+    <label>Дата (текст):</label>
+    <input id="fDate" type="text" placeholder="27 сентября 2025" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+
+    <label>Заголовок:</label>
+    <input id="fTitle" type="text" placeholder="Вышло новое видео!" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+
+    <label>Описание (необязательно):</label>
+    <input id="fDesc" type="text" placeholder="Короткое описание" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+
+    <div class="two-col">
+      <div>
+        <label>TikTok ссылка:</label>
+        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+      </div>
+      <div>
+        <label>YouTube ссылка:</label>
+        <input id="fYouTube" type="url" placeholder="https://youtube.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+      </div>
+      <div>
+        <label>Instagram ссылка:</label>
+        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+      </div>
+    </div>
+
+    <button id="publishBtn" style="margin-top:12px; padding:10px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer; width:100%;">Опубликовать</button>
+
+    <div id="exportWrap" style="display:none; margin-top:12px;">
+      <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
+      <textarea id="exportHtml" rows="8" style="width:100%; background:#000; color:#eee; border:1px solid #333; border-radius:8px; padding:8px;"></textarea>
+      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer;">Скопировать</button>
+    </div>
+  </div>
+
+  <!-- Базовый скрипт страницы -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const emailElement = document.getElementById('email');
       const notification = document.getElementById('notification');
-      
-      
-      emailElement.addEventListener('click', function() {
-        const tempInput = document.createElement('input');
-        tempInput.value = 'garkovivan8430@gmail.com';
-        document.body.appendChild(tempInput);
-        
-        tempInput.select();
-        tempInput.setSelectionRange(0, 99999);
-        
-        try {
-          document.execCommand('copy');
-          
-          notification.style.display = 'block';
-          setTimeout(function() {
-            notification.style.display = 'none';
-          }, 2000);
-        } catch (err) {
-          console.error('Ошибка при копировании: ', err);
-          
-          navigator.clipboard.writeText('garkovivan8430@gmail.com').then(function() {
-            notification.style.display = 'block';
-            setTimeout(function() {
-              notification.style.display = 'none';
-            }, 2000);
-          });
-        }
-        
-        document.body.removeChild(tempInput);
-      });
-      
-      // Эффекты при наведении на email
-      emailElement.addEventListener('mouseover', function() {
-        this.style.color = '#00ff80';
-        this.style.borderBottom = '1px solid #00ff80';
-      });
-      
-      emailElement.addEventListener('mouseout', function() {
-        this.style.color = '#00cc66';
-        this.style.borderBottom = '1px dashed #00cc66';
-      });
-      
-      // Функционал переключения вкладок
-      const tabs = document.querySelectorAll('.tab');
-      const tabContents = document.querySelectorAll('.tab-content');
-      
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const targetTab = tab.getAttribute('data-tab');
-          
-          // Убираем активный класс у всех вкладок и контента
-          tabs.forEach(t => t.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-          
-          // Добавляем активный класс к выбранной вкладке и контенту
-          tab.classList.add('active');
-          document.getElementById(targetTab).classList.add('active');
+      if (emailElement) {
+        emailElement.addEventListener('click', function() {
+          const tempInput = document.createElement('input');
+          tempInput.value = 'garkovivan8430@gmail.com';
+          document.body.appendChild(tempInput);
+          tempInput.select(); tempInput.setSelectionRange(0, 99999);
+          try { document.execCommand('copy'); notification.style.display='block'; setTimeout(()=>notification.style.display='none',2000); }
+          catch { navigator.clipboard.writeText('garkovivan8430@gmail.com').then(()=>{ notification.style.display='block'; setTimeout(()=>notification.style.display='none',2000);}); }
+          document.body.removeChild(tempInput);
+        });
+      }
+      document.querySelectorAll('.tab').forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+          const target = tab.getAttribute('data-tab');
+          document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+          tab.classList.add('active'); document.getElementById(target).classList.add('active');
         });
       });
     });
+  </script>
+
+  <!-- Админ-логика (хэши логина/пароля + автосохранение через воркер) -->
+  <script>
+  (function() {
+    // 1) Укажи адрес своего воркера:
+    const WORKER_BASE = 'https://YOUR-WORKER.workers.dev';
+
+    // 2) Хэши логина/пароля (SHA-256 + соль) — чтобы не светились явные строки
+    const SALT = 'trill#2025';
+    const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323'; // "Techno RiLL"
+    const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46'; // "300302Mufasa"
+
+    async function sha256Hex(str){ const data=new TextEncoder().encode(SALT+str); const buf=await crypto.subtle.digest('SHA-256',data); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+
+    const adminModal = document.getElementById('adminModal');
+    const adminLoginBtn = document.getElementById('adminLoginBtn');
+    const adminCancelBtn= document.getElementById('adminCancelBtn');
+    const adminErr = document.getElementById('adminErr');
+    const loginInput = document.getElementById('adminLogin');
+    const passInput  = document.getElementById('adminPass');
+
+    const PUBLISH_PANEL = document.getElementById('publishPanel');
+    const closePublish  = document.getElementById('closePublish');
+
+    const fDate   = document.getElementById('fDate');
+    const fTitle  = document.getElementById('fTitle');
+    const fDesc   = document.getElementById('fDesc');
+    const fTikTok = document.getElementById('fTikTok');
+    const fYouTube= document.getElementById('fYouTube');
+    const fInsta  = document.getElementById('fInsta');
+
+    const publishBtn = document.getElementById('publishBtn');
+    const exportWrap = document.getElementById('exportWrap');
+    const exportHtml = document.getElementById('exportHtml');
+    const copyExport = document.getElementById('copyExport');
+
+    function openLoginModal(){ adminErr.style.display='none'; loginInput.value=''; passInput.value=''; adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0); }
+
+    // Ctrl/Cmd+A — открыть логин; Esc — закрыть логин/панель
+    document.addEventListener('keydown',(e)=>{
+      const isCtrlA=(e.ctrlKey||e.metaKey)&&(e.key==='a'||e.key==='A');
+      if(isCtrlA){ e.preventDefault(); openLoginModal(); }
+      if(e.key==='Escape'){ if(adminModal.style.display==='flex') adminModal.style.display='none'; if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none'; }
+    });
+    adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
+    adminModal.addEventListener('click', (e)=>{ if(e.target===adminModal) adminModal.style.display='none'; });
+
+    async function tryLogin(){
+      const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
+      const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
+      if(okLogin&&okPass){ adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
+      else adminErr.style.display='block';
+    }
+    adminLoginBtn.addEventListener('click', tryLogin);
+    passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
+    closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
+
+    function buildNewsHTML(data){
+      const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const link=(href, icon, txt, cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
+      return `
+<div class="news-item">
+  <div class="news-date">${esc(data.date)}</div>
+  <h3>${esc(data.title)}</h3>
+  ${data.desc?`<p>${esc(data.desc)}</p>`:''}
+  <div class="social-links">
+    ${link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon')}
+    ${link(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
+    ${link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')}
+  </div>
+</div>`.trim();
+    }
+    function getNewsContainer(){ return document.querySelector('#news .post') || document.getElementById('news'); }
+
+    publishBtn.addEventListener('click', ()=>{
+      const data={
+        date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
+        title: fTitle.value.trim(),
+        desc: fDesc.value.trim(),
+        tiktok: fTikTok.value.trim(),
+        youtube: fYouTube.value.trim(),
+        insta: fInsta.value.trim()
+      };
+      if(!data.title){ alert('Укажи заголовок.'); return; }
+      if(!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
+
+      // 1) мгновенная вставка в DOM
+      const html=buildNewsHTML(data);
+      const container=getNewsContainer();
+      if(container){
+        container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
+      }
+
+      // 2) показать экспорт-код на всякий случай
+      exportWrap.style.display='block';
+      exportHtml.value=html;
+
+      // 3) автосохранение через воркер (коммит в репо)
+      if(/^https?:\/\//.test(WORKER_BASE)){
+        fetch(WORKER_BASE + '/publish', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify(data)
+        }).then(r=>r.json().catch(()=>({})))
+          .then(res=>{
+            if(!res || !res.ok){
+              console.error('Publish failed:', res);
+              alert('Не удалось сохранить на сервере. Код новости показан ниже — вставь вручную.');
+            } else {
+              console.log('Publish OK');
+            }
+          })
+          .catch(err=>{
+            console.error(err);
+            alert('Ошибка сети при сохранении. Код новости показан ниже — вставь вручную.');
+          });
+      } else {
+        alert('WORKER_BASE не настроен — автосохранение отключено. Используй код ниже для ручной вставки.');
+      }
+    });
+
+    copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
+  })();
   </script>
 </body>
 </html>
