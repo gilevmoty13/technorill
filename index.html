@@ -191,11 +191,6 @@
     <img src="logo1.png" alt="TechnoRill Logo">
     <h1>TechnoRill</h1>
     <p>Блог о технологиях</p>
-
-    <!-- ДОБАВЛЕНО: кнопка Admin (не меняет существующие элементы) -->
-    <button id="adminBtn" style="margin-top:12px;padding:8px 14px;border-radius:8px;border:1px solid #00cc66;background:rgba(0,0,0,.4);color:#00ff80;cursor:pointer">
-      Admin
-    </button>
   </header>
 
   <div class="content">
@@ -219,8 +214,7 @@
     <div id="news" class="tab-content">
       <div class="post">
         <h1>Видео за месяц</h1>
-
-        <!-- NEWS-START -->
+        
           
       <div class="news-item">
   <div class="news-date">27 сентября 2025</div>
@@ -274,8 +268,13 @@
   </div>
 </div>
 
-        <!-- NEWS-END -->
 
+
+        
+         
+          
+          
+        
        
       </div>
     </div>
@@ -290,7 +289,7 @@
           <span style="margin-left: 5px; font-size: 0.9em; color: #888;">(кликните чтобы скопировать)</span>
         </p>
         <p><strong>По вопросам писать:</strong> 
-          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_pодderzka_Not_Bot</a>
+          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
         </p>
         
         <div class="social-links" style="margin-top: 30px;">
@@ -318,61 +317,6 @@
     © 2025 Кирилл.
     <p style="margin-top: 10px; font-size: 0.8em;">*компания Meta признана экстремистской на территории России</p>
   </footer>
-
-  <!-- ДОБАВЛЕНО: модал логина и панель публикации (фиксированные, не мешают твоей разметке) -->
-  <div id="adminModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1200; align-items:center; justify-content:center;">
-    <div style="background:#111; border:1px solid #00cc66; border-radius:12px; width:min(520px,92vw); padding:20px;">
-      <h3 style="margin:0 0 10px; color:#00ff80">Вход для администратора</h3>
-      <label style="display:block; margin:10px 0 6px;">Логин</label>
-      <input id="adminLogin" type="text" placeholder="Логин" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      <label style="display:block; margin:12px 0 6px;">Пароль</label>
-      <input id="adminPass" type="password" placeholder="Пароль" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      <div style="display:flex; gap:10px; margin-top:14px;">
-        <button id="adminLoginBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer">Войти</button>
-        <button id="adminCancelBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #444; background:#222; color:#bbb; cursor:pointer">Отмена</button>
-      </div>
-      <p id="adminErr" style="color:#ff6b6b; display:none; margin-top:10px;">Неверные данные</p>
-    </div>
-  </div>
-
-  <div id="publishPanel" style="display:none; position:fixed; right:16px; bottom:16px; width:min(520px,92vw); background:rgba(0,0,0,.92); border:1px solid #00cc66; border-radius:12px; padding:16px; z-index:1199;">
-    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
-      <strong style="color:#00ff80;">Публикация новости</strong>
-      <button id="closePublish" title="Свернуть" style="border:1px solid #444; background:#111; color:#bbb; border-radius:8px; padding:6px 10px; cursor:pointer;">×</button>
-    </div>
-
-    <label>Дата (текст):</label>
-    <input id="fDate" type="text" placeholder="27 сентября 2025" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-
-    <label>Заголовок:</label>
-    <input id="fTitle" type="text" placeholder="Вышло новое видео!" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-
-    <label>Описание (необязательно):</label>
-    <input id="fDesc" type="text" placeholder="Короткое описание" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-      <div>
-        <label>TikTok ссылка:</label>
-        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      </div>
-      <div>
-        <label>YouTube ссылка:</label>
-        <input id="fYouTube" type="url" placeholder="https://youtube.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      </div>
-      <div>
-        <label>Instagram ссылка:</label>
-        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      </div>
-    </div>
-
-    <button id="publishBtn" style="margin-top:12px; padding:10px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer; width:100%;">Опубликовать</button>
-
-    <div id="exportWrap" style="display:none; margin-top:12px;">
-      <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (в секцию «Новости»):</p>
-      <textarea id="exportHtml" rows="10" style="width:100%; background:#000; color:#eee; border:1px solid #333; border-radius:8px; padding:8px;"></textarea>
-      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer;">Скопировать</button>
-    </div>
-  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -438,159 +382,6 @@
         });
       });
     });
-  </script>
-
-  <!-- ДОБАВЛЕНО: отдельный скрипт с логикой админ-доступа, публикации и коммита через воркер -->
-  <script>
-  (function() {
-    // ЗАМЕНИ на URL твоего Cloudflare Worker:
-    const WORKER_URL = 'https://YOUR-WORKER-URL.workers.dev';
-
-    const adminBtn = document.getElementById('adminBtn');
-    const adminModal = document.getElementById('adminModal');
-    const adminLoginBtn = document.getElementById('adminLoginBtn');
-    const adminCancelBtn = document.getElementById('adminCancelBtn');
-    const adminErr = document.getElementById('adminErr');
-
-    const loginInput = document.getElementById('adminLogin');
-    const passInput  = document.getElementById('adminPass');
-
-    const PUBLISH_PANEL = document.getElementById('publishPanel');
-    const closePublish  = document.getElementById('closePublish');
-
-    const fDate   = document.getElementById('fDate');
-    const fTitle  = document.getElementById('fTitle');
-    const fDesc   = document.getElementById('fDesc');
-    const fTikTok = document.getElementById('fTikTok');
-    const fYouTube= document.getElementById('fYouTube');
-    const fInsta  = document.getElementById('fInsta');
-
-    const publishBtn = document.getElementById('publishBtn');
-    const exportWrap = document.getElementById('exportWrap');
-    const exportHtml = document.getElementById('exportHtml');
-    const copyExport = document.getElementById('copyExport');
-
-    if (adminBtn) {
-      adminBtn.addEventListener('click', () => {
-        adminErr.style.display = 'none';
-        loginInput.value = '';
-        passInput.value = '';
-        adminModal.style.display = 'flex';
-        setTimeout(() => loginInput.focus(), 0);
-      });
-    }
-
-    adminCancelBtn.addEventListener('click', () => adminModal.style.display = 'none');
-    adminModal.addEventListener('click', (e) => {
-      if (e.target === adminModal) adminModal.style.display = 'none';
-    });
-
-    function tryLogin() {
-      const loginOk = (loginInput.value.trim() === 'Techno RiLL');
-      const passOk  = (passInput.value === '300302Mufasa');
-      if (loginOk && passOk) {
-        adminModal.style.display = 'none';
-        PUBLISH_PANEL.style.display = 'block';
-      } else {
-        adminErr.style.display = 'block';
-      }
-    }
-    adminLoginBtn.addEventListener('click', tryLogin);
-    passInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
-
-    closePublish.addEventListener('click', () => { PUBLISH_PANEL.style.display = 'none'; });
-
-    function buildNewsHTML(data) {
-      const esc = (s) => (s ?? '').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      const linkBlock = (href, iconClass, text, extraClass) => href ? `
-        <a href="${href}" target="_blank" class="social-link">
-          <i class="${iconClass} social-icon ${extraClass||''}"></i>
-          <div><div class="social-text">${text}</div></div>
-        </a>` : '';
-
-      return `
-<div class="news-item">
-  <div class="news-date">${esc(data.date)}</div>
-  <h3>${esc(data.title)}</h3>
-  ${data.desc ? `<p>${esc(data.desc)}</p>` : ''}
-  <div class="social-links">
-    ${linkBlock(data.tiktok, 'fab fa-tiktok', 'TikTok', 'tiktok-icon')}
-    ${linkBlock(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
-    ${linkBlock(data.insta,  'fab fa-instagram','Instagram*','instagram-icon')}
-  </div>
-</div>`.trim();
-    }
-
-    function getNewsContainer() {
-      return document.querySelector('#news .post') || document.getElementById('news');
-    }
-
-    publishBtn.addEventListener('click', () => {
-      const data = {
-        date:   fDate.value.trim()   || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
-        title:  fTitle.value.trim(),
-        desc:   fDesc.value.trim(),
-        tiktok: fTikTok.value.trim(),
-        youtube:fYouTube.value.trim(),
-        insta:  fInsta.value.trim()
-      };
-
-      if (!data.title) { alert('Укажи заголовок.'); return; }
-      if (!data.tiktok && !data.youtube && !data.insta) { alert('Добавь хотя бы одну ссылку.'); return; }
-
-      const html = buildNewsHTML(data);
-
-      // 1) Вставим в DOM (в начало)
-      const container = getNewsContainer();
-      if (container) {
-        const newsStart = container.innerHTML.indexOf('<!-- NEWS-START -->');
-        const newsEnd   = container.innerHTML.indexOf('<!-- NEWS-END -->');
-        if (newsStart !== -1 && newsEnd !== -1 && newsEnd > newsStart) {
-          // Вставляем сразу после <!-- NEWS-START -->
-          container.innerHTML = container.innerHTML.replace(
-            '<!-- NEWS-START -->',
-            `<!-- NEWS-START -->\n${html}\n`
-          );
-        } else {
-          // fallback — в начало .post
-          const wrap = document.createElement('div');
-          wrap.innerHTML = html;
-          const node = wrap.firstElementChild;
-          const firstNews = container.querySelector('.news-item');
-          if (firstNews) container.insertBefore(node, firstNews);
-          else container.appendChild(node);
-        }
-      }
-
-      // 2) Экспорт-код для ручной вставки (оставляем твою логику)
-      exportWrap.style.display = 'block';
-      exportHtml.value = html;
-      exportHtml.select();
-
-      // 3) АВТОКОММИТ через Cloudflare Worker (если задан WORKER_URL)
-      if (WORKER_URL && /^https?:\/\//.test(WORKER_URL)) {
-        fetch(WORKER_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(r => r.json().catch(() => ({})))
-        .then(resp => {
-          console.log('Worker response:', resp);
-          // Можно показать нотификацию об успешном коммите
-        })
-        .catch(err => {
-          console.error('Worker commit failed:', err);
-          // Можно показать нотификацию об ошибке, но сайт продолжит работать
-        });
-      }
-    });
-
-    copyExport.addEventListener('click', () => {
-      exportHtml.select();
-      document.execCommand('copy');
-    });
-  })();
   </script>
 </body>
 </html>
