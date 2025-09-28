@@ -25,7 +25,7 @@
     .tab:hover { color:#00ff80; }
     .tab-content { display:none; } .tab-content.active { display:block; }
 
-    .news-item { background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
+    .news-item { position:relative; background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
     .news-date { color:#888; font-size:.9em; margin-bottom:5px; }
     .social-links { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
     .social-link { display:flex; align-items:center; padding:10px 15px; background:rgba(50,50,50,.5); border-radius:8px; transition:all .3s; text-decoration:none; border:1px solid transparent; }
@@ -77,6 +77,18 @@
     #adminModal .btn-primary{ border:1px solid #00cc66; background:#002d1f; color:#00ff80; }
     #adminModal .btn-ghost{ border:1px solid #444; background:#222; color:#bbb; }
     #adminErr{ color:#ff6b6b; display:none; margin-top:10px; }
+
+    /* Кнопки админ-действий на карточке */
+    .admin-actions{
+      position:absolute; top:8px; right:8px; display:none; gap:8px;
+    }
+    .news-item.admin-mode .admin-actions{ display:flex; }
+    .admin-mini-btn{
+      font-size:.85rem; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer;
+      border:1px solid #444; background:#1a1a1a; color:#ddd;
+    }
+    .admin-mini-btn.danger{ border-color:#ff6b6b; color:#ffb3b3; background:#2a0f12; }
+    .admin-mini-btn:hover{ filter:brightness(1.15); }
   </style>
 </head>
 <body>
@@ -114,17 +126,6 @@
       <div class="post">
         <h1>Видео за месяц</h1>
         <!-- NEWS-START -->
-<div class="news-item">
-  <div class="news-date">fgfgf</div>
-  <h3>gfgf</h3>
-  <p>gfg</p>
-  <div class="social-links">
-    <a href="fgfg" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-    <a href="fgf" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-    <a href="fgfgf" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-  </div>
-</div>
-
         <div class="news-item">
           <div class="news-date">27 сентября 2025</div>
           <h3>Очищать память на iPhone стало легче?</h3>
@@ -248,7 +249,7 @@
     });
   </script>
 
-  <!-- Админ-логика (вход + публикация) -->
+  <!-- Админ-логика (вход + публикация + удаление) -->
   <script>
   (function() {
     const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
@@ -281,6 +282,8 @@
     const exportHtml = document.getElementById('exportHtml');
     const copyExport = document.getElementById('copyExport');
 
+    let isAdmin = false;
+
     function openLoginModal(){
       if (adminModal.style.display === 'flex') return;
       adminErr.style.display='none'; loginInput.value=''; passInput.value='';
@@ -301,13 +304,81 @@
       try {
         const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
         const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
-        if(okLogin&&okPass){ adminErr.style.display='none'; adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
-        else adminErr.style.display='block';
+        if(okLogin&&okPass){
+          isAdmin = true;
+          adminErr.style.display='none';
+          adminModal.style.display='none';
+          PUBLISH_PANEL.style.display='block';
+          PUBLISH_PANEL.scrollTop=0;
+          applyAdminUI();
+        } else {
+          adminErr.style.display='block';
+        }
       } catch (e) { console.error('Login error:', e); adminErr.style.display='block'; }
     }
     adminLoginBtn.addEventListener('click', tryLogin);
     passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
     closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
+
+    // ---------- Админ UI: кнопки удаления ----------
+    function attachAdminControls(item){
+      if (item.querySelector('.admin-actions')) return;
+      item.classList.add('admin-mode');
+      const bar = document.createElement('div');
+      bar.className = 'admin-actions';
+      const del = document.createElement('button');
+      del.className = 'admin-mini-btn danger';
+      del.textContent = 'Удалить';
+      del.addEventListener('click', ()=> handleDelete(item));
+      bar.appendChild(del);
+      item.appendChild(bar);
+    }
+    function applyAdminUI(){
+      if (!isAdmin) return;
+      document.querySelectorAll('#news .news-item').forEach(attachAdminControls);
+    }
+
+    async function handleDelete(item){
+      const title = (item.querySelector('h3')?.textContent || '').trim();
+      const date  = (item.querySelector('.news-date')?.textContent || '').trim();
+      if (!confirm(`Удалить публикацию:\n«${title || 'без заголовка'}»\n(${date || 'без даты'})?`)) return;
+
+      // Удаляем из DOM сразу
+      const htmlFragment = item.outerHTML;
+      const parent = item.parentElement;
+      item.remove();
+
+      // Пытаемся сохранить на сервере
+      if(/^https?:\/\//.test(WORKER_BASE)){
+        try{
+          const res = await fetch(WORKER_BASE + '/delete', {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json',
+              'x-admin-key':'30Mu30Fasa'
+            },
+            body: JSON.stringify({
+              title, date, html: htmlFragment
+            })
+          });
+          const text = await res.text();
+          let json; try{ json = JSON.parse(text);}catch(_){}
+          if(!res.ok || !json?.ok){
+            console.error('Worker delete error:', {status:res.status, text});
+            alert('Удаление на сервере не удалось ('+res.status+'). Публикация скрыта локально, но вернётся после перезагрузки, если не обновить файл вручную/через воркер.');
+          } else {
+            console.log('Delete OK:', json);
+            alert('Публикация удалена и сохранена в GitHub.');
+          }
+        }catch(err){
+          console.error(err);
+          alert('Сетевая ошибка при удалении. Публикация скрыта локально, но сервер не обновлён.');
+        }
+      } else {
+        alert('WORKER_BASE не настроен — сервер не обновлён. Публикация скрыта только на этой странице.');
+      }
+    }
+    // ------------------------------------------------
 
     function buildNewsHTML(data){
       const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -343,6 +414,11 @@
       const container=getNewsContainer();
       if(container){
         container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
+        // прикрутим админ-кнопку к свежей карточке, если вошли как админ
+        if (isAdmin) {
+          const lastItem = container.querySelector('.news-item');
+          if (lastItem) attachAdminControls(lastItem);
+        }
       }
 
       // 2) показать экспорт-код на всякий случай
@@ -380,6 +456,10 @@
     });
 
     copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
+
+    // Если уже были новости на странице — добавим админ-кнопки после логина
+    // (на старте не показываем, пока не вошли)
+    // applyAdminUI() вызывается внутри tryLogin() после успешного входа.
   })();
   </script>
 </body>
