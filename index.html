@@ -188,13 +188,13 @@ footer{
 
 <div class="content">
   <div class="tabs">
-    <div class="tab" data-tab="main">Главная</div>
+    <div class="tab active" data-tab="main">Главная</div>
     <div class="tab" data-tab="fresh">Свежие новости о технологиях</div>
-    <div class="tab active" data-tab="news">Последние публикации</div>
+    <div class="tab" data-tab="news">Последние публикации</div>
     <div class="tab" data-tab="contacts">Контакты</div>
   </div>
 
-  <div id="main" class="tab-content">
+  <div id="main" class="tab-content active">
     <div class="post">
       <h1 style="text-align:center">Добро пожаловать!</h1>
       <p style="text-align:center">Канал TechnoRill рассказывает о технике и гаджетах!</p>
@@ -210,7 +210,7 @@ footer{
     </div>
   </div>
 
-  <div id="news" class="tab-content active">
+  <div id="news" class="tab-content">
     <div class="post">
       <h1>Видео за месяц</h1>
       <!-- NEWS-START -->
@@ -241,7 +241,7 @@ footer{
       <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
       <p><strong>Почта:</strong>
         <span id="email" style="color:var(--accent);cursor:pointer;border-bottom:1px dashed var(--accent)">garkovivan8430@gmail.com</span>
-        <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
+        <span style="margin-left:5px;font-size:.9ем;color:#888">(кликните чтобы скопировать)</span>
       </p>
       <p><strong>По вопросам писать:</strong>
         <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_podderzka_Not_Bot</a>
@@ -579,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(data)
     }).then(async r=>{
       const t=await r.text(); let j; try{j=JSON.parse(t)}catch{}
-      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); alert('Ошибка публикации ('+r.status+'): '+t); }
+      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); alert('Ошибка публикации ('+р.status+'): '+t); }
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
@@ -670,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
   box.addEventListener('wheel',e=>{ if(!box.classList.contains('open')) return; e.preventDefault();
     const dir=Math.sign(e.deltaY); scale=Math.min(4,Math.max(1, scale - dir*0.1)); img.style.transform=`scale(${scale})`; },{passive:false});
   let sx=0; box.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
-  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
+  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-сx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
 })();
 </script>
 </body>
