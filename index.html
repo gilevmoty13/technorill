@@ -352,7 +352,10 @@
       if(/^https?:\/\//.test(WORKER_BASE)){
         fetch(WORKER_BASE + '/publish', {
           method:'POST',
-          headers:{ 'Content-Type':'application/json' /*, 'x-admin-key':'30Mu30Fasa'*/ },
+          headers:{ 
+            'Content-Type':'application/json', 
+            'x-admin-key':'30Mu30Fasa'
+          }
           body: JSON.stringify(data)
         }).then(r=>r.json().catch(()=>({})))
           .then(res=>{
