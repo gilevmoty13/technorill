@@ -87,6 +87,7 @@ footer{
 .social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
 .social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
 .tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
+.apple-icon{color:#fff} /* иконка iOS */
 
 /* галерея в свежих */
 .news-gallery{
@@ -137,7 +138,7 @@ footer{
 #filesPreview{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;margin-top:8px}
 #filesPreview img{width:100%;height:70px;object-fit:cover;border-radius:8px;border:1px solid #2b2b2b}
 
-/* ===== Модал логина (оформление вынесено из inline) ===== */
+/* ===== Модал логина ===== */
 #adminModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:12px}
 #adminModal .modal-card{
   width:min(520px,92vw);background:#111;border:1px solid var(--accent);
@@ -213,22 +214,6 @@ footer{
     <div class="post">
       <h1>Видео за месяц</h1>
       <!-- NEWS-START -->
-<!-- NEWS-ITEM:mg3z022e0oj0:START -->
-<div class="news-item" data-id="mg3z022e0oj0" data-section="news">
-  <button class="news-del-btn" title="Удалить">Удалить</button>
-  <div class="news-date">28 сентября 2025</div>
-  <h3>Громкость на iPhone упала? Вот решение!</h3>
-  <p>Привет! В этом ролике я расскажу, как можно легко почистить динамики iPhone! 
-Приложение: https://apps.apple.com/md/app/speaker-fix/id6498861898</p>
-  
-  
-  <div class="social-links">
-           <a href="https://www.tiktok.com/@technorill/video/7555189800362380566?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-           <a href="https://youtube.com/shorts/cQxQ0vmf6Vo" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-           <a href="https://www.instagram.com/reel/DPJ3RiKCX7D/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-         </div>
-</div>
-<!-- NEWS-ITEM:mg3z022e0oj0:END -->
 <!-- NEWS-END -->
       <div class="news-empty" id="news-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
     </div>
@@ -243,7 +228,7 @@ footer{
         <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
       </p>
       <p><strong>По вопросам писать:</strong>
-        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_pодderzka_Not_Bot</a>
+        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_podderzka_Not_Bot</a>
       </p>
     </div>
   </div>
@@ -295,13 +280,13 @@ footer{
     <input id="fTitle" type="text" placeholder="Заголовок"/>
   </div>
 
-  <!-- Описание — только для новости раздела "Последние публикации" -->
+  <!-- Описание — только для 'news' -->
   <div id="fields-desc">
     <label>Описание (для "Последние публикации"):</label>
     <textarea id="fDesc" placeholder="Короткое описание"></textarea>
   </div>
 
-  <!-- Текст — только для "Свежих новостей" -->
+  <!-- Текст — только для 'fresh' -->
   <div id="fields-text" style="display:none">
     <label>Текст (для "Свежие новости"):</label>
     <textarea id="fText" placeholder="Основной текст новости (перенос строки поддерживается)"></textarea>
@@ -309,7 +294,11 @@ footer{
 
   <!-- Ссылки (только для 'news') -->
   <div id="fields-news">
-    <div class="two-col">
+    <div>
+      <label>Скачать приложение на iOS (App Store):</label>
+      <input id="fIOS" type="url" placeholder="https://apps.apple.com/..."/>
+    </div>
+    <div class="two-col" style="margin-top:10px">
       <div>
         <label>TikTok ссылка:</label>
         <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..."/>
@@ -407,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const fTitle=document.getElementById('fTitle');
   const fDesc=document.getElementById('fDesc'); // news
   const fText=document.getElementById('fText'); // fresh
+  const fIOS = document.getElementById('fIOS'); // NEW
   const fTikTok=document.getElementById('fTikTok');
   const fYouTube=document.getElementById('fYouTube');
   const fInsta=document.getElementById('fInsta');
@@ -425,14 +415,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsPost=document.querySelector('#news .post');
   const freshPost=document.querySelector('#fresh .post');
 
-  // открыть логин из футера
   function openLoginModal(){
     adminErr.style.display='none'; loginInput.value=''; passInput.value='';
     adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
   }
   window.openLoginModal = openLoginModal;
 
-  // клавиши
   document.addEventListener('keydown',(e)=>{
     if((e.ctrlKey||e.metaKey) && (e.key==='a'||e.key==='A')){ e.preventDefault(); openLoginModal(); }
     if(e.key==='Escape'){
@@ -453,7 +441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         adminModal.style.display='none';
         PUBLISH_PANEL.style.display='block';
         PUBLISH_PANEL.scrollTop=0;
-        adminErr.style.display='none';
       } else adminErr.style.display='block';
     }catch(err){ console.error(err); adminErr.style.display='block'; }
   }
@@ -496,6 +483,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildNewsHTML(data){
     const link=(href,icon,txt,cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
+    // iOS ссылка ВПЕРЕДИ остальных
+    const ios = link(data.ios,'fab fa-apple','Скачать приложение на iOS','apple-icon');
+    const rest = [
+      link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon'),
+      link(data.youtube,'fab fa-youtube','YouTube','youtube-icon'),
+      link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')
+    ].join('\n    ');
     return `<!-- NEWS-ITEM:${esc(data.id)}:START -->
 <div class="news-item" data-id="${esc(data.id)}" data-section="news">
   <button class="news-del-btn" title="Удалить">Удалить</button>
@@ -503,9 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   <h3>${esc(data.title)}</h3>
   ${data.desc?`<p>${esc(data.desc)}</p>`:''}
   <div class="social-links">
-    ${link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon')}
-    ${link(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
-    ${link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')}
+    ${ios || ''}${ios?'\n    ':''}${rest}
   </div>
 </div>
 <!-- NEWS-ITEM:${esc(data.id)}:END -->`;
@@ -530,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = where==='news' ? newsPost : freshPost;
     const first = wrap.querySelector('.news-item');
     const tmp = document.createElement('div'); tmp.innerHTML = html.trim();
-    const card = tmp.firstElementChild.nextElementSibling || tmp.firstElementChild; // пропускаем комментарий
+    const card = tmp.firstElementChild.nextElementSibling || tmp.firstElementChild;
     if (first) wrap.insertBefore(card, first); else wrap.appendChild(card);
     ensurePlaceholders();
     return card;
@@ -549,10 +541,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let html='';
     if (section==='news'){
       data.desc = fDesc.value.trim();
+      data.ios  = (fIOS.value||'').trim();              // NEW
       data.tiktok = fTikTok.value.trim();
       data.youtube= fYouTube.value.trim();
       data.insta  = fInsta.value.trim();
-      if (!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
+      if (!data.ios && !data.tiktok && !data.youtube && !data.insta){
+        alert('Добавь хотя бы одну ссылку.'); return;
+      }
       html = buildNewsHTML(data);
     } else {
       data.text = fText.value.trim();
@@ -592,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
-  // ===== загрузка изображений через воркер (/upload) =====
+  // загрузка изображений через воркер (/upload)
   async function uploadOne(file){
     const fd = new FormData();
     fd.append('file', file, file.name);
@@ -602,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return j.url;
   }
 
-  filesInput.addEventListener('change', async ()=>{
+  filesInput?.addEventListener('change', async ()=>{
     if (!filesInput.files || !filesInput.files.length) return;
     filesPreview.innerHTML='';
     [...filesInput.files].forEach(f=>{
