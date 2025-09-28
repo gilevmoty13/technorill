@@ -1,536 +1,530 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TechnoRill — Блог о технике</title>
-  <link rel="icon" href="logo1.png" type="image/png"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TechnoRill — Блог о технике</title>
+<link rel="icon" href="logo1.png" type="image/png"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <style>
-    :root{
-      --accent:#00cc66;
-      --accent-2:#00ff80;
-      --panel:rgba(0,0,0,.75);
-      --line:#333;
-      --bg2:rgba(30,30,30,.5);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,sans-serif;color:#ccc;background:#000 url('logo.png') center/contain no-repeat fixed}
-    header{background:rgba(0,0,0,.7);text-align:center;padding:40px 20px}
-    header img{width:120px;height:auto;border-radius:50%}
-    h1{margin:20px 0 0;font-size:2.5rem;color:var(--accent)}
-    .content{max-width:980px;margin:40px auto;background:var(--panel);padding:30px;border-radius:15px}
-    .tabs{display:flex;justify-content:center;margin-bottom:30px;border-bottom:1px solid var(--line)}
-    .tab{padding:10px 20px;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:.25s}
-    .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-    .tab:hover{color:var(--accent-2)}
-    .tab-content{display:none}
-    .tab-content.active{display:block}
-    a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
-    a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
-    footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888}
+<style>
+:root{
+  --accent:#00cc66; --accent2:#00ff80; --panel:rgba(0,0,0,.75); --line:#333;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,system-ui,sans-serif;color:#ccc;background:#000 url('logo.png') center/contain no-repeat fixed}
+header{background:rgba(0,0,0,.7);text-align:center;padding:40px 20px}
+header img{width:120px;height:auto;border-radius:50%}
+h1{margin:20px 0 0;font-size:2.5rem;color:var(--accent)}
+.content{max-width:980px;margin:40px auto;background:var(--panel);padding:30px;border-radius:15px}
+.tabs{display:flex;justify-content:center;margin-bottom:30px;border-bottom:1px solid var(--line);gap:12px}
+.tab{padding:10px 20px;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:.25s;border-radius:8px 8px 0 0}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:hover{color:var(--accent2)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
+a:hover{color:var(--accent2);border-bottom-color:var(--accent2)}
+footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;cursor:pointer}
 
-    /* карточки */
-    .news-item{
-      position:relative;background:var(--bg2);padding:16px;margin:16px 0;
-      border-radius:12px;border-left:3px solid var(--accent)
-    }
-    .news-date{color:#9bb5a7;margin-bottom:6px}
-    .social-links{display:flex;flex-direction:column;gap:12px;margin-top:14px}
-    .social-link{display:flex;align-items:center;padding:12px 16px;background:rgba(50,50,50,.52);border-radius:10px;border:1px solid transparent;transition:.2s}
-    .social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
-    .social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
-    .tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
+/* заголовки секций по центру */
+#news .post>h1, #fresh .post>h1 { text-align:center }
 
-    .news-content{margin-top:10px; line-height:1.5}
-    .news-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
-    .news-gallery img{width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid #222}
-    @media(max-width:680px){ .news-gallery{grid-template-columns:repeat(2,1fr)} .news-gallery img{height:140px} }
-    @media(max-width:460px){ .news-gallery{grid-template-columns:1fr} .news-gallery img{height:auto} }
+/* карточки */
+.news-item{
+  position:relative;background:rgba(30,30,30,.5);padding:16px;margin:16px 0;
+  border-radius:12px;border-left:3px solid var(--accent);
+}
+.news-date{color:#9bb5a7;margin-bottom:6px}
+.social-links{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.social-link{display:flex;align-items:center;padding:12px 16px;background:rgba(50,50,50,.52);border-radius:10px;border:1px solid transparent;transition:.2s}
+.social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
+.social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
+.tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
 
-    /* центр заголовков в секциях */
-    #news .post>h1, #fresh-news .post>h1 { text-align:center }
+/* галерея картинок в «Свежих новостях» */
+.news-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:10px}
+.news-gallery img{
+  width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid #2b2b2b;
+  cursor:zoom-in;transition:transform .2s ease
+}
+.news-gallery img:hover{transform:translateY(-1px)}
 
-    /* плейсхолдер при пустом списке */
-    .news-empty{
-      text-align:center;color:#7aa68f;background:rgba(30,30,30,.35);
-      border:1px dashed #2f6;padding:16px;border-radius:10px;margin-top:14px
-    }
+/* кнопка удаления — в правом верхнем углу карточки, только для админа */
+.news-del-btn{
+  position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:10px;border:1px solid #444;
+  background:#111;color:#bbb;cursor:pointer;font-size:13px;display:none
+}
+.news-del-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.admin-active .news-del-btn{display:inline-flex}
 
-    /* кнопка удаления — в правом верхнем углу карточки */
-    .news-del-btn{
-      position:absolute;top:10px;right:10px;
-      padding:6px 10px;border-radius:10px;border:1px solid #444;
-      background:#111;color:#bbb;cursor:pointer;font-size:13px;
-      display:none;
-    }
-    .news-del-btn:hover{border-color:var(--accent);color:var(--accent-2)}
-    .admin-active .news-del-btn{display:inline-flex}
+/* плейсхолдер пустого списка */
+.news-empty{
+  text-align:center;color:#7aa68f;background:rgba(30,30,30,.35);border:1px dashed #2f6;
+  padding:16px;border-radius:10px;margin-top:14px
+}
 
-    /* уведомляшка */
-    .notification{position:fixed;top:20px;right:20px;background:rgba(0,200,100,.9);color:#fff;padding:10px 20px;border-radius:6px;display:none;z-index:1000}
+/* ---- Панель публикации (модал) ---- */
+#publishPanel{
+  position:fixed;inset:auto 12px 12px auto;box-sizing:border-box;width:min(560px,96vw);
+  max-height:92vh;overflow:auto;background:rgba(0,0,0,.94);border:1px solid var(--accent);
+  border-radius:12px;padding:16px;z-index:1200;display:none
+}
+#publishHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+#publishHeader strong{color:var(--accent2)}
+#ppToggle{border:1px solid #444;background:#111;color:#bbb;border-radius:8px;padding:6px 10px;cursor:pointer}
+#ppCollapse{border:1px solid #444;background:#111;color:#bbb;border-radius:8px;padding:6px 10px;cursor:pointer}
+#publishPanel label{display:block;margin:8px 0 6px}
+#publishPanel input,#publishPanel textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee}
+#publishPanel textarea{min-height:120px;resize:vertical}
+#publishPanel .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#publishPanel .two-col>div{min-width:0}
+@media (max-width:560px){
+  #publishPanel{left:8px;right:8px;top:8px;bottom:8px;width:auto}
+  #publishPanel .two-col{grid-template-columns:1fr}
+}
+.section-toggle{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#0d0d0d;border:1px solid #2b2b2b;border-radius:12px;padding:8px;margin-bottom:8px
+}
+.section-toggle button{
+  padding:10px;border-radius:10px;border:1px solid #2b2b2b;background:#111;color:#bbb;cursor:pointer
+}
+.section-toggle button.active{color:var(--accent2);border-color:var(--accent)}
 
-    /* Панель публикации (модал) */
-    #publishPanel{
-      position:fixed;inset:0;display:none;z-index:1199;align-items:center;justify-content:center;
-      background:rgba(0,0,0,.6)
-    }
-    #publishCard{
-      width:min(780px,96vw);max-height:92vh;overflow:auto;background:#0c0c0c;border:1px solid var(--accent);
-      border-radius:14px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.5);position:relative
-    }
-    #publishCard h3{color:var(--accent-2);margin-top:0}
-    #publishCard label{display:block;margin:8px 0 6px}
-    #publishCard input,#publishCard textarea{
-      width:100%;padding:10px;border-radius:10px;border:1px solid #333;background:#000;color:#eee
-    }
-    #publishCard textarea{min-height:100px;resize:vertical}
-    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .two-col>div{min-width:0}
-    @media(max-width:560px){ .two-col{grid-template-columns:1fr} }
+/* ---- Админ логин ---- */
+#adminModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:12px}
+#adminModal .modal-card{background:#111;border:1px solid var(--accent);border-radius:12px;width:min(520px,92vw);max-height:92vh;overflow:auto;padding:20px}
+#adminModal h3{color:var(--accent2);margin:0 0 10px}
+#adminModal label{display:block;margin:10px 0 6px}
+#adminModal input{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee}
+#adminModal .btn-row{display:flex;gap:10px;margin-top:14px}
+#adminModal .btn{padding:8px 14px;border-radius:8px;cursor:pointer}
+#adminModal .btn-primary{border:1px solid var(--accent);background:#002d1f;color:var(--accent2)}
+#adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
+#adminErr{color:#ff6b6b;display:none;margin-top:10px}
 
-    /* селектор секции */
-    .seg{display:flex;gap:12px;background:#0a0a0a;border:1px solid #2a2a2a;padding:10px;border-radius:12px;align-items:center}
-    .seg .seg-btn{
-      flex:1;text-align:center;padding:10px 12px;border:1px solid #2a2a2a;border-radius:999px;cursor:pointer;
-      user-select:none
-    }
-    .seg .seg-btn.active{border-color:var(--accent);box-shadow:inset 0 0 0 2px rgba(0,204,102,.25)}
-    .seg small{display:block;color:#9bb5a7;margin-top:4px}
-
-    /* сворачивание в пилюлю */
-    #collapseBtn{
-      position:absolute;top:10px;right:10px;border:1px solid #444;background:#111;color:#bbb;border-radius:10px;
-      width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer
-    }
-    #publishDock{
-      position:fixed;bottom:16px;right:16px;display:none;z-index:1200;
-      background:#0b0b0b;border:1px solid #2f6;border-radius:999px;color:#9fe6c3;padding:10px 14px;cursor:pointer
-    }
-
-    /* Модал логина (как было) */
-    #adminModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1200;align-items:center;justify-content:center;padding:12px}
-    #adminModal .modal-card{background:#111;border:1px solid var(--accent);border-radius:12px;width:min(520px,92vw);max-height:92vh;overflow:auto;padding:20px;margin:0 auto}
-    #adminModal h3{color:var(--accent-2);margin:0 0 10px}
-    #adminModal label{display:block;margin:10px 0 6px}
-    #adminModal input{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee}
-    #adminModal .btn-row{display:flex;gap:10px;margin-top:14px}
-    #adminModal .btn{padding:8px 14px;border-radius:8px;cursor:pointer}
-    #adminModal .btn-primary{border:1px solid var(--accent);background:#002d1f;color:var(--accent-2)}
-    #adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
-    #adminErr{color:#ff6b6b;display:none;margin-top:10px}
-  </style>
+/* ---- Лайтбокс картинок ---- */
+#imgLightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1400}
+#imgLightbox.open{display:flex}
+#imgLightbox .lb-wrap{position:relative;max-width:92vw;max-height:92vh}
+#imgLightbox img.lb-img{display:block;max-width:100%;max-height:92vh;border-radius:12px;user-select:none;-webkit-user-drag:none;cursor:zoom-out;transform-origin:center}
+#imgLightbox .lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(17,17,17,.8);border:1px solid #444;color:#ddd;border-radius:10px;padding:8px 12px;cursor:pointer}
+#imgLightbox .lb-prev{left:-56px} .lb-next{right:-56px}
+#imgLightbox .lb-close{top:-46px;right:0;transform:none}
+@media (max-width:600px){
+  #imgLightbox .lb-prev{left:8px} .lb-next{right:8px}
+}
+</style>
 </head>
 <body>
-  <div class="notification" id="notification">Почта скопирована!</div>
+<header>
+  <img src="logo1.png" alt="TechnoRill Logo"/>
+  <h1>TechnoRill</h1>
+  <p>Блог о технологиях</p>
+</header>
 
-  <header>
-    <img src="logo1.png" alt="TechnoRill Logo"/>
-    <h1>TechnoRill</h1>
-    <p>Блог о технологиях</p>
-  </header>
+<div class="content">
+  <div class="tabs">
+    <div class="tab" data-tab="main">Главная</div>
+    <div class="tab" data-tab="fresh">Свежие новости о технологиях</div>
+    <div class="tab active" data-tab="news">Последние публикации</div>
+    <div class="tab" data-tab="contacts">Контакты</div>
+  </div>
 
-  <div class="content">
-    <div class="tabs">
-      <div class="tab" data-tab="main">Главная</div>
-      <div class="tab" data-tab="fresh-news">Свежие новости о технологиях</div>
-      <div class="tab active" data-tab="news">Последние публикации</div>
-      <div class="tab" data-tab="contacts">Контакты</div>
+  <div id="main" class="tab-content">
+    <div class="post">
+      <h1 style="text-align:center">Добро пожаловать!</h1>
+      <p style="text-align:center">Канал TechnoRill рассказывает о технике и гаджетах!</p>
     </div>
+  </div>
 
-    <div id="main" class="tab-content">
-      <div class="post">
-        <h1 style="text-align:center">Добро пожаловать!</h1>
-        <p style="text-align:center">Канал TechnoRill рассказывает о технике и гаджетах!</p>
-      </div>
+  <div id="fresh" class="tab-content">
+    <div class="post">
+      <h1>Свежие новости о технологиях</h1>
+      <!-- FRESH-START -->
+      <!-- FRESH-END -->
+      <div class="news-empty" id="fresh-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
     </div>
+  </div>
 
-    <div id="fresh-news" class="tab-content">
-      <div class="post">
-        <h1>Свежие новости о технологиях</h1>
-        <!-- FRESH-START -->
-<!-- NEWS-ITEM:mg3qjmd9o1fl:START -->
-<div class="news-item" data-id="mg3qjmd9o1fl" data-section="fresh">
-  <button class="news-del-btn" title="Удалить">Удалить</button>
-  <div class="news-date">28 сентября 2025 г.</div>
-  <h3>Проверка</h3>
-  
-  <div class="news-content">проверка</div>
-  <div class="news-gallery"><img src="data:image/jpeg;base64,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" alt=""></div>
-  <div class="social-links">
-    
-    
-    
+  <div id="news" class="tab-content active">
+    <div class="post">
+      <h1>Видео за месяц</h1>
+      <!-- NEWS-START -->
+      <!-- NEWS-END -->
+      <div class="news-empty" id="news-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
+    </div>
+  </div>
+
+  <div id="contacts" class="tab-content">
+    <div class="post" style="text-align:center">
+      <h2>Контакты</h2>
+      <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
+      <p><strong>Почта:</strong>
+        <span id="email" style="color:var(--accent);cursor:pointer;border-bottom:1px dashed var(--accent)">garkovivan8430@gmail.com</span>
+        <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
+      </p>
+      <p><strong>По вопросам писать:</strong>
+        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_podderzka_Not_Bot</a>
+      </p>
+    </div>
   </div>
 </div>
-<!-- NEWS-ITEM:mg3qjmd9o1fl:END -->
-<!-- FRESH-END -->
-      </div>
-    </div>
 
-    <div id="news" class="tab-content active">
-      <div class="post">
-        <h1>Видео за месяц</h1>
-        <!-- NEWS-START -->
-<!-- NEWS-END -->
-      </div>
-    </div>
+<footer title="Админ-вход (клик по копирайту)">© 2025 Кирилл.</footer>
 
-    <div id="contacts" class="tab-content">
-      <div class="post" style="text-align:center">
-        <h2>Контакты</h2>
-        <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
-        <p><strong>Почта:</strong>
-          <span id="email" style="color:var(--accent);cursor:pointer;border-bottom:1px dashed var(--accent)">garkovivan8430@gmail.com</span>
-          <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
-        </p>
-        <p><strong>По вопросам писать:</strong>
-          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
-        </p>
+<!-- Модал логина -->
+<div id="adminModal">
+  <div class="modal-card">
+    <h3>Вход для администратора</h3>
+    <label>Логин</label>
+    <input id="adminLogin" type="text" placeholder="Логин"/>
+    <label>Пароль</label>
+    <input id="adminPass" type="password" placeholder="Пароль"/>
+    <div class="btn-row">
+      <button id="adminLoginBtn" class="btn btn-primary">Войти</button>
+      <button id="adminCancelBtn" class="btn btn-ghost">Отмена</button>
+    </div>
+    <p id="adminErr">Неверные данные</p>
+  </div>
+</div>
+
+<!-- Панель публикации (сворачиваемая) -->
+<div id="publishPanel" aria-hidden="true">
+  <div id="publishHeader">
+    <strong>Публикация новости</strong>
+    <div>
+      <button id="ppToggle" title="Свернуть/развернуть">▾</button>
+      <button id="ppCollapse" title="Закрыть">✕</button>
+    </div>
+  </div>
+
+  <label>Куда публиковать</label>
+  <div class="section-toggle" id="destSwitch">
+    <button data-section="news" class="active">Последние публикации</button>
+    <button data-section="fresh">Свежие новости о технологиях</button>
+  </div>
+
+  <div id="fields-common">
+    <label>Дата (текст):</label>
+    <input id="fDate" type="text" placeholder="27 сентября 2025"/>
+    <label>Заголовок:</label>
+    <input id="fTitle" type="text" placeholder="Заголовок"/>
+    <label>Описание (необязательно):</label>
+    <textarea id="fDesc" placeholder="Короткое описание"></textarea>
+  </div>
+
+  <div id="fields-news">
+    <div class="two-col">
+      <div>
+        <label>TikTok ссылка:</label>
+        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..."/>
+      </div>
+      <div>
+        <label>YouTube ссылка:</label>
+        <input id="fYouTube" type="url" placeholder="https://youtube.com/..."/>
+      </div>
+      <div>
+        <label>Instagram ссылка:</label>
+        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/..."/>
       </div>
     </div>
   </div>
 
-  <footer>
-    © 2025 Кирилл.
-    <p style="margin-top:10px;font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
-  </footer>
-
-  <!-- Модал логина -->
-  <div id="adminModal">
-    <div class="modal-card">
-      <h3>Вход для администратора</h3>
-      <label>Логин</label>
-      <input id="adminLogin" type="text" placeholder="Логин"/>
-      <label>Пароль</label>
-      <input id="adminPass" type="password" placeholder="Пароль"/>
-      <div class="btn-row">
-        <button id="adminLoginBtn" class="btn btn-primary">Войти</button>
-        <button id="adminCancelBtn" class="btn btn-ghost">Отмена</button>
-      </div>
-      <p id="adminErr">Неверные данные</p>
-    </div>
-  </div>
-
-  <!-- ПАНЕЛЬ ПУБЛИКАЦИИ (модал + док) -->
-  <div id="publishPanel">
-    <div id="publishCard">
-      <button id="collapseBtn" title="Свернуть"><i class="fa-solid fa-chevron-down"></i></button>
-      <h3>Публикация новости</h3>
-
-      <label>Куда публиковать</label>
-      <div class="seg" id="sectionSeg">
-        <div class="seg-btn active" data-section="news">
-          Последние публикации
-          <small>Попадёт в раздел «Видео за месяц»</small>
-        </div>
-        <div class="seg-btn" data-section="fresh">
-          Свежие новости о технологиях
-          <small>Новая карточка в этой вкладке</small>
-        </div>
-      </div>
-
-      <label>Дата (текст):</label>
-      <input id="fDate" type="text" placeholder="27 сентября 2025"/>
-
-      <label>Заголовок:</label>
-      <input id="fTitle" type="text" placeholder="Вышло новое видео!"/>
-
-      <label>Короткое описание (необязательно):</label>
-      <input id="fDesc" type="text" placeholder="Короткое описание"/>
-
-      <label>Контент (текст):</label>
-      <textarea id="fContent" placeholder="Основной текст новости. Поддерживает переносы строк."></textarea>
-
-      <label>Изображения (по одному URL на строку):</label>
-      <textarea id="fImages" placeholder="https://...jpg
+  <div id="fields-fresh" style="display:none">
+    <label>Ссылки на картинки (каждую с новой строки или через запятую):</label>
+    <textarea id="fImages" placeholder="https://...jpg
 https://...png"></textarea>
-
-      <div class="two-col" style="margin-top:8px">
-        <div>
-          <label>TikTok ссылка:</label>
-          <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..."/>
-        </div>
-        <div>
-          <label>YouTube ссылка:</label>
-          <input id="fYouTube" type="url" placeholder="https://youtube.com/..."/>
-        </div>
-        <div>
-          <label>Instagram ссылка:</label>
-          <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/..."/>
-        </div>
-      </div>
-
-      <button id="publishBtn" style="margin-top:14px;padding:12px 14px;border-radius:10px;border:1px solid var(--accent);background:#002d1f;color:var(--accent-2);cursor:pointer;width:100%">Опубликовать</button>
-
-      <div id="exportWrap" style="display:none;margin-top:12px">
-        <p style="margin:6px 0 4px;color:#9fe6c3">Код вставки (на случай ручного сохранения):</p>
-        <textarea id="exportHtml" rows="8"></textarea>
-      </div>
-    </div>
   </div>
-  <div id="publishDock" title="Открыть публикацию"><i class="fa-solid fa-pen-to-square" style="margin-right:6px"></i>Публикация</div>
 
-  <script>
-    // вкладки + копирование почты
-    document.addEventListener('DOMContentLoaded', () => {
-      const email = document.getElementById('email');
-      const note = document.getElementById('notification');
-      if (email){
-        email.addEventListener('click', () => {
-          navigator.clipboard.writeText('garkovivan8430@gmail.com').then(()=>{
-            note.style.display='block'; setTimeout(()=>note.style.display='none',1800);
-          });
-        });
-      }
-      document.querySelectorAll('.tab').forEach(t=>{
-        t.addEventListener('click', ()=>{
-          const id = t.getAttribute('data-tab');
-          document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
-          t.classList.add('active');
-          document.getElementById(id).classList.add('active');
-        });
-      });
+  <button id="publishBtn" style="margin-top:12px;padding:10px 14px;border-radius:8px;border:1px solid var(--accent);background:#002d1f;color:var(--accent2);cursor:pointer;width:100%">Опубликовать</button>
+</div>
+
+<!-- Лайтбокс -->
+<div id="imgLightbox" aria-hidden="true">
+  <div class="lb-wrap">
+    <img class="lb-img" src="" alt="">
+    <button class="lb-btn lb-prev" title="Предыдущее">⟨</button>
+    <button class="lb-btn lb-next" title="Следующее">⟩</button>
+    <button class="lb-btn lb-close" title="Закрыть">✕</button>
+  </div>
+</div>
+
+<script>
+/* вкладки + копирование почты + открытие логина по клику на футер */
+document.addEventListener('DOMContentLoaded', () => {
+  const email = document.getElementById('email');
+  email?.addEventListener('click', () => navigator.clipboard.writeText(email.textContent.trim()));
+
+  document.querySelectorAll('.tab').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      const id = t.getAttribute('data-tab');
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById(id).classList.add('active');
     });
-  </script>
+  });
 
-  <!-- Админ-логика + публикация -->
-  <script>
-  (function(){
-    const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
-    const ADMIN_HEADER = '30Mu30Fasa';
+  document.querySelector('footer')?.addEventListener('click', openLoginModal);
+});
+</script>
 
-    const SALT='trill#2025';
-    const HASH_LOGIN='01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
-    const HASH_PASS ='7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
+<script>
+/* ====== Админ логика + публикация/удаление ====== */
+(function(){
+  const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
+  const ADMIN_HEADER = '30Mu30Fasa';
 
-    async function sha256Hex(s){
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(SALT+s));
-      return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  const SALT='trill#2025';
+  const HASH_LOGIN='01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
+  const HASH_PASS ='7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
+  async function sha256Hex(s){
+    const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(SALT+s));
+    return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }
+
+  /* DOM */
+  const adminModal = document.getElementById('adminModal');
+  const adminLoginBtn = document.getElementById('adminLoginBtn');
+  const adminCancelBtn= document.getElementById('adminCancelBtn');
+  const adminErr      = document.getElementById('adminErr');
+  const loginInput    = document.getElementById('adminLogin');
+  const passInput     = document.getElementById('adminPass');
+
+  const PUBLISH_PANEL = document.getElementById('publishPanel');
+  const ppToggle      = document.getElementById('ppToggle');
+  const ppClose       = document.getElementById('ppCollapse');
+  const destSwitch    = document.getElementById('destSwitch');
+
+  const fDate=document.getElementById('fDate');
+  const fTitle=document.getElementById('fTitle');
+  const fDesc =document.getElementById('fDesc');
+  const fTikTok=document.getElementById('fTikTok');
+  const fYouTube=document.getElementById('fYouTube');
+  const fInsta=document.getElementById('fInsta');
+  const fImages=document.getElementById('fImages');
+
+  const fieldsNews = document.getElementById('fields-news');
+  const fieldsFresh= document.getElementById('fields-fresh');
+
+  const publishBtn=document.getElementById('publishBtn');
+
+  /* открытие/закрытие панели */
+  ppClose.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
+  let collapsed=false;
+  ppToggle.addEventListener('click', ()=>{
+    collapsed = !collapsed;
+    PUBLISH_PANEL.querySelectorAll('#fields-common,#fields-news,#fields-fresh,.section-toggle')
+      .forEach(el=> el.style.display = collapsed ? 'none' : '');
+    publishBtn.style.display = collapsed ? 'none' : '';
+    ppToggle.textContent = collapsed ? '▸' : '▾';
+  });
+
+  /* выбор раздела */
+  let section='news';
+  destSwitch.addEventListener('click',(e)=>{
+    const btn=e.target.closest('button[data-section]'); if(!btn) return;
+    section = btn.dataset.section;
+    destSwitch.querySelectorAll('button').forEach(b=>b.classList.toggle('active', b===btn));
+    fieldsNews.style.display = section==='news' ? '' : 'none';
+    fieldsFresh.style.display= section==='fresh'? '' : 'none';
+  });
+
+  /* клавиатура: Ctrl/Cmd + A — логин */
+  document.addEventListener('keydown',(e)=>{
+    if((e.ctrlKey||e.metaKey) && (e.key==='a'||e.key==='A')){ e.preventDefault(); openLoginModal(); }
+    if(e.key==='Escape'){
+      if(adminModal.style.display==='flex') adminModal.style.display='none';
+      if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none';
     }
+  });
 
-    const adminModal=document.getElementById('adminModal');
-    const adminLoginBtn=document.getElementById('adminLoginBtn');
-    const adminCancelBtn=document.getElementById('adminCancelBtn');
-    const adminErr=document.getElementById('adminErr');
-    const loginInput=document.getElementById('adminLogin');
-    const passInput=document.getElementById('adminPass');
+  adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
+  adminLoginBtn.addEventListener('click', tryLogin);
+  passInput.addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
 
-    const publishPanel=document.getElementById('publishPanel');
-    const publishCard=document.getElementById('publishCard');
-    const dock=document.getElementById('publishDock');
-    const collapseBtn=document.getElementById('collapseBtn');
+  function openLoginModal(){
+    adminErr.style.display='none'; loginInput.value=''; passInput.value='';
+    adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
+  }
+  window.openLoginModal = openLoginModal; // для клика по футеру
 
-    const fDate=document.getElementById('fDate');
-    const fTitle=document.getElementById('fTitle');
-    const fDesc=document.getElementById('fDesc');
-    const fContent=document.getElementById('fContent');
-    const fImages=document.getElementById('fImages');
-    const fTikTok=document.getElementById('fTikTok');
-    const fYouTube=document.getElementById('fYouTube');
-    const fInsta=document.getElementById('fInsta');
+  async function tryLogin(){
+    try{
+      const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
+      const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
+      if(okLogin && okPass){
+        document.body.classList.add('admin-active');
+        adminModal.style.display='none';
+        PUBLISH_PANEL.style.display='block';
+        PUBLISH_PANEL.scrollTop=0;
+        adminErr.style.display='none';
+      }else adminErr.style.display='block';
+    }catch(e){ console.error(e); adminErr.style.display='block';}
+  }
 
-    const publishBtn=document.getElementById('publishBtn');
-    const exportWrap=document.getElementById('exportWrap');
-    const exportHtml=document.getElementById('exportHtml');
+  /* утилиты */
+  const uid = ()=> Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const esc = s => (s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-    // выбор секции
-    let currentSection = 'news';
-    document.getElementById('sectionSeg').addEventListener('click', (e)=>{
-      const btn = e.target.closest('.seg-btn'); if(!btn) return;
-      document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      currentSection = btn.getAttribute('data-section') || 'news';
-    });
+  const newsPost  = document.querySelector('#news .post');
+  const freshPost = document.querySelector('#fresh .post');
+  function ensureEmptyPlaceholders(){
+    const ne = document.getElementById('news-empty');
+    const fe = document.getElementById('fresh-empty');
+    ne.style.display = newsPost.querySelector('.news-item') ? 'none' : '';
+    fe.style.display = freshPost.querySelector('.news-item') ? 'none' : '';
+  }
+  ensureEmptyPlaceholders();
 
-    // сворачивание/разворачивание
-    collapseBtn.addEventListener('click', ()=>{
-      publishPanel.style.display='none';
-      dock.style.display='flex';
-    });
-    dock.addEventListener('click', ()=>{
-      dock.style.display='none';
-      publishPanel.style.display='flex';
-    });
-
-    // открыть логин
-    function openLogin(){
-      if(adminModal.style.display==='flex')return;
-      adminErr.style.display='none'; loginInput.value=''; passInput.value='';
-      adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
-    }
-
-    // хоткеи
-    document.addEventListener('keydown',(e)=>{
-      const isCtrl=(e.ctrlKey||e.metaKey), k=e.key.toLowerCase();
-      if(isCtrl && k==='a'){ e.preventDefault(); openLogin(); }
-      if(isCtrl && e.shiftKey && k==='a'){ e.preventDefault(); openLogin(); }
-      if(k==='escape'){
-        if(adminModal.style.display==='flex') adminModal.style.display='none';
-        else if(publishPanel.style.display==='flex'){ publishPanel.style.display='none'; dock.style.display='flex'; }
-      }
-    });
-    adminCancelBtn.addEventListener('click',()=> adminModal.style.display='none');
-    adminModal.addEventListener('click',e=>{ if(e.target===adminModal) adminModal.style.display='none'; });
-
-    async function tryLogin(){
-      try{
-        const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
-        const okPass=(await sha256Hex(passInput.value))===HASH_PASS;
-        if(okLogin && okPass){
-          document.body.classList.add('admin-active');
-          adminModal.style.display='none';
-          publishPanel.style.display='flex'; dock.style.display='none';
-          publishPanel.scrollTop=0;
-          adminErr.style.display='none';
-          if(!fDate.value) fDate.value = new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'});
-        }else adminErr.style.display='block';
-      }catch(e){ console.error(e); adminErr.style.display='block';}
-    }
-    adminLoginBtn.addEventListener('click',tryLogin);
-    passInput.addEventListener('keydown',e=>{ if(e.key==='Enter') tryLogin(); });
-
-    // хелперы
-    function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6) }
-    function esc(s){ return (s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-    function ensurePlaceholder(section){
-      const post = section==='fresh' ? document.querySelector('#fresh-news .post') : document.querySelector('#news .post');
-      const has = post.querySelector('.news-item');
-      let ph = post.querySelector('.news-empty');
-      if(!has && !ph){
-        ph = document.createElement('div'); ph.className='news-empty';
-        ph.textContent='Пока здесь пусто. Опубликуй первую новость через админ-панель.';
-        const h1 = post.querySelector('h1');
-        post.insertBefore(ph, h1? h1.nextSibling : post.firstChild);
-      }
-      if(has && ph) ph.remove();
-    }
-
-    function buildCardHTML(data){
-      const imgs = (data.images||[]).filter(Boolean);
-      const gallery = imgs.length ? `<div class="news-gallery">${imgs.map(u=>`<img src="${esc(u)}" alt="">`).join('')}</div>` : '';
-      const contentHtml = data.content
-        ? `<div class="news-content">${esc(data.content).replace(/\n/g,'<br>')}</div>`
-        : '';
-      const link=(href,icon,txt,cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
-      return `
-<div class="news-item" data-id="${esc(data.id)}" data-section="${esc(data.section)}">
+  function buildNewsHTML(data){
+    const link=(href,icon,txt,cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
+    return `<!-- NEWS-ITEM:${esc(data.id)}:START -->
+<div class="news-item" data-id="${esc(data.id)}" data-section="news">
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">${esc(data.date)}</div>
   <h3>${esc(data.title)}</h3>
   ${data.desc?`<p>${esc(data.desc)}</p>`:''}
-  ${contentHtml}
-  ${gallery}
   <div class="social-links">
     ${link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon')}
     ${link(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
     ${link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')}
   </div>
-</div>`.trim();
+</div>
+<!-- NEWS-ITEM:${esc(data.id)}:END -->`;
+  }
+
+  function buildFreshHTML(data){
+    const imgs = (data.images||[]).filter(Boolean).map(src=>`<img src="${esc(src)}" alt="">`).join('\n');
+    return `<!-- FRESH-ITEM:${esc(data.id)}:START -->
+<div class="news-item" data-id="${esc(data.id)}" data-section="fresh">
+  <button class="news-del-btn" title="Удалить">Удалить</button>
+  <div class="news-date">${esc(data.date)}</div>
+  <h3>${esc(data.title)}</h3>
+  ${data.desc?`<p>${esc(data.desc)}</p>`:''}
+  ${imgs?`<div class="news-gallery">${imgs}</div>`:''}
+</div>
+<!-- FRESH-ITEM:${esc(data.id)}:END -->`;
+  }
+
+  function insertCardDom(html, where){
+    const wrap = where==='news' ? newsPost : freshPost;
+    const first = wrap.querySelector('.news-item');
+    const tmp = document.createElement('div'); tmp.innerHTML = html.trim();
+    const card = tmp.firstElementChild.nextElementSibling || tmp.firstElementChild; // пропустить комментарий
+    if(first) wrap.insertBefore(card, first); else wrap.appendChild(card);
+    ensureEmptyPlaceholders();
+    return card;
+  }
+
+  /* публикация */
+  publishBtn.addEventListener('click', ()=>{
+    const data = {
+      id: uid(),
+      section,
+      date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
+      title: fTitle.value.trim(),
+      desc: fDesc.value.trim()
+    };
+    if(!data.title){ alert('Укажи заголовок.'); return; }
+
+    let html='';
+    if(section==='news'){
+      data.tiktok = fTikTok.value.trim();
+      data.youtube= fYouTube.value.trim();
+      data.insta  = fInsta.value.trim();
+      if(!data.tiktok && !data.youtube && !data.insta){
+        alert('Добавь хотя бы одну ссылку.'); return;
+      }
+      html = buildNewsHTML(data);
+    }else{
+      const urls = fImages.value.split(/\n|,/).map(s=>s.trim()).filter(Boolean);
+      data.images = urls;
+      if(!urls.length){ alert('Добавь хотя бы одну картинку.'); return; }
+      html = buildFreshHTML(data);
     }
 
-    function insertCardDom(section, html){
-      const post = section==='fresh' ? document.querySelector('#fresh-news .post') : document.querySelector('#news .post');
-      const container = document.createElement('div'); container.innerHTML = html;
-      const card = container.firstElementChild;
-      const firstItem = post.querySelector('.news-item');
-      if(firstItem) post.insertBefore(card, firstItem);
-      else post.appendChild(card);
-      return card;
-    }
+    insertCardDom(html, section);
 
-    function parseImages(text){
-      return (text||'')
-        .split(/\r?\n/)
-        .map(s=>s.trim())
-        .filter(s=>s.length>0);
-    }
+    // Отправка на воркер
+    fetch(WORKER_BASE + '/publish', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':ADMIN_HEADER},
+      body: JSON.stringify(data)
+    }).then(async r=>{
+      const text=await r.text(); let json; try{json=JSON.parse(text)}catch{}
+      if(!r.ok||!json?.ok){ console.error('Publish error', r.status, text); alert('Ошибка публикации ('+r.status+'): '+text); }
+      else console.log('Publish OK');
+    }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
+  });
 
-    publishBtn.addEventListener('click', ()=>{
-      const data = {
-        id: uid(),
-        section: currentSection,
-        date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
-        title: fTitle.value.trim(),
-        desc: fDesc.value.trim(),
-        content: fContent.value.trim(),
-        images: parseImages(fImages.value),
-        tiktok: fTikTok.value.trim(),
-        youtube: fYouTube.value.trim(),
-        insta: fInsta.value.trim()
-      };
-      if(!data.title){ alert('Укажи заголовок.'); return; }
-      if(!data.tiktok && !data.youtube && !data.insta && !data.content && (!data.images || !data.images.length)){
-        if(!confirm('Вы не добавили ни ссылок, ни текст/картинки. Продолжить?')) return;
+  /* удаление (делегировано) */
+  document.addEventListener('click',(e)=>{
+    const btn = e.target.closest('.news-del-btn'); if(!btn) return;
+    const card = btn.closest('.news-item'); if(!card) return;
+    const id = card.getAttribute('data-id');
+    const sec= card.getAttribute('data-section')||'news';
+    if(!confirm('Удалить публикацию?')) return;
+
+    card.remove(); ensureEmptyPlaceholders();
+
+    fetch(WORKER_BASE + '/delete', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':ADMIN_HEADER},
+      body: JSON.stringify({ id, section: sec })
+    }).then(async r=>{
+      const text=await r.text(); let json; try{json=JSON.parse(text)}catch{}
+      if(!r.ok||!json?.ok){ console.error('Delete error', r.status, text);
+        alert('Удаление на сервере не удалось ('+r.status+'). Блок скрыт локально, но вернётся после перезагрузки, если не обновить файл.');
       }
+    }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
+  });
+})();
+</script>
 
-      const html = buildCardHTML(data);
-      insertCardDom(data.section, html);
-      ensurePlaceholder(data.section);
+<script>
+/* ====== Лайтбокс картинок ====== */
+(function(){
+  const box = document.getElementById('imgLightbox');
+  const img = box.querySelector('.lb-img');
+  const btnPrev = box.querySelector('.lb-prev');
+  const btnNext = box.querySelector('.lb-next');
+  const btnClose= box.querySelector('.lb-close');
 
-      exportWrap.style.display='block';
-      exportHtml.value = html;
+  let group=[], idx=0, scale=1;
 
-      // Отправка воркеру
-      if(/^https?:\/\//.test(WORKER_BASE)){
-        fetch(WORKER_BASE+'/publish',{
-          method:'POST',
-          headers:{'Content-Type':'application/json','x-admin-key':ADMIN_HEADER},
-          body: JSON.stringify(data) // воркер может использовать section, content, images при доработке
-        })
-        .then(async r=>{
-          const text=await r.text(); let json; try{json=JSON.parse(text)}catch{}
-          if(!r.ok||!json?.ok){
-            console.error('Worker publish error',r.status,text);
-            alert('Ошибка публикации ('+r.status+'): '+text+'\nЗапись добавлена локально.');
-          } else {
-            alert('Опубликовано и сохранено в GitHub.');
-          }
-        })
-        .catch(err=>{
-          console.error(err);
-          alert('Сетевая ошибка: '+(err?.message || err));
-        });
-      }
-    });
+  document.addEventListener('click', (e)=>{
+    const pic = e.target.closest('.news-gallery img');
+    if(!pic) return;
+    const gal = pic.closest('.news-gallery');
+    const images = [...gal.querySelectorAll('img')];
+    group = images.map(n=>n.getAttribute('src'));
+    idx = images.indexOf(pic);
+    open(group[idx], group.length>1);
+  });
 
-    // делегирование удаления
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.news-del-btn'); if(!btn) return;
-      const card = btn.closest('.news-item');
-      const id = card?.getAttribute('data-id')||'';
-      const section = card?.getAttribute('data-section')||'news';
-      if(!confirm('Удалить публикацию?')) return;
+  function open(src, arrows){
+    scale=1; img.style.transform=`scale(${scale})`; img.src=src;
+    box.classList.add('open'); box.setAttribute('aria-hidden','false');
+    btnPrev.style.display = btnNext.style.display = arrows ? 'block':'none';
+  }
+  function close(){ box.classList.remove('open'); box.setAttribute('aria-hidden','true'); img.src=''; }
+  function step(d){ if(!group.length) return; idx=(idx+d+group.length)%group.length; scale=1; img.style.transform=`scale(${scale})`; img.src=group[idx]; }
 
-      card.remove();
-      ensurePlaceholder(section);
-
-      if(/^https?:\/\//.test(WORKER_BASE)){
-        fetch(WORKER_BASE+'/delete',{
-          method:'POST',
-          headers:{'Content-Type':'application/json','x-admin-key':ADMIN_HEADER},
-          body: JSON.stringify({ id, section })
-        }).then(async r=>{
-          const t=await r.text(); let j; try{j=JSON.parse(t)}catch{}
-          if(!r.ok||!j?.ok){
-            console.error('Worker delete error',r.status,t);
-            alert('Удаление на сервере не удалось ('+r.status+'). Карточка скрыта локально.');
-          }
-        }).catch(err=>{
-          console.error(err); alert('Сетевая ошибка при удалении: '+(err?.message||err));
-        });
-      }
-    });
-
-    // клик по копирайту — вход админа
-    document.querySelector('footer').addEventListener('click', openLogin);
-
-    // старт: плейсхолдеры
-    ['news','fresh'].forEach(ensurePlaceholder);
-  })();
-  </script>
+  btnPrev.addEventListener('click',e=>{e.stopPropagation();step(-1)});
+  btnNext.addEventListener('click',e=>{e.stopPropagation();step(1)});
+  btnClose.addEventListener('click',e=>{e.stopPropagation();close()});
+  box.addEventListener('click',e=>{ if(e.target===box) close(); });
+  document.addEventListener('keydown',e=>{ if(!box.classList.contains('open')) return;
+    if(e.key==='Escape') close(); if(e.key==='ArrowLeft') step(-1); if(e.key==='ArrowRight') step(1);
+  });
+  box.addEventListener('wheel',e=>{ if(!box.classList.contains('open')) return; e.preventDefault();
+    const dir=Math.sign(e.deltaY); scale=Math.min(4,Math.max(1, scale - dir*0.1)); img.style.transform=`scale(${scale})`;
+  },{passive:false});
+  let sx=0; box.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
+})();
+</script>
 </body>
 </html>
