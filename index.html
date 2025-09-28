@@ -25,7 +25,7 @@
     .tab:hover { color:#00ff80; }
     .tab-content { display:none; } .tab-content.active { display:block; }
 
-    .news-item { position:relative; background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
+    .news-item { background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
     .news-date { color:#888; font-size:.9em; margin-bottom:5px; }
     .social-links { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
     .social-link { display:flex; align-items:center; padding:10px 15px; background:rgba(50,50,50,.5); border-radius:8px; transition:all .3s; text-decoration:none; border:1px solid transparent; }
@@ -37,21 +37,30 @@
     #contacts .social-links { width:100%; max-width:400px; margin:0 auto; }
     #contacts .social-link { justify-content:center; text-align:left; }
 
-    /* Панель публикации адаптивная */
+    /* Панель публикации / удаления */
     #publishPanel{
-      box-sizing:border-box; width:min(520px,96vw);
+      box-sizing:border-box; width:min(560px,96vw);
       right:12px; bottom:12px; max-height:90vh; overflow:auto;
       position:fixed; background:rgba(0,0,0,.92); border:1px solid #00cc66;
       border-radius:12px; padding:16px; z-index:1199; display:none;
+      backdrop-filter: blur(3px);
     }
     #publishPanel label{ display:block; margin:8px 0 6px; }
     #publishPanel textarea{ width:100%; min-height:160px; resize:vertical; }
     #publishPanel input, #publishPanel textarea, #publishPanel button{ box-sizing:border-box; }
     #publishPanel input, #publishPanel textarea{
-      width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee; min-width:0; word-break:break-word;
+      width:100%; padding:10px; border-radius:10px; border:1px solid #333; background:#000; color:#eee; min-width:0; word-break:break-word;
     }
     #publishPanel .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     #publishPanel .two-col > div{ min-width:0; }
+    #publishPanel .btn{ border:1px solid #00cc66; background:#002d1f; color:#00ff80; border-radius:10px; padding:10px 14px; cursor:pointer; }
+    #publishPanel .btn-ghost{ border-color:#444; background:#111; color:#bbb; }
+    #publishPanel .hr{ height:1px; background:#1f3b2d; margin:16px 0; border:0; }
+    .muted{ color:#9fe6c3; font-size:.9em; }
+    .row{ display:flex; gap:10px; align-items:center; justify-content:space-between; }
+    .row .btn{ flex:0 0 auto; }
+    .row .grow{ flex:1 1 auto; }
+
     @media (max-width:560px){
       #publishPanel{ left:8px; right:8px; top:8px; bottom:8px; width:auto; max-height:calc(100vh - 16px);}
       #publishPanel .two-col{ grid-template-columns:1fr; }
@@ -77,18 +86,6 @@
     #adminModal .btn-primary{ border:1px solid #00cc66; background:#002d1f; color:#00ff80; }
     #adminModal .btn-ghost{ border:1px solid #444; background:#222; color:#bbb; }
     #adminErr{ color:#ff6b6b; display:none; margin-top:10px; }
-
-    /* Кнопки админ-действий на карточке */
-    .admin-actions{
-      position:absolute; top:8px; right:8px; display:none; gap:8px;
-    }
-    .news-item.admin-mode .admin-actions{ display:flex; }
-    .admin-mini-btn{
-      font-size:.85rem; line-height:1; padding:6px 10px; border-radius:8px; cursor:pointer;
-      border:1px solid #444; background:#1a1a1a; color:#ddd;
-    }
-    .admin-mini-btn.danger{ border-color:#ff6b6b; color:#ffb3b3; background:#2a0f12; }
-    .admin-mini-btn:hover{ filter:brightness(1.15); }
   </style>
 </head>
 <body>
@@ -126,17 +123,6 @@
       <div class="post">
         <h1>Видео за месяц</h1>
         <!-- NEWS-START -->
-<div class="news-item">
-  <div class="news-date">gdfg</div>
-  <h3>gdg</h3>
-  <p>dfgd</p>
-  <div class="social-links">
-    <a href="gdg" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-    <a href="dfg" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-    <a href="dfgfd" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-  </div>
-</div>
-
         <div class="news-item">
           <div class="news-date">27 сентября 2025</div>
           <h3>Очищать память на iPhone стало легче?</h3>
@@ -193,11 +179,11 @@
     </div>
   </div>
 
-  <!-- Панель публикации -->
+  <!-- Панель публикации + удаления -->
   <div id="publishPanel">
-    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
+    <div class="row" style="margin-bottom:8px;">
       <strong style="color:#00ff80;">Публикация новости</strong>
-      <button id="closePublish" title="Свернуть" style="border:1px solid #444; background:#111; color:#bbb; border-radius:8px; padding:6px 10px; cursor:pointer;">×</button>
+      <button id="closePublish" title="Свернуть" class="btn-ghost btn">×</button>
     </div>
 
     <label>Дата (текст):</label>
@@ -224,12 +210,36 @@
       </div>
     </div>
 
-    <button id="publishBtn" style="margin-top:12px; padding:10px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer; width:100%;">Опубликовать</button>
+    <button id="publishBtn" class="btn" style="width:100%; margin-top:12px;">Опубликовать</button>
 
     <div id="exportWrap" style="display:none; margin-top:12px;">
-      <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
+      <p class="muted">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
       <textarea id="exportHtml" rows="8"></textarea>
-      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer;">Скопировать</button>
+      <button id="copyExport" class="btn" style="margin-top:8px;">Скопировать</button>
+    </div>
+
+    <hr class="hr">
+
+    <strong style="color:#00ff80;">Удаление публикации</strong>
+    <p class="muted">Надёжнее всего удалять по <b>ID</b> (он хранится в карточке как <code>data-id</code>). Если ID нет — укажи заголовок и/или дату.</p>
+
+    <label>ID публикации:</label>
+    <input id="delId" type="text" placeholder="например: a1b2c3d4e5f6a7b8">
+
+    <div class="two-col">
+      <div>
+        <label>Заголовок (для расчёта ID):</label>
+        <input id="delTitle" type="text" placeholder="Заголовок новости">
+      </div>
+      <div>
+        <label>Дата (для расчёта ID):</label>
+        <input id="delDate" type="text" placeholder="27 сентября 2025">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
+      <button id="deleteBtn" class="btn">Удалить</button>
+      <button id="hideAllIds" class="btn-ghost btn">Показать ID на странице</button>
     </div>
   </div>
 
@@ -264,12 +274,22 @@
   <script>
   (function() {
     const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
+    const ADMIN_KEY = '30Mu30Fasa';
 
-    const SALT = 'trill#2025';
+    const SALT = 'trill#2025'; // используется только для логина
     const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
     const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
 
     async function sha256Hex(str){ const data=new TextEncoder().encode(SALT+str); const buf=await crypto.subtle.digest('SHA-256',data); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+
+    // === client-side ID (должен совпадать с воркером) ===
+    const enc = new TextEncoder();
+    const lower = s => (s??'').toString().replace(/\s+/g,' ').trim().toLowerCase();
+    async function makeId(title, date){
+      const buf = await crypto.subtle.digest('SHA-256', enc.encode(lower(title)+'|'+lower(date)));
+      const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      return hex.slice(0,16);
+    }
 
     const adminModal = document.getElementById('adminModal');
     const adminLoginBtn = document.getElementById('adminLoginBtn');
@@ -293,7 +313,11 @@
     const exportHtml = document.getElementById('exportHtml');
     const copyExport = document.getElementById('copyExport');
 
-    let isAdmin = false;
+    const delId    = document.getElementById('delId');
+    const delTitle = document.getElementById('delTitle');
+    const delDate  = document.getElementById('delDate');
+    const deleteBtn= document.getElementById('deleteBtn');
+    const hideAllIdsBtn = document.getElementById('hideAllIds');
 
     function openLoginModal(){
       if (adminModal.style.display === 'flex') return;
@@ -301,11 +325,10 @@
       adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
     }
 
-    // Ctrl/Cmd + A (и Ctrl/Cmd + Shift + A) — открыть логин; Esc — закрыть
+    // Горячие клавиши: Ctrl/Cmd+A — открыть логин; Esc — закрыть
     document.addEventListener('keydown',(e)=>{
       const isCtrl=(e.ctrlKey||e.metaKey); const key=e.key.toLowerCase();
       if(isCtrl && key==='a'){ e.preventDefault(); openLoginModal(); }
-      if(isCtrl && e.shiftKey && key==='a'){ e.preventDefault(); openLoginModal(); }
       if(key==='escape'){ if(adminModal.style.display==='flex') adminModal.style.display='none'; if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none'; }
     });
     adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
@@ -315,87 +338,20 @@
       try {
         const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
         const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
-        if(okLogin&&okPass){
-          isAdmin = true;
-          adminErr.style.display='none';
-          adminModal.style.display='none';
-          PUBLISH_PANEL.style.display='block';
-          PUBLISH_PANEL.scrollTop=0;
-          applyAdminUI();
-        } else {
-          adminErr.style.display='block';
-        }
+        if(okLogin&&okPass){ adminErr.style.display='none'; adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
+        else adminErr.style.display='block';
       } catch (e) { console.error('Login error:', e); adminErr.style.display='block'; }
     }
     adminLoginBtn.addEventListener('click', tryLogin);
     passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
     closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
 
-    // ---------- Админ UI: кнопки удаления ----------
-    function attachAdminControls(item){
-      if (item.querySelector('.admin-actions')) return;
-      item.classList.add('admin-mode');
-      const bar = document.createElement('div');
-      bar.className = 'admin-actions';
-      const del = document.createElement('button');
-      del.className = 'admin-mini-btn danger';
-      del.textContent = 'Удалить';
-      del.addEventListener('click', ()=> handleDelete(item));
-      bar.appendChild(del);
-      item.appendChild(bar);
-    }
-    function applyAdminUI(){
-      if (!isAdmin) return;
-      document.querySelectorAll('#news .news-item').forEach(attachAdminControls);
-    }
-
-    async function handleDelete(item){
-      const title = (item.querySelector('h3')?.textContent || '').trim();
-      const date  = (item.querySelector('.news-date')?.textContent || '').trim();
-      if (!confirm(`Удалить публикацию:\n«${title || 'без заголовка'}»\n(${date || 'без даты'})?`)) return;
-
-      // Удаляем из DOM сразу
-      const htmlFragment = item.outerHTML;
-      const parent = item.parentElement;
-      item.remove();
-
-      // Пытаемся сохранить на сервере
-      if(/^https?:\/\//.test(WORKER_BASE)){
-        try{
-          const res = await fetch(WORKER_BASE + '/delete', {
-            method:'POST',
-            headers:{
-              'Content-Type':'application/json',
-              'x-admin-key':'30Mu30Fasa'
-            },
-            body: JSON.stringify({
-              title, date, html: htmlFragment
-            })
-          });
-          const text = await res.text();
-          let json; try{ json = JSON.parse(text);}catch(_){}
-          if(!res.ok || !json?.ok){
-            console.error('Worker delete error:', {status:res.status, text});
-            alert('Удаление на сервере не удалось ('+res.status+'). Публикация скрыта локально, но вернётся после перезагрузки, если не обновить файл вручную/через воркер.');
-          } else {
-            console.log('Delete OK:', json);
-            alert('Публикация удалена и сохранена в GitHub.');
-          }
-        }catch(err){
-          console.error(err);
-          alert('Сетевая ошибка при удалении. Публикация скрыта локально, но сервер не обновлён.');
-        }
-      } else {
-        alert('WORKER_BASE не настроен — сервер не обновлён. Публикация скрыта только на этой странице.');
-      }
-    }
-    // ------------------------------------------------
-
-    function buildNewsHTML(data){
+    // === построение HTML карточки ===
+    function buildNewsHTML(data, id){
       const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
       const link=(href, icon, txt, cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
       return `
-<div class="news-item">
+<div class="news-item" data-id="${id}">
   <div class="news-date">${esc(data.date)}</div>
   <h3>${esc(data.title)}</h3>
   ${data.desc?`<p>${esc(data.desc)}</p>`:''}
@@ -406,9 +362,11 @@
   </div>
 </div>`.trim();
     }
+
     function getNewsContainer(){ return document.querySelector('#news .post') || document.getElementById('news'); }
 
-    publishBtn.addEventListener('click', ()=>{
+    // === публикация ===
+    publishBtn.addEventListener('click', async ()=>{
       const data={
         date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
         title: fTitle.value.trim(),
@@ -420,29 +378,22 @@
       if(!data.title){ alert('Укажи заголовок.'); return; }
       if(!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
 
-      // 1) мгновенная вставка в DOM
-      const html=buildNewsHTML(data);
+      const id = await makeId(data.title, data.date);
+      const html=buildNewsHTML(data, id);
       const container=getNewsContainer();
       if(container){
         container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
-        // прикрутим админ-кнопку к свежей карточке, если вошли как админ
-        if (isAdmin) {
-          const lastItem = container.querySelector('.news-item');
-          if (lastItem) attachAdminControls(lastItem);
-        }
       }
 
-      // 2) показать экспорт-код на всякий случай
       exportWrap.style.display='block';
       exportHtml.value=html;
 
-      // 3) отправка в воркер — расширенный вывод ошибки
       if(/^https?:\/\//.test(WORKER_BASE)){
         fetch(WORKER_BASE + '/publish', {
           method:'POST',
           headers:{
             'Content-Type':'application/json',
-            'x-admin-key':'30Mu30Fasa'
+            'x-admin-key': ADMIN_KEY
           },
           body: JSON.stringify(data)
         })
@@ -468,9 +419,94 @@
 
     copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
 
-    // Если уже были новости на странице — добавим админ-кнопки после логина
-    // (на старте не показываем, пока не вошли)
-    // applyAdminUI() вызывается внутри tryLogin() после успешного входа.
+    // === утилита: показать ID на странице ===
+    let idsShown = false;
+    hideAllIdsBtn.addEventListener('click', ()=>{
+      idsShown = !idsShown;
+      document.querySelectorAll('.news-item').forEach(item=>{
+        let badge = item.querySelector('.__id');
+        if(idsShown){
+          if(!badge){
+            badge = document.createElement('div');
+            badge.className='__id';
+            badge.style.fontSize='12px';
+            badge.style.color='#9fe6c3';
+            badge.style.marginTop='6px';
+            badge.textContent = 'ID: ' + (item.getAttribute('data-id')||'—');
+            const tgt = item.querySelector('h3') || item.firstElementChild;
+            (tgt?tgt:item).appendChild(badge);
+          } else {
+            badge.textContent = 'ID: ' + (item.getAttribute('data-id')||'—');
+          }
+        } else {
+          if(badge) badge.remove();
+        }
+      });
+      hideAllIdsBtn.textContent = idsShown ? 'Скрыть ID на странице' : 'Показать ID на странице';
+    });
+
+    // === удаление: локально + через воркер ===
+    function removeDomById(id){
+      const el = document.querySelector(`.news-item[data-id="${id}"]`);
+      if(el){ el.remove(); return true; }
+      return false;
+    }
+    function softRemoveByTitleDate(title, date){
+      const t = lower(title||''); const d = lower(date||'');
+      const items = document.querySelectorAll('.news-item');
+      for(const item of items){
+        const ht = (item.querySelector('h3')?.textContent||'').toLowerCase().trim();
+        const hd = (item.querySelector('.news-date')?.textContent||'').toLowerCase().trim();
+        const okT = t ? ht === t : true;
+        const okD = d ? hd === d : true;
+        if(okT && okD){ item.remove(); return true; }
+      }
+      return false;
+    }
+
+    deleteBtn.addEventListener('click', async ()=>{
+      let id = delId.value.trim();
+      const title = delTitle.value.trim();
+      const date  = delDate.value.trim();
+
+      if(!id){
+        if(!title && !date){ alert('Укажи ID или Заголовок/Дату для удаления.'); return; }
+        id = await makeId(title||'', date||'');
+      }
+
+      // 1) локально сразу скрываем (по id, иначе по title/date)
+      let removed = removeDomById(id);
+      if(!removed && (title || date)) removed = softRemoveByTitleDate(title, date);
+      if(!removed){
+        alert('Локально публикация не найдена. Проверь ID/заголовок/дату.');
+      }
+
+      // 2) сервер
+      const payload = id ? { id } : { title, date };
+      fetch(WORKER_BASE + '/delete', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-admin-key': ADMIN_KEY
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(async (r)=>{
+        const text = await r.text();
+        let json; try{ json = JSON.parse(text);}catch(_){}
+        if(!r.ok || !json?.ok){
+          console.error('Worker delete error:', {status:r.status, text});
+          alert('Удаление на сервере не удалось ('+r.status+'). Публикация скрыта локально, но вернётся после перезагрузки, если не обновить файл вручную/через воркер.\n\n'+text);
+          return;
+        }
+        alert('Удалено из GitHub.');
+      })
+      .catch(err=>{
+        console.error('Network/JS error:', err);
+        alert('Сетевая ошибка при удалении: ' + (err?.message || err));
+      });
+    });
+
   })();
   </script>
 </body>
