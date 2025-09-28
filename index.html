@@ -97,6 +97,10 @@
     #adminModal .btn-primary{border:1px solid var(--accent);background:#002d1f;color:var(--accent-2)}
     #adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
     #adminErr{color:#ff6b6b;display:none;margin-top:10px}
+
+    /* скрытый триггер во футере */
+    .admin-trigger{cursor:pointer;user-select:none}
+    .admin-trigger:active{opacity:.85}
   </style>
 </head>
 <body>
@@ -134,7 +138,7 @@
       <div class="post">
         <h1>Видео за месяц</h1>
         <!-- NEWS-START -->
-<!-- пример можно удалить после первой своей публикации -->
+        <!-- пример можно удалить после первой своей публикации -->
         <div class="news-item" data-id="demo">
           <button class="news-del-btn" title="Удалить">Удалить</button>
           <div class="news-date">27 сентября 2025</div>
@@ -172,7 +176,7 @@
   </div>
 
   <footer>
-    © 2025 Кирилл.
+    <span id="adminTrigger" class="admin-trigger">© 2025 Кирилл.</span>
     <p style="margin-top:10px;font-size:.8em">*компания Meta признана экстремистской на территории России</p>
   </footer>
 
@@ -300,7 +304,7 @@
       adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
     }
 
-    //快捷 клавиши
+    // Горячие клавиши
     document.addEventListener('keydown',(e)=>{
       const isCtrl=(e.ctrlKey||e.metaKey), k=e.key.toLowerCase();
       if(isCtrl && k==='a'){ e.preventDefault(); openLogin(); }
@@ -311,6 +315,33 @@
     });
     adminCancelBtn.addEventListener('click',()=> adminModal.style.display='none');
     adminModal.addEventListener('click',e=>{ if(e.target===adminModal) adminModal.style.display='none'; });
+
+    // >>> Скрытый вход по футеру: тройной клик или длинное нажатие
+    (function(){
+      const trigger = document.getElementById('adminTrigger');
+      if(!trigger) return;
+
+      // тройной клик за 800 мс
+      let clicks = 0, resetTimer = null;
+      trigger.addEventListener('click', () => {
+        clicks++;
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(()=>{clicks=0;}, 800);
+        if(clicks>=3){ clicks=0; openLogin(); }
+      });
+
+      // длинное нажатие (мобилки)
+      let pressTimer=null;
+      const start = (e)=>{ e.preventDefault(); pressTimer=setTimeout(()=>openLogin(),700); };
+      const cancel = ()=> clearTimeout(pressTimer);
+      trigger.addEventListener('mousedown', start);
+      trigger.addEventListener('touchstart', start, {passive:false});
+      trigger.addEventListener('mouseup', cancel);
+      trigger.addEventListener('mouseleave', cancel);
+      trigger.addEventListener('touchend', cancel);
+      trigger.addEventListener('touchcancel', cancel);
+    })();
+    // <<< конец скрытого входа
 
     async function tryLogin(){
       try{
@@ -364,8 +395,6 @@
     }
 
     function insertNewsCardDom(html){
-      const start = newsPost.childNodes;
-      // вставляем сразу после заголовка (перед первым .news-item)
       const h1 = newsPost.querySelector('h1');
       const container = document.createElement('div');
       container.innerHTML = html;
