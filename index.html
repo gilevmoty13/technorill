@@ -483,8 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildNewsHTML(data){
     const link=(href,icon,txt,cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
-    // iOS ссылка ВПЕРЕДИ остальных
-    const ios = link(data.ios,'fab fa-apple','Скачать приложение на iOS','apple-icon');
+    const ios = link(data.ios,'fab fa-apple','Скачать приложение на iOS','apple-icon'); // iOS первым
     const rest = [
       link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon'),
       link(data.youtube,'fab fa-youtube','YouTube','youtube-icon'),
@@ -541,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let html='';
     if (section==='news'){
       data.desc = fDesc.value.trim();
-      data.ios  = (fIOS.value||'').trim();              // NEW
+      data.ios  = (fIOS.value||'').trim(); // iOS
       data.tiktok = fTikTok.value.trim();
       data.youtube= fYouTube.value.trim();
       data.insta  = fInsta.value.trim();
@@ -587,13 +586,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
-  // загрузка изображений через воркер (/upload)
+  // загрузка изображений через воркер (/upload) — устойчивый парсинг
   async function uploadOne(file){
     const fd = new FormData();
     fd.append('file', file, file.name);
     const r = await fetch(WORKER_BASE+'/upload',{ method:'POST', headers:{'x-admin-key':ADMIN_HEADER}, body: fd });
-    const j = await r.json();
-    if(!r.ok || !j?.ok) throw new Error((j && (j.message||j.error)) || 'upload failed');
+    const text = await r.text(); let j;
+    try { j = JSON.parse(text); } catch { throw new Error(text || `HTTP ${r.status}`); }
+    if(!r.ok || !j?.ok) throw new Error(j?.message || j?.error || `HTTP ${r.status}`);
     return j.url;
   }
 
