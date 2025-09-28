@@ -57,7 +57,7 @@
       #publishPanel .two-col{ grid-template-columns:1fr; }
     }
 
-    /* --- Admin login modal: аккуратные поля и размеры (как в панели публикации) --- */
+    /* --- Admin login modal --- */
     #adminModal{
       display:none; position:fixed; inset:0; background:rgba(0,0,0,.6);
       z-index:1200; align-items:center; justify-content:center; padding:12px;
@@ -91,9 +91,7 @@
   <div class="content">
     <div class="tabs">
       <div class="tab active" data-tab="main">Главная</div>
-      <!-- НОВАЯ ВКЛАДКА -->
       <div class="tab" data-tab="fresh-news">Свежие новости о технологиях</div>
-      <!-- /НОВАЯ ВКЛАДКА -->
       <div class="tab" data-tab="news">Последние публикации</div>
       <div class="tab" data-tab="contacts">Контакты</div>
     </div>
@@ -105,14 +103,12 @@
       </div>
     </div>
 
-    <!-- СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
     <div id="fresh-news" class="tab-content">
       <div class="post">
         <h1>Свежие новости о технологиях</h1>
         <p>Здесь публикуются самые новые и интересные новости из мира технологий 🚀</p>
       </div>
     </div>
-    <!-- /СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
 
     <div id="news" class="tab-content">
       <div class="post">
@@ -121,7 +117,7 @@
         <div class="news-item">
           <div class="news-date">27 сентября 2025</div>
           <h3>Очищать память на iPhone стало легче?</h3>
-          <p>В этом видео ты узнаешь об очень полезным приложении для iPhone!</p>
+          <p>В этом видео ты узнаешь об очень полезном приложении для iPhone!</p>
           <div class="social-links">
             <a href="https://www.tiktok.com/@technorill/video/7553701581309480214" target="_blank" class="social-link">
               <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
@@ -147,7 +143,7 @@
           <span style="margin-left:5px; font-size:.9em; color:#888;">(кликните чтобы скопировать)</span>
         </p>
         <p><strong>По вопросам писать:</strong> 
-          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_pодderzka_Not_Bот</a>
+          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
         </p>
       </div>
     </div>
@@ -158,7 +154,7 @@
     <p style="margin-top:10px; font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
   </footer>
 
-  <!-- Модал логина (обновлено) -->
+  <!-- Модал логина -->
   <div id="adminModal">
     <div class="modal-card">
       <h3>Вход для администратора</h3>
@@ -210,7 +206,7 @@
     <div id="exportWrap" style="display:none; margin-top:12px;">
       <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
       <textarea id="exportHtml" rows="8"></textarea>
-      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002д1f; color:#00ff80; cursor:pointer;">Скопировать</button>
+      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer;">Скопировать</button>
     </div>
   </div>
 
@@ -243,97 +239,69 @@
 
   <!-- Админ-логика (вход + публикация) -->
   <script>
-(function() {
-  const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
+  (function() {
+    const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
 
-  const SALT = 'trill#2025';
-  const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
-  const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
+    const SALT = 'trill#2025';
+    const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
+    const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
 
-  async function sha256Hex(str){
-    const data = new TextEncoder().encode(SALT+str);
-    const buf = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  }
+    async function sha256Hex(str){ const data=new TextEncoder().encode(SALT+str); const buf=await crypto.subtle.digest('SHA-256',data); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
 
-  const adminModal   = document.getElementById('adminModal');
-  const adminLoginBtn= document.getElementById('adminLoginBtn');
-  const adminCancelBtn= document.getElementById('adminCancelBtn');
-  const adminErr     = document.getElementById('adminErr');
-  const loginInput   = document.getElementById('adminLogin');
-  const passInput    = document.getElementById('adminPass');
+    const adminModal = document.getElementById('adminModal');
+    const adminLoginBtn = document.getElementById('adminLoginBtn');
+    const adminCancelBtn= document.getElementById('adminCancelBtn');
+    const adminErr = document.getElementById('adminErr');
+    const loginInput = document.getElementById('adminLogin');
+    const passInput  = document.getElementById('adminPass');
 
-  const PUBLISH_PANEL= document.getElementById('publishPanel');
-  const closePublish = document.getElementById('closePublish');
+    const PUBLISH_PANEL = document.getElementById('publishPanel');
+    const closePublish  = document.getElementById('closePublish');
 
-  const fDate   = document.getElementById('fDate');
-  const fTitle  = document.getElementById('fTitle');
-  const fDesc   = document.getElementById('fDesc');
-  const fTikTok = document.getElementById('fTikTok');
-  const fYouTube= document.getElementById('fYouTube');
-  const fInsta  = document.getElementById('fInsta');
+    const fDate   = document.getElementById('fDate');
+    const fTitle  = document.getElementById('fTitle');
+    const fDesc   = document.getElementById('fDesc');
+    const fTikTok = document.getElementById('fTikTok');
+    const fYouTube= document.getElementById('fYouTube');
+    const fInsta  = document.getElementById('fInsta');
 
-  const publishBtn = document.getElementById('publishBtn');
-  const exportWrap = document.getElementById('exportWrap');
-  const exportHtml = document.getElementById('exportHtml');
-  const copyExport = document.getElementById('copyExport');
+    const publishBtn = document.getElementById('publishBtn');
+    const exportWrap = document.getElementById('exportWrap');
+    const exportHtml = document.getElementById('exportHtml');
+    const copyExport = document.getElementById('copyExport');
 
-  function openLoginModal(){
-    if (adminModal.style.display === 'flex') return;
-    adminErr.style.display = 'none';
-    loginInput.value = '';
-    passInput.value  = '';
-    adminModal.style.display = 'flex';
-    setTimeout(()=>loginInput.focus(), 0);
-  }
-
-  // Ctrl/Cmd + A или Ctrl/Cmd + Shift + A — открыть логин; Esc — закрыть
-  document.addEventListener('keydown', (e)=>{
-    const isCtrl = e.ctrlKey || e.metaKey;
-    const key = e.key.toLowerCase();
-
-    if (isCtrl && (key === 'a') ) {           // Ctrl/Cmd + A
-      e.preventDefault();
-      openLoginModal();
+    function openLoginModal(){
+      if (adminModal.style.display === 'flex') return;
+      adminErr.style.display='none'; loginInput.value=''; passInput.value='';
+      adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
     }
-    if (isCtrl && e.shiftKey && key === 'a') { // Ctrl/Cmd + Shift + A (альтернатива)
-      e.preventDefault();
-      openLoginModal();
-    }
-    if (key === 'escape'){
-      if (adminModal.style.display === 'flex') adminModal.style.display = 'none';
-      if (PUBLISH_PANEL.style.display === 'block') PUBLISH_PANEL.style.display = 'none';
-    }
-  });
 
-  adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
-  adminModal.addEventListener('click', (e)=>{ if (e.target === adminModal) adminModal.style.display='none'; });
+    // Ctrl/Cmd + A (и Ctrl/Cmd + Shift + A) — открыть логин; Esc — закрыть
+    document.addEventListener('keydown',(e)=>{
+      const isCtrl=(e.ctrlKey||e.metaKey); const key=e.key.toLowerCase();
+      if(isCtrl && key==='a'){ e.preventDefault(); openLoginModal(); }
+      if(isCtrl && e.shiftKey && key==='a'){ e.preventDefault(); openLoginModal(); }
+      if(key==='escape'){ if(adminModal.style.display==='flex') adminModal.style.display='none'; if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none'; }
+    });
+    adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
+    adminModal.addEventListener('click', (e)=>{ if(e.target===adminModal) adminModal.style.display='none'; });
 
-  async function tryLogin(){
-    try {
-      const okLogin = (await sha256Hex(loginInput.value.trim())) === HASH_LOGIN;
-      const okPass  = (await sha256Hex(passInput.value)) === HASH_PASS;
-      if (okLogin && okPass) {
-        adminErr.style.display = 'none';
-        adminModal.style.display = 'none';
-        PUBLISH_PANEL.style.display = 'block';
-        PUBLISH_PANEL.scrollTop = 0;
-      } else {
-        adminErr.style.display = 'block';
-      }
-    } catch (e) {
-      console.error('Login error:', e);
-      adminErr.style.display = 'block';
+    async function tryLogin(){
+      try {
+        const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
+        const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
+        if(okLogin&&okPass){ adminErr.style.display='none'; adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
+        else adminErr.style.display='block';
+      } catch (e) { console.error('Login error:', e); adminErr.style.display='block'; }
     }
-  }
-  adminLoginBtn.addEventListener('click', tryLogin);
-  passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
-  closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
+    adminLoginBtn.addEventListener('click', tryLogin);
+    passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
+    closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
 
-  function buildNewsHTML(data){
-    const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const link=(href, icon, txt, cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
-    return `
+    function buildNewsHTML(data){
+      const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      const link=(href, icon, txt, cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
+      return `
 <div class="news-item">
   <div class="news-date">${esc(data.date)}</div>
   <h3>${esc(data.title)}</h3>
@@ -344,59 +312,64 @@
     ${link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')}
   </div>
 </div>`.trim();
-  }
-  function getNewsContainer(){ return document.querySelector('#news .post') || document.getElementById('news'); }
-
-  publishBtn.addEventListener('click', ()=>{
-    const data={
-      date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
-      title: fTitle.value.trim(),
-      desc: fDesc.value.trim(),
-      tiktok: fTikTok.value.trim(),
-      youtube: fYouTube.value.trim(),
-      insta: fInsta.value.trim()
-    };
-    if(!data.title){ alert('Укажи заголовок.'); return; }
-    if(!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
-
-    // 1) Вставка на страницу
-    const html=buildNewsHTML(data);
-    const container=getNewsContainer();
-    if(container){
-      container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
     }
+    function getNewsContainer(){ return document.querySelector('#news .post') || document.getElementById('news'); }
 
-    // 2) Показать экспорт-код (на случай ручной вставки)
-    exportWrap.style.display='block';
-    exportHtml.value=html;
+    publishBtn.addEventListener('click', ()=>{
+      const data={
+        date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
+        title: fTitle.value.trim(),
+        desc: fDesc.value.trim(),
+        tiktok: fTikTok.value.trim(),
+        youtube: fYouTube.value.trim(),
+        insta: fInsta.value.trim()
+      };
+      if(!data.title){ alert('Укажи заголовок.'); return; }
+      if(!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
 
-    // 3) Отправка на воркер (если настроен)
-    if(/^https?:\/\//.test(WORKER_BASE)){
-      fetch(WORKER_BASE + '/publish', {
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'x-admin-key':'30Mu30Fasa'   // должен совпадать с ADMIN_KEY в воркере
-        },                               // <— ВАЖНО: эта запятая была пропущена
-        body: JSON.stringify(data)
-      }).then(r=>r.json().catch(()=>({})))
-        .then(res=>{
-          if(!res || !res.ok){
-            console.error('Publish failed:', res);
-            alert('Не удалось сохранить на сервере. Код новости показан ниже — вставь вручную.');
-          } else {
-            console.log('Publish OK');
-          }
+      // 1) мгновенная вставка в DOM
+      const html=buildNewsHTML(data);
+      const container=getNewsContainer();
+      if(container){
+        container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
+      }
+
+      // 2) показать экспорт-код на всякий случай
+      exportWrap.style.display='block';
+      exportHtml.value=html;
+
+      // 3) отправка в воркер — расширенный вывод ошибки
+      if(/^https?:\/\//.test(WORKER_BASE)){
+        fetch(WORKER_BASE + '/publish', {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+            'x-admin-key':'30Mu30Fasa'
+          },
+          body: JSON.stringify(data)
         })
-        .catch(err=>{
-          console.error(err);
-          alert('Ошибка сети при сохранении. Код новости показан ниже — вставь вручную.');
+        .then(async (r)=>{
+          const text = await r.text();
+          let json; try{ json = JSON.parse(text);}catch(_){}
+          if (!r.ok || !json?.ok){
+            console.error('Worker publish error:', {status:r.status, text});
+            alert('Ошибка публикации ('+r.status+'): \n' + text);
+            return;
+          }
+          console.log('Publish OK:', json);
+          alert('Опубликовано и сохранено в GitHub.');
+        })
+        .catch((err)=>{
+          console.error('Network/JS error:', err);
+          alert('Сетевая ошибка: ' + (err?.message || err));
         });
-    } else {
-      alert('WORKER_BASE не настроен — автосохранение отключено. Используй код ниже для ручной вставки.');
-    }
-  });
+      } else {
+        alert('WORKER_BASE не настроен — автосохранение отключено. Используй код ниже для ручной вставки.');
+      }
+    });
 
-  copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
-})();
-</script>
+    copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
+  })();
+  </script>
+</body>
+</html>
