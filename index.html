@@ -2,61 +2,130 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>TechnoRill — Блог о технике</title>
 <link rel="icon" href="logo1.png" type="image/png"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
 <style>
-:root{ --accent:#00cc66; --accent2:#00ff80; --panel:rgba(0,0,0,.75); --line:#333; }
+:root{
+  --accent:#00cc66;
+  --accent2:#00ff80;
+  --panel:rgba(0,0,0,.75);
+  --panel-2:rgba(0,0,0,.9);
+  --line:#333;
+  --radius:12px;
+}
+
+/* базовые */
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,system-ui,sans-serif;color:#ccc;background:#000 url('logo.png') center/contain no-repeat fixed}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;
+  color:#ccc;
+  background:#000 url('logo.png') center/contain no-repeat fixed;
+  -webkit-tap-highlight-color: transparent;
+}
+img{max-width:100%;}
+
+/* заголовок */
 header{background:rgba(0,0,0,.7);text-align:center;padding:40px 20px}
 header img{width:120px;height:auto;border-radius:50%}
-h1{margin:20px 0 0;font-size:2.5rem;color:var(--accent)}
-.content{max-width:980px;margin:40px auto;background:var(--panel);padding:30px;border-radius:15px}
-.tabs{display:flex;justify-content:center;margin-bottom:30px;border-bottom:1px solid var(--line);gap:12px}
-.tab{padding:10px 20px;cursor:pointer;color:#888;border-bottom:3px solid transparent;transition:.25s;border-radius:8px 8px 0 0}
+h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
+
+/* контейнер */
+.content{
+  width:min(1120px,92vw);
+  margin:40px auto;
+  background:var(--panel);
+  padding: clamp(18px,2.5vw,30px);
+  border-radius:var(--radius);
+  box-shadow:0 8px 32px rgba(0,0,0,.35);
+}
+
+/* вкладки */
+.tabs{
+  display:flex;justify-content:center;gap:12px;
+  margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:wrap
+}
+.tab{
+  padding:10px 18px;cursor:pointer;color:#99a3a5;
+  border-bottom:3px solid transparent;transition:.2s;
+  border-radius:8px 8px 0 0;font-weight:600;font-size:clamp(14px,1.8vw,16px)
+}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab:hover{color:var(--accent2)}
 .tab-content{display:none}
 .tab-content.active{display:block}
+
+/* ссылки */
 a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
 a:hover{color:var(--accent2);border-bottom-color:var(--accent2)}
-footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
 
-/* центровка заголовков */
+/* футер */
+footer{
+  background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#aaa;
+  line-height:1.4
+}
+
+/* центр заголовков в секциях */
 #news .post>h1, #fresh .post>h1 { text-align:center }
 
-/* карточка новости */
-.news-item{ position:relative;background:rgba(30,30,30,.5);padding:16px;margin:16px 0;border-radius:12px;border-left:3px solid var(--accent);}
+/* карточки */
+.news-item{
+  position:relative;background:rgba(30,30,30,.55);
+  padding:16px;margin:16px 0;border-radius:var(--radius);
+  border-left:3px solid var(--accent);
+}
 .news-date{color:#9bb5a7;margin-bottom:6px}
 .social-links{display:flex;flex-direction:column;gap:12px;margin-top:14px}
-.social-link{display:flex;align-items:center;padding:12px 16px;background:rgba(50,50,50,.52);border-radius:10px;border:1px solid transparent;transition:.2s}
+.social-link{
+  display:flex;align-items:center;padding:12px 16px;background:rgba(50,50,50,.52);
+  border-radius:10px;border:1px solid transparent;transition:.2s
+}
 .social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
 .social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
 .tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
 
-/* галерея (fresh) */
-.news-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:10px}
-.news-gallery img{width:100%;height:180px;object-fit:cover;border-radius:10px;border:1px solid #2b2b2b;cursor:zoom-in;transition:transform .2s ease}
+/* галерея в свежих */
+.news-gallery{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;margin-top:10px
+}
+.news-gallery img{
+  width:100%;height:clamp(140px,20vw,220px);object-fit:cover;
+  border-radius:10px;border:1px solid #2b2b2b;cursor:zoom-in;transition:transform .2s ease
+}
 .news-gallery img:hover{transform:translateY(-1px)}
 
-/* кнопка удаления только для админа */
-.news-del-btn{position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:10px;border:1px solid #444;background:#111;color:#bbb;cursor:pointer;font-size:13px;display:none}
+/* удаление (только админ) */
+.news-del-btn{
+  position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:10px;border:1px solid #444;
+  background:#111;color:#bbb;cursor:pointer;font-size:13px;display:none
+}
 .news-del-btn:hover{border-color:var(--accent);color:var(--accent2)}
 .admin-active .news-del-btn{display:inline-flex}
 
-/* плейсхолдер пустого списка */
-.news-empty{ text-align:center;color:#7aa68f;background:rgba(30,30,30,.35);border:1px dashed #2f6;padding:16px;border-radius:10px;margin-top:14px }
+/* плейсхолдер пустоты */
+.news-empty{
+  text-align:center;color:#7aa68f;background:rgba(30,30,30,.35);border:1px dashed #2f6;
+  padding:16px;border-radius:10px;margin-top:14px
+}
 
-/* Панель публикации (модал) */
-#publishPanel{position:fixed;inset:auto 12px 12px auto;box-sizing:border-box;width:min(560px,96vw);max-height:92vh;overflow:auto;background:rgba(0,0,0,.94);border:1px solid var(--accent);border-radius:12px;padding:16px;z-index:1200;display:none}
+/* ===== Панель публикации (модал) ===== */
+#publishPanel{
+  position:fixed;inset:auto 12px 12px auto;width:min(560px,96vw);
+  max-height:92vh;overflow:auto;background:var(--panel-2);
+  border:1px solid var(--accent);border-radius:var(--radius);padding:16px;z-index:1200;display:none
+}
 #publishHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
 #publishHeader strong{color:var(--accent2)}
 #ppToggle,#ppCollapse{border:1px solid #444;background:#111;color:#bbb;border-radius:8px;padding:6px 10px;cursor:pointer}
-#publishPanel label{display:block;margin:8px 0 6px}
-#publishPanel input,#publishPanel textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee}
+#publishPanel label{display:block;margin:10px 0 6px;font-weight:600}
+#publishPanel input,#publishPanel textarea{
+  width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#000;color:#eee
+}
 #publishPanel textarea{min-height:120px;resize:vertical}
 #publishPanel .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 #publishPanel .two-col>div{min-width:0}
@@ -68,7 +137,24 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
 #filesPreview{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;margin-top:8px}
 #filesPreview img{width:100%;height:70px;object-fit:cover;border-radius:8px;border:1px solid #2b2b2b}
 
-/* Лайтбокс */
+/* ===== Модал логина (оформление вынесено из inline) ===== */
+#adminModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:12px}
+#adminModal .modal-card{
+  width:min(520px,92vw);background:#111;border:1px solid var(--accent);
+  border-radius:12px;max-height:92vh;overflow:auto;padding:22px 22px 18px
+}
+#adminModal h3{color:var(--accent2);margin:0 0 18px;font-size:clamp(18px,2.4vw,24px)}
+#adminModal label{display:block;margin:14px 0 8px;font-weight:700}
+#adminModal input{
+  width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#000;color:#eee
+}
+#adminModal .btn-row{display:flex;gap:12px;margin-top:18px}
+#adminModal .btn{padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:700}
+#adminModal .btn-primary{border:1px solid var(--accent);background:#002d1f;color:var(--accent2)}
+#adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
+#adminErr{color:#ff6b6b;display:none;margin-top:12px}
+
+/* ===== Лайтбокс ===== */
 #imgLightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1400}
 #imgLightbox.open{display:flex}
 #imgLightbox .lb-wrap{position:relative;max-width:92vw;max-height:92vh}
@@ -76,7 +162,20 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
 #imgLightbox .lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(17,17,17,.8);border:1px solid #444;color:#ddd;border-radius:10px;padding:8px 12px;cursor:pointer}
 #imgLightbox .lb-prev{left:-56px} .lb-next{right:-56px}
 #imgLightbox .lb-close{top:-46px;right:0;transform:none}
-@media (max-width:600px){#imgLightbox .lb-prev{left:8px}#imgLightbox .lb-next{right:8px}}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width:720px){
+  .tabs{gap:6px}
+  .tab{padding:8px 12px}
+  #publishPanel{left:8px;right:8px;bottom:8px}
+  #publishPanel .two-col{grid-template-columns:1fr}
+  .news-gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  #imgLightbox .lb-prev{left:8px} #imgLightbox .lb-next{right:8px}
+}
+@media (min-width:1280px){
+  .content{width:min(1200px,90vw)}
+  .news-gallery img{height:230px}
+}
 </style>
 </head>
 <body>
@@ -105,7 +204,7 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
     <div class="post">
       <h1>Свежие новости о технологиях</h1>
       <!-- FRESH-START -->
-<!-- FRESH-END -->
+      <!-- FRESH-END -->
       <div class="news-empty" id="fresh-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
     </div>
   </div>
@@ -114,7 +213,7 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
     <div class="post">
       <h1>Видео за месяц</h1>
       <!-- NEWS-START -->
-<!-- NEWS-END -->
+      <!-- NEWS-END -->
       <div class="news-empty" id="news-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
     </div>
   </div>
@@ -128,7 +227,7 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
         <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
       </p>
       <p><strong>По вопросам писать:</strong>
-        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_podderzka_Not_Bot</a>
+        <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_pодderzka_Not_Bot</a>
       </p>
     </div>
   </div>
@@ -142,18 +241,18 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
 </footer>
 
 <!-- Модал логина -->
-<div id="adminModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:12px">
-  <div class="modal-card" style="background:#111;border:1px solid var(--accent);border-radius:12px;width:min(520px,92vw);max-height:92vh;overflow:auto;padding:20px">
-    <h3 style="color:var(--accent2);margin:0 0 10px">Вход для администратора</h3>
-    <label>Логин</label>
-    <input id="adminLogin" type="text" placeholder="Логин" style="width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee"/>
-    <label>Пароль</label>
-    <input id="adminPass" type="password" placeholder="Пароль" style="width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#000;color:#eee"/>
-    <div class="btn-row" style="display:flex;gap:10px;margin-top:14px">
-      <button id="adminLoginBtn" class="btn btn-primary" style="padding:8px 14px;border-radius:8px;border:1px solid var(--accent);background:#002d1f;color:var(--accent2)">Войти</button>
-      <button id="adminCancelBtn" class="btn btn-ghost" style="padding:8px 14px;border-radius:8px;border:1px solid #444;background:#222;color:#bbb">Отмена</button>
+<div id="adminModal">
+  <div class="modal-card">
+    <h3>Вход для администратора</h3>
+    <label for="adminLogin">Логин</label>
+    <input id="adminLogin" type="text" placeholder="Логин"/>
+    <label for="adminPass">Пароль</label>
+    <input id="adminPass" type="password" placeholder="Пароль"/>
+    <div class="btn-row">
+      <button id="adminLoginBtn" class="btn btn-primary">Войти</button>
+      <button id="adminCancelBtn" class="btn btn-ghost">Отмена</button>
     </div>
-    <p id="adminErr" style="color:#ff6b6b;display:none;margin-top:10px">Неверные данные</p>
+    <p id="adminErr">Неверные данные</p>
   </div>
 </div>
 
@@ -176,12 +275,11 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
   <div id="fields-common">
     <label>Дата (текст):</label>
     <input id="fDate" type="text" placeholder="27 сентября 2025"/>
-
     <label>Заголовок:</label>
     <input id="fTitle" type="text" placeholder="Заголовок"/>
   </div>
 
-  <!-- Описание — только для "Последних публикаций" -->
+  <!-- Описание — только для новости раздела "Последние публикации" -->
   <div id="fields-desc">
     <label>Описание (для "Последние публикации"):</label>
     <textarea id="fDesc" placeholder="Короткое описание"></textarea>
@@ -190,10 +288,10 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
   <!-- Текст — только для "Свежих новостей" -->
   <div id="fields-text" style="display:none">
     <label>Текст (для "Свежие новости"):</label>
-    <textarea id="fText" placeholder="Основной текст новости (поддерживается перенос строки)"></textarea>
+    <textarea id="fText" placeholder="Основной текст новости (перенос строки поддерживается)"></textarea>
   </div>
 
-  <!-- Поля ссылок — только для "Последние публикации" -->
+  <!-- Ссылки (только для 'news') -->
   <div id="fields-news">
     <div class="two-col">
       <div>
@@ -211,9 +309,9 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;}
     </div>
   </div>
 
-  <!-- Поля для СВЕЖИХ: ссылки + загрузчик -->
+  <!-- Картинки для 'fresh' -->
   <div id="fields-fresh" style="display:none">
-    <label>Ссылки на картинки (каждую с новой строки или через запятую):</label>
+    <label>Ссылки на картинки (по строке):</label>
     <textarea id="fImages" placeholder="https://...jpg
 https://...png"></textarea>
 
@@ -222,7 +320,7 @@ https://...png"></textarea>
     <div id="filesPreview"></div>
   </div>
 
-  <button id="publishBtn" style="margin-top:12px;padding:10px 14px;border-radius:8px;border:1px solid var(--accent);background:#002d1f;color:var(--accent2);cursor:pointer;width:100%">Опубликовать</button>
+  <button id="publishBtn" style="margin-top:12px;padding:12px 16px;border-radius:10px;border:1px solid var(--accent);background:#002d1f;color:var(--accent2);cursor:pointer;width:100%;font-weight:700">Опубликовать</button>
 </div>
 
 <!-- Лайтбокс -->
@@ -236,7 +334,7 @@ https://...png"></textarea>
 </div>
 
 <script>
-/* вкладки + копирование почты + protected вход по долгу на футере */
+/* вкладки + копирование почты + вход по долгому нажатию */
 document.addEventListener('DOMContentLoaded', () => {
   const email = document.getElementById('email');
   email?.addEventListener('click', () => navigator.clipboard.writeText(email.textContent.trim()));
@@ -251,22 +349,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // защита: вход только при удержании 1 сек
+  // защита: вход только при удержании 1с
   const footer = document.querySelector('footer');
-  let holdTimer;
-  const startHold = ()=> holdTimer = setTimeout(()=>window.openLoginModal && window.openLoginModal(), 1000);
-  const stopHold  = ()=> clearTimeout(holdTimer);
-  footer?.addEventListener('mousedown', startHold);
-  footer?.addEventListener('mouseup', stopHold);
-  footer?.addEventListener('mouseleave', stopHold);
-  footer?.addEventListener('touchstart', startHold, {passive:true});
-  footer?.addEventListener('touchend', stopHold);
-  footer?.addEventListener('touchcancel', stopHold);
+  let timer;
+  const start = ()=> { timer = setTimeout(()=>window.openLoginModal && window.openLoginModal(), 1000); };
+  const stop  = ()=> { clearTimeout(timer); };
+  footer?.addEventListener('mousedown', start);
+  footer?.addEventListener('mouseup', stop);
+  footer?.addEventListener('mouseleave', stop);
+  footer?.addEventListener('touchstart', start, {passive:true});
+  footer?.addEventListener('touchend', stop);
+  footer?.addEventListener('touchcancel', stop);
 });
 </script>
 
 <script>
-/* ====== Админ/Публикация/Удаление + Upload ====== */
+/* ====== Админ / Публикация / Удаление / Upload ====== */
 (function(){
   const WORKER_BASE  = 'https://falling-term-2b37.garkovkirill.workers.dev';
   const ADMIN_HEADER = '30Mu30Fasa';
@@ -276,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const HASH_PASS ='7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
   async function sha256Hex(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(SALT+s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 
-  // DOM
+  // элементы
   const adminModal=document.getElementById('adminModal');
   const adminLoginBtn=document.getElementById('adminLoginBtn');
   const adminCancelBtn=document.getElementById('adminCancelBtn');
@@ -291,8 +389,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fDate=document.getElementById('fDate');
   const fTitle=document.getElementById('fTitle');
-  const fDesc=document.getElementById('fDesc'); // только news
-  const fText=document.getElementById('fText'); // только fresh
+  const fDesc=document.getElementById('fDesc'); // news
+  const fText=document.getElementById('fText'); // fresh
   const fTikTok=document.getElementById('fTikTok');
   const fYouTube=document.getElementById('fYouTube');
   const fInsta=document.getElementById('fInsta');
@@ -311,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsPost=document.querySelector('#news .post');
   const freshPost=document.querySelector('#fresh .post');
 
-  // открытие логина глобально
+  // открыть логин из футера
   function openLoginModal(){
     adminErr.style.display='none'; loginInput.value=''; passInput.value='';
     adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
@@ -344,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(err){ console.error(err); adminErr.style.display='block'; }
   }
 
-  // Панель: свернуть/закрыть
+  // свернуть/закрыть панель
   ppClose.addEventListener('click',()=> PUBLISH_PANEL.style.display='none');
   let collapsed=false;
   ppToggle.addEventListener('click',()=>{
@@ -355,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ppToggle.textContent = collapsed ? '▸' : '▾';
   });
 
-  // Переключение раздела
+  // выбор раздела
   let section='news';
   function reflectSection(){
     fieldsDesc.style.display = section==='news' ? '' : 'none';
@@ -422,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return card;
   }
 
-  // Публикация
+  // публикация
   publishBtn.addEventListener('click', ()=>{
     const data = {
       id: uid(),
@@ -459,7 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
-  // Удаление (делегированно)
+  // удаление
   document.addEventListener('click', e=>{
     const btn = e.target.closest('.news-del-btn'); if(!btn) return;
     const card = btn.closest('.news-item'); if(!card) return;
@@ -478,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
-  // ===== Загрузка изображений в GitHub через воркер (/upload) =====
+  // ===== загрузка изображений через воркер (/upload) =====
   async function uploadOne(file){
     const fd = new FormData();
     fd.append('file', file, file.name);
@@ -490,20 +588,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filesInput.addEventListener('change', async ()=>{
     if (!filesInput.files || !filesInput.files.length) return;
-    // Показ превью
     filesPreview.innerHTML='';
     [...filesInput.files].forEach(f=>{
       const img=document.createElement('img'); img.src=URL.createObjectURL(f); filesPreview.appendChild(img);
     });
 
-    // Загрузка по очереди
     try{
       const urls = [];
       for (const f of filesInput.files){
         const url = await uploadOne(f);
         urls.push(url);
       }
-      // Добавим в textarea ссылки (с новой строки)
       const current = fImages.value.trim();
       fImages.value = (current? (current+"\n"):"") + urls.join("\n");
       alert('Изображения загружены и добавлены в форму.');
