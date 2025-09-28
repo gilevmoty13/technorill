@@ -18,11 +18,13 @@
     a { color:#00cc66; cursor:pointer; text-decoration:none; border-bottom:1px dashed #00cc66; }
     a:hover { color:#00ff80; border-bottom:1px solid #00ff80; }
     .notification { position:fixed; top:20px; right:20px; background:rgba(0,200,100,.9); color:#fff; padding:10px 20px; border-radius:5px; display:none; z-index:1000; }
+
     .tabs { display:flex; justify-content:center; margin-bottom:30px; border-bottom:1px solid #333; }
     .tab { padding:10px 20px; cursor:pointer; color:#888; border-bottom:3px solid transparent; transition:all .3s; }
     .tab.active { color:#00cc66; border-bottom:3px solid #00cc66; }
     .tab:hover { color:#00ff80; }
     .tab-content { display:none; } .tab-content.active { display:block; }
+
     .news-item { background:rgba(30,30,30,.5); padding:15px; margin-bottom:20px; border-radius:8px; border-left:3px solid #00cc66; }
     .news-date { color:#888; font-size:.9em; margin-bottom:5px; }
     .social-links { display:flex; flex-direction:column; gap:15px; margin-top:20px; }
@@ -30,14 +32,51 @@
     .social-link:hover { background:rgba(70,70,70,.7); border-color:#00cc66; transform:translateY(-2px); }
     .social-icon { font-size:24px; margin-right:15px; width:30px; text-align:center; }
     .tiktok-icon { color:#fff; } .youtube-icon{ color:#f00; } .instagram-icon{ color:#E4405F; }
+
     #contacts .post { text-align:center; display:flex; flex-direction:column; align-items:center; }
     #contacts .social-links { width:100%; max-width:400px; margin:0 auto; }
     #contacts .social-link { justify-content:center; text-align:left; }
+
     /* Панель публикации адаптивная */
-    #publishPanel{ box-sizing:border-box; width:min(520px,96vw); right:12px; bottom:12px; max-height:90vh; overflow:auto; position:fixed; background:rgba(0,0,0,.92); border:1px solid #00cc66; border-radius:12px; padding:16px; z-index:1199; display:none; }
-    #publishPanel textarea{ width:100%; min-height:160px; }
+    #publishPanel{
+      box-sizing:border-box; width:min(520px,96vw);
+      right:12px; bottom:12px; max-height:90vh; overflow:auto;
+      position:fixed; background:rgba(0,0,0,.92); border:1px solid #00cc66;
+      border-radius:12px; padding:16px; z-index:1199; display:none;
+    }
+    #publishPanel label{ display:block; margin:8px 0 6px; }
+    #publishPanel textarea{ width:100%; min-height:160px; resize:vertical; }
+    #publishPanel input, #publishPanel textarea, #publishPanel button{ box-sizing:border-box; }
+    #publishPanel input, #publishPanel textarea{
+      width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee; min-width:0; word-break:break-word;
+    }
     #publishPanel .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    @media (max-width:560px){ #publishPanel{ left:8px; right:8px; top:8px; bottom:8px; width:auto; max-height:calc(100vh - 16px);} #publishPanel .two-col{ grid-template-columns:1fr; } }
+    #publishPanel .two-col > div{ min-width:0; }
+    @media (max-width:560px){
+      #publishPanel{ left:8px; right:8px; top:8px; bottom:8px; width:auto; max-height:calc(100vh - 16px);}
+      #publishPanel .two-col{ grid-template-columns:1fr; }
+    }
+
+    /* --- Admin login modal: аккуратные поля и размеры (как в панели публикации) --- */
+    #adminModal{
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,.6);
+      z-index:1200; align-items:center; justify-content:center; padding:12px;
+    }
+    #adminModal .modal-card{
+      background:#111; border:1px solid #00cc66; border-radius:12px;
+      width:min(520px,92vw); max-height:92vh; overflow:auto; padding:20px; box-sizing:border-box; margin:0 auto;
+    }
+    #adminModal h3{ color:#00ff80; margin:0 0 10px; }
+    #adminModal label{ display:block; margin:10px 0 6px; }
+    #adminModal input{
+      width:100%; padding:10px; border-radius:8px; border:1px solid #333;
+      background:#000; color:#eee; box-sizing:border-box;
+    }
+    #adminModal .btn-row{ display:flex; gap:10px; margin-top:14px; }
+    #adminModal .btn{ padding:8px 14px; border-radius:8px; cursor:pointer; }
+    #adminModal .btn-primary{ border:1px solid #00cc66; background:#002d1f; color:#00ff80; }
+    #adminModal .btn-ghost{ border:1px solid #444; background:#222; color:#bbb; }
+    #adminErr{ color:#ff6b6b; display:none; margin-top:10px; }
   </style>
 </head>
 <body>
@@ -52,6 +91,9 @@
   <div class="content">
     <div class="tabs">
       <div class="tab active" data-tab="main">Главная</div>
+      <!-- НОВАЯ ВКЛАДКА -->
+      <div class="tab" data-tab="fresh-news">Свежие новости о технологиях</div>
+      <!-- /НОВАЯ ВКЛАДКА -->
       <div class="tab" data-tab="news">Новости</div>
       <div class="tab" data-tab="contacts">Контакты</div>
     </div>
@@ -62,6 +104,15 @@
         <p>Канал TechnoRill рассказывает о технике и гаджетах!</p>
       </div>
     </div>
+
+    <!-- СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
+    <div id="fresh-news" class="tab-content">
+      <div class="post">
+        <h1>Свежие новости о технологиях</h1>
+        <p>Здесь публикуются самые новые и интересные новости из мира технологий 🚀</p>
+      </div>
+    </div>
+    <!-- /СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
 
     <div id="news" class="tab-content">
       <div class="post">
@@ -96,7 +147,7 @@
           <span style="margin-left:5px; font-size:.9em; color:#888;">(кликните чтобы скопировать)</span>
         </p>
         <p><strong>По вопросам писать:</strong> 
-          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_podderzka_Not_Bot</a>
+          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_pодderzka_Not_Bот</a>
         </p>
       </div>
     </div>
@@ -107,19 +158,19 @@
     <p style="margin-top:10px; font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
   </footer>
 
-  <!-- Модал логина -->
-  <div id="adminModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:1200; align-items:center; justify-content:center;">
-    <div style="background:#111; border:1px solid #00cc66; border-radius:12px; width:min(520px,92vw); padding:20px;">
-      <h3 style="margin:0 0 10px; color:#00ff80">Вход для администратора</h3>
-      <label style="display:block; margin:10px 0 6px;">Логин</label>
-      <input id="adminLogin" type="text" placeholder="Логин" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      <label style="display:block; margin:12px 0 6px;">Пароль</label>
-      <input id="adminPass" type="password" placeholder="Пароль" style="width:100%; padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
-      <div style="display:flex; gap:10px; margin-top:14px;">
-        <button id="adminLoginBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer">Войти</button>
-        <button id="adminCancelBtn" style="padding:8px 14px; border-radius:8px; border:1px solid #444; background:#222; color:#bbb; cursor:pointer">Отмена</button>
+  <!-- Модал логина (обновлено) -->
+  <div id="adminModal">
+    <div class="modal-card">
+      <h3>Вход для администратора</h3>
+      <label>Логин</label>
+      <input id="adminLogin" type="text" placeholder="Логин">
+      <label>Пароль</label>
+      <input id="adminPass" type="password" placeholder="Пароль">
+      <div class="btn-row">
+        <button id="adminLoginBtn" class="btn btn-primary">Войти</button>
+        <button id="adminCancelBtn" class="btn btn-ghost">Отмена</button>
       </div>
-      <p id="adminErr" style="color:#ff6b6b; display:none; margin-top:10px;">Неверные данные</p>
+      <p id="adminErr">Неверные данные</p>
     </div>
   </div>
 
@@ -131,26 +182,26 @@
     </div>
 
     <label>Дата (текст):</label>
-    <input id="fDate" type="text" placeholder="27 сентября 2025" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+    <input id="fDate" type="text" placeholder="27 сентября 2025">
 
     <label>Заголовок:</label>
-    <input id="fTitle" type="text" placeholder="Вышло новое видео!" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+    <input id="fTitle" type="text" placeholder="Вышло новое видео!">
 
     <label>Описание (необязательно):</label>
-    <input id="fDesc" type="text" placeholder="Короткое описание" style="width:100%; padding:8px; margin:6px 0 10px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+    <input id="fDesc" type="text" placeholder="Короткое описание">
 
     <div class="two-col">
       <div>
         <label>TikTok ссылка:</label>
-        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/...">
       </div>
       <div>
         <label>YouTube ссылка:</label>
-        <input id="fYouTube" type="url" placeholder="https://youtube.com/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+        <input id="fYouTube" type="url" placeholder="https://youtube.com/...">
       </div>
       <div>
         <label>Instagram ссылка:</label>
-        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/..." style="width:100%; padding:8px; border-radius:8px; border:1px solid #333; background:#000; color:#eee">
+        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/...">
       </div>
     </div>
 
@@ -158,8 +209,8 @@
 
     <div id="exportWrap" style="display:none; margin-top:12px;">
       <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
-      <textarea id="exportHtml" rows="8" style="width:100%; background:#000; color:#eee; border:1px solid #333; border-radius:8px; padding:8px;"></textarea>
-      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer;">Скопировать</button>
+      <textarea id="exportHtml" rows="8"></textarea>
+      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002д1f; color:#00ff80; cursor:pointer;">Скопировать</button>
     </div>
   </div>
 
@@ -190,16 +241,14 @@
     });
   </script>
 
-  <!-- Админ-логика (хэши логина/пароля + автосохранение через воркер) -->
+  <!-- Админ-логика (вход + публикация) -->
   <script>
   (function() {
-    // 1) Укажи адрес своего воркера:
     const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
 
-    // 2) Хэши логина/пароля (SHA-256 + соль) — чтобы не светились явные строки
     const SALT = 'trill#2025';
-    const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323'; // "Techno RiLL"
-    const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46'; // "300302Mufasa"
+    const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
+    const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
 
     async function sha256Hex(str){ const data=new TextEncoder().encode(SALT+str); const buf=await crypto.subtle.digest('SHA-256',data); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
 
@@ -286,7 +335,7 @@
       exportWrap.style.display='block';
       exportHtml.value=html;
 
-      // 3) автосохранение через воркер (коммит в репо)
+      // 3) (опционально) отправка на воркер
       if(/^https?:\/\//.test(WORKER_BASE)){
         fetch(WORKER_BASE + '/publish', {
           method:'POST',
