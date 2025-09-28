@@ -121,7 +121,7 @@
         <div class="news-item">
           <div class="news-date">27 сентября 2025</div>
           <h3>Очищать память на iPhone стало легче?</h3>
-          <p>В этом видео ты узнаешь об очень полезном приложении для iPhone!</p>
+          <p>В этом видео ты узнаешь об очень полезным приложении для iPhone!</p>
           <div class="social-links">
             <a href="https://www.tiktok.com/@technorill/video/7553701581309480214" target="_blank" class="social-link">
               <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
@@ -144,7 +144,7 @@
         <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
         <p><strong>Почта для предложений:</strong> 
           <span id="email" style="color:#00cc66; cursor:pointer; border-bottom:1px dashed #00cc66;">garkovivan8430@gmail.com</span>
-          <span style="margin-left:5px; font-size:.9em; color:#888;">(кликните чтобы скопировать)</span>
+          <span style="margin-left:5px; font-size:.9ем; color:#888;">(кликните чтобы скопировать)</span>
         </p>
         <p><strong>По вопросам писать:</strong> 
           <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_pодderzka_Not_Bот</a>
@@ -288,7 +288,7 @@
     async function tryLogin(){
       const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
       const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
-      if(okLogin&&okPass){ adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
+      if(okLogin&&окPass){ adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
       else adminErr.style.display='block';
     }
     adminLoginBtn.addEventListener('click', tryLogin);
@@ -335,25 +335,28 @@
       exportWrap.style.display='block';
       exportHtml.value=html;
 
-      // 3) (опционально) отправка на воркер
+      // 3) отправка на воркер с ADMIN_KEY
       if(/^https?:\/\//.test(WORKER_BASE)){
         fetch(WORKER_BASE + '/publish', {
           method:'POST',
-          headers:{ 'Content-Type':'application/json' },
+          headers:{
+            'Content-Type':'application/json',
+            'x-admin-key':'30Mu30Fasa'   // ← добавлен твой ADMIN_KEY
+          },
           body: JSON.stringify(data)
-        }).then(r=>r.json().catch(()=>({})))
-          .then(res=>{
-            if(!res || !res.ok){
-              console.error('Publish failed:', res);
-              alert('Не удалось сохранить на сервере. Код новости показан ниже — вставь вручную.');
-            } else {
-              console.log('Publish OK');
-            }
-          })
-          .catch(err=>{
-            console.error(err);
-            alert('Ошибка сети при сохранении. Код новости показан ниже — вставь вручную.');
-          });
+        })
+        .then(async r => {
+          let payload = null; try{ payload = await r.json(); }catch{}
+          if(!r.ok || !payload || !payload.ok){
+            throw new Error(`HTTP ${r.status} ${r.statusText} | ${JSON.stringify(payload)}`);
+          }
+          return payload;
+        })
+        .then(()=>{ console.log('Publish OK'); })
+        .catch(err=>{
+          console.error('Publish failed:', err);
+          alert('Сохранение через воркер не удалось. Подробности в консоли.');
+        });
       } else {
         alert('WORKER_BASE не настроен — автосохранение отключено. Используй код ниже для ручной вставки.');
       }
