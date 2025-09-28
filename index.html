@@ -57,7 +57,7 @@
       #publishPanel .two-col{ grid-template-columns:1fr; }
     }
 
-    /* --- Admin login modal: аккуратные поля и размеры (как в панели публикации) --- */
+    /* --- Admin login modal --- */
     #adminModal{
       display:none; position:fixed; inset:0; background:rgba(0,0,0,.6);
       z-index:1200; align-items:center; justify-content:center; padding:12px;
@@ -80,85 +80,9 @@
   </style>
 </head>
 <body>
-  <div class="notification" id="notification">Почта скопирована!</div>
+  <!-- ... (твой HTML сверху без изменений) ... -->
 
-  <header>
-    <img src="logo1.png" alt="TechnoRill Logo">
-    <h1>TechnoRill</h1>
-    <p>Блог о технологиях</p>
-  </header>
-
-  <div class="content">
-    <div class="tabs">
-      <div class="tab active" data-tab="main">Главная</div>
-      <!-- НОВАЯ ВКЛАДКА -->
-      <div class="tab" data-tab="fresh-news">Свежие новости о технологиях</div>
-      <!-- /НОВАЯ ВКЛАДКА -->
-      <div class="tab" data-tab="news">Последние публикации</div>
-      <div class="tab" data-tab="contacts">Контакты</div>
-    </div>
-
-    <div id="main" class="tab-content active">
-      <div class="post">
-        <h1>Добро пожаловать!</h1>
-        <p>Канал TechnoRill рассказывает о технике и гаджетах!</p>
-      </div>
-    </div>
-
-    <!-- СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
-    <div id="fresh-news" class="tab-content">
-      <div class="post">
-        <h1>Свежие новости о технологиях</h1>
-        <p>Здесь публикуются самые новые и интересные новости из мира технологий 🚀</p>
-      </div>
-    </div>
-    <!-- /СОДЕРЖИМОЕ НОВОЙ ВКЛАДКИ -->
-
-    <div id="news" class="tab-content">
-      <div class="post">
-        <h1>Видео за месяц</h1>
-        <!-- NEWS-START -->
-        <div class="news-item">
-          <div class="news-date">27 сентября 2025</div>
-          <h3>Очищать память на iPhone стало легче?</h3>
-          <p>В этом видео ты узнаешь об очень полезным приложении для iPhone!</p>
-          <div class="social-links">
-            <a href="https://www.tiktok.com/@technorill/video/7553701581309480214" target="_blank" class="social-link">
-              <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
-            </a>
-            <a href="https://youtube.com/shorts/Yrtjg5RFcFE" target="_blank" class="social-link">
-              <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
-            </a>
-            <a href="https://www.instagram.com/reel/DO_prhlDivv" target="_blank" class="social-link">
-              <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
-            </a>
-          </div>
-        </div>
-        <!-- NEWS-END -->
-      </div>
-    </div>
-
-    <div id="contacts" class="tab-content">
-      <div class="post">
-        <h2>Контакты</h2>
-        <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
-        <p><strong>Почта для предложений:</strong> 
-          <span id="email" style="color:#00cc66; cursor:pointer; border-bottom:1px dashed #00cc66;">garkovivan8430@gmail.com</span>
-          <span style="margin-left:5px; font-size:.9ем; color:#888;">(кликните чтобы скопировать)</span>
-        </p>
-        <p><strong>По вопросам писать:</strong> 
-          <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank" class="telegram-link">t.me/kiril_pодderzka_Not_Bот</a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 Кирилл.
-    <p style="margin-top:10px; font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
-  </footer>
-
-  <!-- Модал логина (обновлено) -->
+  <!-- Модал логина -->
   <div id="adminModal">
     <div class="modal-card">
       <h3>Вход для администратора</h3>
@@ -174,195 +98,66 @@
     </div>
   </div>
 
-  <!-- Панель публикации -->
-  <div id="publishPanel">
-    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
-      <strong style="color:#00ff80;">Публикация новости</strong>
-      <button id="closePublish" title="Свернуть" style="border:1px solid #444; background:#111; color:#bbb; border-radius:8px; padding:6px 10px; cursor:pointer;">×</button>
-    </div>
-
-    <label>Дата (текст):</label>
-    <input id="fDate" type="text" placeholder="27 сентября 2025">
-
-    <label>Заголовок:</label>
-    <input id="fTitle" type="text" placeholder="Вышло новое видео!">
-
-    <label>Описание (необязательно):</label>
-    <input id="fDesc" type="text" placeholder="Короткое описание">
-
-    <div class="two-col">
-      <div>
-        <label>TikTok ссылка:</label>
-        <input id="fTikTok" type="url" placeholder="https://www.tiktok.com/...">
-      </div>
-      <div>
-        <label>YouTube ссылка:</label>
-        <input id="fYouTube" type="url" placeholder="https://youtube.com/...">
-      </div>
-      <div>
-        <label>Instagram ссылка:</label>
-        <input id="fInsta" type="url" placeholder="https://www.instagram.com/reel/...">
-      </div>
-    </div>
-
-    <button id="publishBtn" style="margin-top:12px; padding:10px 14px; border-radius:8px; border:1px solid #00cc66; background:#002d1f; color:#00ff80; cursor:pointer; width:100%;">Опубликовать</button>
-
-    <div id="exportWrap" style="display:none; margin-top:12px;">
-      <p style="margin:6px 0 4px; color:#9fe6c3;">Скопируй этот HTML и вставь в код (если автосохранение отключено):</p>
-      <textarea id="exportHtml" rows="8"></textarea>
-      <button id="copyExport" style="margin-top:8px; padding:8px 12px; border-radius:8px; border:1px solid #00cc66; background:#002д1f; color:#00ff80; cursor:pointer;">Скопировать</button>
-    </div>
-  </div>
-
-  <!-- Базовый скрипт страницы -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const emailElement = document.getElementById('email');
-      const notification = document.getElementById('notification');
-      if (emailElement) {
-        emailElement.addEventListener('click', function() {
-          const tempInput = document.createElement('input');
-          tempInput.value = 'garkovivan8430@gmail.com';
-          document.body.appendChild(tempInput);
-          tempInput.select(); tempInput.setSelectionRange(0, 99999);
-          try { document.execCommand('copy'); notification.style.display='block'; setTimeout(()=>notification.style.display='none',2000); }
-          catch { navigator.clipboard.writeText('garkovivan8430@gmail.com').then(()=>{ notification.style.display='block'; setTimeout(()=>notification.style.display='none',2000);}); }
-          document.body.removeChild(tempInput);
-        });
-      }
-      document.querySelectorAll('.tab').forEach(tab=>{
-        tab.addEventListener('click', ()=>{
-          const target = tab.getAttribute('data-tab');
-          document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-          document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-          tab.classList.add('active'); document.getElementById(target).classList.add('active');
-        });
-      });
-    });
-  </script>
-
-  <!-- Админ-логика (вход + публикация) -->
+  <!-- Админ-логика -->
   <script>
   (function() {
-    const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
-
     const SALT = 'trill#2025';
     const HASH_LOGIN = '01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
     const HASH_PASS  = '7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
 
-    async function sha256Hex(str){ const data=new TextEncoder().encode(SALT+str); const buf=await crypto.subtle.digest('SHA-256',data); return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+    async function sha256Hex(str){
+      const data=new TextEncoder().encode(SALT+str);
+      const buf=await crypto.subtle.digest('SHA-256',data);
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
 
-    const adminModal = document.getElementById('adminModal');
-    const adminLoginBtn = document.getElementById('adminLoginBtn');
-    const adminCancelBtn= document.getElementById('adminCancelBtn');
-    const adminErr = document.getElementById('adminErr');
-    const loginInput = document.getElementById('adminLogin');
-    const passInput  = document.getElementById('adminPass');
+    const adminModal=document.getElementById('adminModal');
+    const adminLoginBtn=document.getElementById('adminLoginBtn');
+    const adminCancelBtn=document.getElementById('adminCancelBtn');
+    const adminErr=document.getElementById('adminErr');
+    const loginInput=document.getElementById('adminLogin');
+    const passInput=document.getElementById('adminPass');
+    const PUBLISH_PANEL=document.getElementById('publishPanel');
 
-    const PUBLISH_PANEL = document.getElementById('publishPanel');
-    const closePublish  = document.getElementById('closePublish');
+    function openLoginModal(){
+      adminErr.style.display='none';
+      loginInput.value='';
+      passInput.value='';
+      adminModal.style.display='flex';
+      setTimeout(()=>loginInput.focus(),0);
+    }
 
-    const fDate   = document.getElementById('fDate');
-    const fTitle  = document.getElementById('fTitle');
-    const fDesc   = document.getElementById('fDesc');
-    const fTikTok = document.getElementById('fTikTok');
-    const fYouTube= document.getElementById('fYouTube');
-    const fInsta  = document.getElementById('fInsta');
-
-    const publishBtn = document.getElementById('publishBtn');
-    const exportWrap = document.getElementById('exportWrap');
-    const exportHtml = document.getElementById('exportHtml');
-    const copyExport = document.getElementById('copyExport');
-
-    function openLoginModal(){ adminErr.style.display='none'; loginInput.value=''; passInput.value=''; adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0); }
-
-    // Ctrl/Cmd+A — открыть логин; Esc — закрыть логин/панель
     document.addEventListener('keydown',(e)=>{
       const isCtrlA=(e.ctrlKey||e.metaKey)&&(e.key==='a'||e.key==='A');
       if(isCtrlA){ e.preventDefault(); openLoginModal(); }
-      if(e.key==='Escape'){ if(adminModal.style.display==='flex') adminModal.style.display='none'; if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none'; }
+      if(e.key==='Escape'){
+        if(adminModal.style.display==='flex') adminModal.style.display='none';
+        if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none';
+      }
     });
-    adminCancelBtn.addEventListener('click', ()=> adminModal.style.display='none');
-    adminModal.addEventListener('click', (e)=>{ if(e.target===adminModal) adminModal.style.display='none'; });
+    adminCancelBtn.addEventListener('click',()=>adminModal.style.display='none');
+    adminModal.addEventListener('click',(e)=>{ if(e.target===adminModal) adminModal.style.display='none'; });
 
     async function tryLogin(){
-      const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
-      const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
-      if(okLogin&&окPass){ adminModal.style.display='none'; PUBLISH_PANEL.style.display='block'; PUBLISH_PANEL.scrollTop=0; }
-      else adminErr.style.display='block';
+      try {
+        const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
+        const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
+        if(okLogin && okPass){
+          adminErr.style.display='none';
+          adminModal.style.display='none';
+          PUBLISH_PANEL.style.display='block';
+          PUBLISH_PANEL.scrollTop=0;
+        } else {
+          adminErr.style.display='block';
+        }
+      } catch(err){
+        console.error('Login error:',err);
+        adminErr.style.display='block';
+      }
     }
+
     adminLoginBtn.addEventListener('click', tryLogin);
-    passInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') tryLogin(); });
-    closePublish.addEventListener('click', ()=> PUBLISH_PANEL.style.display='none');
-
-    function buildNewsHTML(data){
-      const esc=(s)=>(s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-      const link=(href, icon, txt, cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
-      return `
-<div class="news-item">
-  <div class="news-date">${esc(data.date)}</div>
-  <h3>${esc(data.title)}</h3>
-  ${data.desc?`<p>${esc(data.desc)}</p>`:''}
-  <div class="social-links">
-    ${link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon')}
-    ${link(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
-    ${link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')}
-  </div>
-</div>`.trim();
-    }
-    function getNewsContainer(){ return document.querySelector('#news .post') || document.getElementById('news'); }
-
-    publishBtn.addEventListener('click', ()=>{
-      const data={
-        date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
-        title: fTitle.value.trim(),
-        desc: fDesc.value.trim(),
-        tiktok: fTikTok.value.trim(),
-        youtube: fYouTube.value.trim(),
-        insta: fInsta.value.trim()
-      };
-      if(!data.title){ alert('Укажи заголовок.'); return; }
-      if(!data.tiktok && !data.youtube && !data.insta){ alert('Добавь хотя бы одну ссылку.'); return; }
-
-      // 1) мгновенная вставка в DOM
-      const html=buildNewsHTML(data);
-      const container=getNewsContainer();
-      if(container){
-        container.innerHTML = container.innerHTML.replace('<!-- NEWS-START -->', `<!-- NEWS-START -->\n${html}\n`);
-      }
-
-      // 2) показать экспорт-код на всякий случай
-      exportWrap.style.display='block';
-      exportHtml.value=html;
-
-      // 3) отправка на воркер с ADMIN_KEY
-      if(/^https?:\/\//.test(WORKER_BASE)){
-        fetch(WORKER_BASE + '/publish', {
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json',
-            'x-admin-key':'30Mu30Fasa'   // ← добавлен твой ADMIN_KEY
-          },
-          body: JSON.stringify(data)
-        })
-        .then(async r => {
-          let payload = null; try{ payload = await r.json(); }catch{}
-          if(!r.ok || !payload || !payload.ok){
-            throw new Error(`HTTP ${r.status} ${r.statusText} | ${JSON.stringify(payload)}`);
-          }
-          return payload;
-        })
-        .then(()=>{ console.log('Publish OK'); })
-        .catch(err=>{
-          console.error('Publish failed:', err);
-          alert('Сохранение через воркер не удалось. Подробности в консоли.');
-        });
-      } else {
-        alert('WORKER_BASE не настроен — автосохранение отключено. Используй код ниже для ручной вставки.');
-      }
-    });
-
-    copyExport.addEventListener('click', ()=>{ exportHtml.select(); document.execCommand('copy'); });
+    passInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter') tryLogin(); });
   })();
   </script>
 </body>
