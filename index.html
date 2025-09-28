@@ -34,13 +34,12 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
   border-radius:12px;border-left:3px solid var(--accent);
 }
 .news-date{color:#9bb5a7;margin-bottom:6px}
+.news-content{white-space:pre-line;margin:10px 0}
 .social-links{display:flex;flex-direction:column;gap:12px;margin-top:14px}
 .social-link{display:flex;align-items:center;padding:12px 16px;background:rgba(50,50,50,.52);border-radius:10px;border:1px solid transparent;transition:.2s}
 .social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
 .social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
 .tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
-
-.news-content{margin:10px 0 4px; line-height:1.5}
 
 /* галерея картинок в «Свежих новостях» */
 .news-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:10px}
@@ -101,7 +100,6 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
 #adminModal .btn{padding:8px 14px;border-radius:8px;cursor:pointer}
 #adminModal .btn-primary{border:1px solid var(--accent);background:#002d1f;color:var(--accent2)}
 #adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
-#adminErr{color:#ff6b6b;display:none;margin-top:10px}
 
 /* ---- Лайтбокс картинок ---- */
 #imgLightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1400}
@@ -142,7 +140,7 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
     <div class="post">
       <h1>Свежие новости о технологиях</h1>
       <!-- FRESH-START -->
-<!-- FRESH-END -->
+      <!-- FRESH-END -->
       <div class="news-empty" id="fresh-empty">Пока здесь пусто. Опубликуй первую новость через админ-панель.</div>
     </div>
   </div>
@@ -171,7 +169,9 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
   </div>
 </div>
 
-<footer title="Админ-вход (клик по копирайту)">© 2025 Кирилл.</footer>
+<footer title="Alt+клик — вход для администратора">© 2025 Кирилл.
+  <p style="margin-top:10px;font-size:.8em;">*компания Meta признана экстремистской на территории России</p>
+</footer>
 
 <!-- Модал логина -->
 <div id="adminModal">
@@ -185,7 +185,7 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
       <button id="adminLoginBtn" class="btn btn-primary">Войти</button>
       <button id="adminCancelBtn" class="btn btn-ghost">Отмена</button>
     </div>
-    <p id="adminErr">Неверные данные</p>
+    <p id="adminErr" style="color:#ff6b6b;display:none;margin-top:10px">Неверные данные</p>
   </div>
 </div>
 
@@ -205,22 +205,16 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
     <button data-section="fresh">Свежие новости о технологиях</button>
   </div>
 
-  <div id="fields-common">
-    <label>Дата (текст):</label>
-    <input id="fDate" type="text" placeholder="27 сентября 2025"/>
+  <!-- Общие поля: дата + заголовок -->
+  <label>Дата (текст):</label>
+  <input id="fDate" type="text" placeholder="27 сентября 2025"/>
+  <label>Заголовок:</label>
+  <input id="fTitle" type="text" placeholder="Заголовок"/>
 
-    <label>Заголовок:</label>
-    <input id="fTitle" type="text" placeholder="Заголовок"/>
-
+  <!-- Только для «Последние публикации» -->
+  <div id="fields-news">
     <label>Описание (необязательно):</label>
     <textarea id="fDesc" placeholder="Короткое описание"></textarea>
-
-    <label>Текст (опционально, для обоих разделов):</label>
-    <textarea id="fContent" placeholder="Основной текст новости (поддерживается перенос строки)"></textarea>
-  </div>
-
-  <!-- Поля «Последние публикации» -->
-  <div id="fields-news">
     <div class="two-col">
       <div>
         <label>TikTok ссылка:</label>
@@ -237,18 +231,11 @@ footer{background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#888;curso
     </div>
   </div>
 
-  <!-- Поля «Свежие новости» (+ загрузка изображений) -->
+  <!-- Только для «Свежие новости о технологиях» -->
   <div id="fields-fresh" style="display:none">
-    <label>Загрузка изображений с компьютера:</label>
-    <input id="fUpload" type="file" accept="image/*" multiple>
-    <button id="btnUpload" type="button"
-            style="margin-top:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--accent);
-                   background:#002d1f;color:var(--accent2);cursor:pointer;">
-      Загрузить выбранные
-    </button>
-    <div id="fUploadList" style="margin-top:8px;font-size:.9em;color:#9bb5a7"></div>
-
-    <label>Картинки (URL; по одной в строке, добавляются автоматически после загрузки):</label>
+    <label>Текст новости:</label>
+    <textarea id="fBody" placeholder="Основной текст новости (поддерживается перенос строки)"></textarea>
+    <label>Ссылки на картинки (каждую с новой строки или через запятую):</label>
     <textarea id="fImages" placeholder="https://...jpg
 https://...png"></textarea>
   </div>
@@ -267,7 +254,7 @@ https://...png"></textarea>
 </div>
 
 <script>
-/* вкладки + копирование почты + открытие логина по клику на футер */
+/* вкладки + копирование почты + защищённый вход из футера (Alt+клик) */
 document.addEventListener('DOMContentLoaded', () => {
   const email = document.getElementById('email');
   email?.addEventListener('click', () => navigator.clipboard.writeText(email.textContent.trim()));
@@ -282,12 +269,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelector('footer')?.addEventListener('click', openLoginModal);
+  document.querySelector('footer')?.addEventListener('click', (e)=>{
+    if (e.altKey) openLoginModal();  // защита от случайного клика
+  });
 });
 </script>
 
 <script>
-/* ====== Админ логика + публикация/удаление/загрузка ====== */
+/* ====== Админ логика + публикация/удаление ====== */
 (function(){
   const WORKER_BASE = 'https://falling-term-2b37.garkovkirill.workers.dev';
   const ADMIN_HEADER = '30Mu30Fasa';
@@ -315,16 +304,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const fDate=document.getElementById('fDate');
   const fTitle=document.getElementById('fTitle');
-  const fDesc =document.getElementById('fDesc');
-  const fContent=document.getElementById('fContent');
+  const fDesc =document.getElementById('fDesc');     // только для news
   const fTikTok=document.getElementById('fTikTok');
   const fYouTube=document.getElementById('fYouTube');
   const fInsta=document.getElementById('fInsta');
-  const fImages=document.getElementById('fImages');
 
-  const fUpload=document.getElementById('fUpload');
-  const btnUpload=document.getElementById('btnUpload');
-  const fUploadList=document.getElementById('fUploadList');
+  const fBody=document.getElementById('fBody');      // только для fresh
+  const fImages=document.getElementById('fImages');
 
   const fieldsNews = document.getElementById('fields-news');
   const fieldsFresh= document.getElementById('fields-fresh');
@@ -336,8 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let collapsed=false;
   ppToggle.addEventListener('click', ()=>{
     collapsed = !collapsed;
-    PUBLISH_PANEL.querySelectorAll('#fields-common,#fields-news,#fields-fresh,.section-toggle')
-      .forEach(el=> el.style.display = collapsed ? 'none' : '');
+    PUBLISH_PANEL.querySelectorAll('.section-toggle, #fDate, #fTitle, label[for=fDate], label[for=fTitle], #fields-news, #fields-fresh')
+      .forEach(el=>{ if(!el) return; el.style.display = collapsed ? 'none' : ''; });
     publishBtn.style.display = collapsed ? 'none' : '';
     ppToggle.textContent = collapsed ? '▸' : '▾';
   });
@@ -352,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fieldsFresh.style.display= section==='fresh'? '' : 'none';
   });
 
-  /* клавиатура: Ctrl/Cmd + A — логин | Esc — закрыть */
+  /* клавиатура: Ctrl/Cmd + A — логин, Esc — закрыть */
   document.addEventListener('keydown',(e)=>{
     if((e.ctrlKey||e.metaKey) && (e.key==='a'||e.key==='A')){ e.preventDefault(); openLoginModal(); }
     if(e.key==='Escape'){
@@ -392,10 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsPost  = document.querySelector('#news .post');
   const freshPost = document.querySelector('#fresh .post');
   function ensureEmptyPlaceholders(){
-    const ne = document.getElementById('news-empty');
-    const fe = document.getElementById('fresh-empty');
-    ne.style.display = newsPost.querySelector('.news-item') ? 'none' : '';
-    fe.style.display = freshPost.querySelector('.news-item') ? 'none' : '';
+    document.getElementById('news-empty').style.display  = newsPost.querySelector('.news-item') ? 'none' : '';
+    document.getElementById('fresh-empty').style.display = freshPost.querySelector('.news-item') ? 'none' : '';
   }
   ensureEmptyPlaceholders();
 
@@ -407,7 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
   <div class="news-date">${esc(data.date)}</div>
   <h3>${esc(data.title)}</h3>
   ${data.desc?`<p>${esc(data.desc)}</p>`:''}
-  ${data.content?`<div class="news-content">${esc(data.content).replace(/\n/g,'<br>')}</div>`:''}
   <div class="social-links">
     ${link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon')}
     ${link(data.youtube,'fab fa-youtube','YouTube','youtube-icon')}
@@ -419,13 +402,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildFreshHTML(data){
     const imgs = (data.images||[]).filter(Boolean).map(src=>`<img src="${esc(src)}" alt="">`).join('\n');
+    const body = data.content ? `<div class="news-content">${esc(data.content)}</div>` : '';
     return `<!-- NEWS-ITEM:${esc(data.id)}:START -->
 <div class="news-item" data-id="${esc(data.id)}" data-section="fresh">
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">${esc(data.date)}</div>
   <h3>${esc(data.title)}</h3>
-  ${data.desc?`<p>${esc(data.desc)}</p>`:''}
-  ${data.content?`<div class="news-content">${esc(data.content).replace(/\n/g,'<br>')}</div>`:''}
+  ${body}
   ${imgs?`<div class="news-gallery">${imgs}</div>`:''}
 </div>
 <!-- NEWS-ITEM:${esc(data.id)}:END -->`;
@@ -435,58 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = where==='news' ? newsPost : freshPost;
     const first = wrap.querySelector('.news-item');
     const tmp = document.createElement('div'); tmp.innerHTML = html.trim();
-    // пропустить комментарий перед карточкой:
-    const nodeList = [...tmp.childNodes];
-    const card = nodeList.find(n=> n.nodeType===1 && n.classList.contains('news-item'));
+    // пропускаем комментарий и берём сам <div class="news-item">
+    const card = tmp.querySelector('.news-item');
     if(first) wrap.insertBefore(card, first); else wrap.appendChild(card);
     ensureEmptyPlaceholders();
     return card;
   }
-
-  /* загрузка изображений на GitHub через воркер */
-  async function uploadOneFile(file){
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await fetch(WORKER_BASE + '/upload-image', {
-      method: 'POST',
-      headers: { 'x-admin-key': ADMIN_HEADER },
-      body: fd
-    });
-    const text = await res.text();
-    let json; try{ json = JSON.parse(text); }catch(e){}
-    if (!res.ok || !json?.ok) throw new Error(text);
-    return json.url;
-  }
-
-  btnUpload?.addEventListener('click', async ()=>{
-    const files = fUpload?.files;
-    if (!files || !files.length) { alert('Выберите изображение(я).'); return; }
-    btnUpload.disabled = true;
-    fUploadList.textContent = 'Загрузка...';
-    const urls = [];
-    try{
-      for (const file of files) {
-        if (!/^image\//.test(file.type)) continue;
-        const url = await uploadOneFile(file);
-        urls.push(url);
-        const line = document.createElement('div');
-        line.textContent = 'OK: ' + url;
-        fUploadList.appendChild(line);
-      }
-      if (urls.length){
-        const prev = fImages.value.trim();
-        fImages.value = (prev? (prev + '\n') : '') + urls.join('\n');
-        alert('Изображения загружены. Ссылки подставлены.');
-      } else {
-        alert('Ни одна картинка не загружена.');
-      }
-    } catch(err){
-      console.error(err);
-      alert('Ошибка загрузки: ' + (err?.message || err));
-    } finally {
-      btnUpload.disabled = false;
-    }
-  });
 
   /* публикация */
   publishBtn.addEventListener('click', ()=>{
@@ -494,25 +431,25 @@ document.addEventListener('DOMContentLoaded', () => {
       id: uid(),
       section,
       date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
-      title: fTitle.value.trim(),
-      desc: fDesc.value.trim(),
-      content: fContent.value.trim()
+      title: fTitle.value.trim()
     };
     if(!data.title){ alert('Укажи заголовок.'); return; }
 
     let html='';
     if(section==='news'){
+      data.desc   = fDesc.value.trim();
       data.tiktok = fTikTok.value.trim();
       data.youtube= fYouTube.value.trim();
       data.insta  = fInsta.value.trim();
-      if(!data.tiktok && !data.youtube && !data.insta && !data.content){
-        alert('Добавь ссылки или текст.'); return;
+      if(!data.tiktok && !data.youtube && !data.insta){
+        alert('Добавь хотя бы одну ссылку.'); return;
       }
       html = buildNewsHTML(data);
     }else{
-      const urls = fImages.value.split(/\n|,/).map(s=>s.trim()).filter(Boolean);
+      data.content = fBody.value.trim();
+      const urls = (fImages.value||'').split(/\n|,/).map(s=>s.trim()).filter(Boolean);
       data.images = urls;
-      if(!urls.length && !data.content){ alert('Добавь хотя бы одну картинку или текст.'); return; }
+      if(!data.content && !urls.length){ alert('Добавь текст или хотя бы одну картинку.'); return; }
       html = buildFreshHTML(data);
     }
 
@@ -526,7 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(async r=>{
       const text=await r.text(); let json; try{json=JSON.parse(text)}catch{}
       if(!r.ok||!json?.ok){ console.error('Publish error', r.status, text); alert('Ошибка публикации ('+r.status+'): '+text); }
-      else console.log('Publish OK', json?.retried ? '(retry)' : '');
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
@@ -535,6 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = e.target.closest('.news-del-btn'); if(!btn) return;
     const card = btn.closest('.news-item'); if(!card) return;
     const id = card.getAttribute('data-id');
+    const sec= card.getAttribute('data-section')||'news';
     if(!confirm('Удалить публикацию?')) return;
 
     card.remove(); ensureEmptyPlaceholders();
@@ -542,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(WORKER_BASE + '/delete', {
       method:'POST',
       headers:{'Content-Type':'application/json','x-admin-key':ADMIN_HEADER},
-      body: JSON.stringify({ id })
+      body: JSON.stringify({ id, section: sec })
     }).then(async r=>{
       const text=await r.text(); let json; try{json=JSON.parse(text)}catch{}
       if(!r.ok||!json?.ok){
@@ -551,9 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
-
-  // публичная функция (для клика по футеру)
-  window.openLoginModal = openLoginModal;
 })();
 </script>
 
