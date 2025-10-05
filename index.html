@@ -114,6 +114,79 @@ footer{
   padding:16px;border-radius:10px;margin-top:14px
 }
 
+/* ===== Стили для партнеров ===== */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.partner-card {
+  background: rgba(30,30,30,.55);
+  border-radius: var(--radius);
+  padding: 20px;
+  border-left: 3px solid var(--accent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.partner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 204, 102, 0.1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.partner-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.partner-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+.partner-name {
+  font-size: 1.3em;
+  color: var(--accent2);
+  margin: 0;
+}
+
+.partner-description {
+  color: #ccc;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.partner-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.partner-link {
+  background: rgba(50,50,50,.52);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.partner-card:hover .partner-link {
+  background: var(--accent);
+  color: #000;
+}
+
 /* ===== Панель публикации (модал) ===== */
 #publishPanel{
   position:fixed;inset:auto 12px 12px auto;width:min(560px,96vw);
@@ -171,6 +244,8 @@ footer{
   #publishPanel{left:8px;right:8px;bottom:8px}
   #publishPanel .two-col{grid-template-columns:1fr}
   .news-gallery{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .partners-grid{grid-template-columns:1fr}
+  .partner-header{flex-direction:column;text-align:center;gap:10px}
   #imgLightbox .lb-prev{left:8px} #imgLightbox .lb-next{right:8px}
 }
 @media (min-width:1280px){
@@ -191,6 +266,7 @@ footer{
     <div class="tab active" data-tab="main">Главная</div>
     <div class="tab" data-tab="fresh">Свежие новости о технологиях</div>
     <div class="tab" data-tab="news">Последние публикации</div>
+    <div class="tab" data-tab="collaborations">С кем я сотрудничаю</div>
     <div class="tab" data-tab="contacts">Контакты</div>
   </div>
 
@@ -236,24 +312,91 @@ footer{
     <div class="post">
       <h1>Видео за текущий месяц</h1>
       <!-- NEWS-START -->
-<!-- NEWS-ITEM:mgavt26lkxmn:START -->
-<div class="news-item" data-id="mgavt26lkxmn" data-section="news">
+<!-- NEWS-ITEM:mg6mg1gmw2d6:START -->
+<div class="news-item" data-id="mg6mg1gmw2d6" data-section="news">
   <button class="news-del-btn" title="Удалить">Удалить</button>
-  <div class="news-date">3 октября 2025</div>
-  <h3>Полный обзор Google Pixel 9a за 4 минуты!</h3>
-  <p>Привет! Сегодня я тебе расскажу про Google Pixel 9a более подробно. Будет интерестно! Приятного просмотра.</p>
+  <div class="news-date">30 сентября 2025</div>
+  <h3>Баги в iOS 26?</h3>
+  <p>Привет! Сейчас я тебе расскажу про один из багов iOS 26 и то, как его исправить!</p>
   
   
   <div class="social-links">
-         
-         <a href="https://www.tiktok.com/@technorill/video/7556976963869625622" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtu.be/VKWYQW_2l_A" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DPWSoBEjKjN/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
+         <a href="https://apps.apple.com/md/app/melody-ringtones/id6743745293" target="_blank" class="social-link"><i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div></a>
+         <a href="https://www.tiktok.com/@technorill/video/7555879113744076054" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
+         <a href="https://youtube.com/shorts/GUTaZr5puWs" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
+         <a href="https://www.instagram.com/reel/DPOpF6zFaTs/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
        </div>
 </div>
-<!-- NEWS-ITEM:mgavt26lkxmn:END -->
+<!-- NEWS-ITEM:mg6mg1gmw2d6:END -->
+<!-- NEWS-ITEM:mg406sifb0xv:START -->
+<div class="news-item" data-id="mg406sifb0xv" data-section="news">
+  <button class="news-del-btn" title="Удалить">Удалить</button>
+  <div class="news-date">28 сентября 2025</div>
+  <h3>Громкость на iPhone упала? Вот решение!</h3>
+  <p>Привет! В этом ролике я расскажу, как можно легко почистить динамики iPhone!</p>
+  
+  
+  <div class="social-links">
+         <a href="https://apps.apple.com/md/app/speaker-fix/id6498861898" target="_blank" class="social-link"><i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div></a>
+         <a href="https://www.tiktok.com/@technorill/video/7555189800362380566" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
+         <a href="https://youtube.com/shorts/cQxQ0vmf6Vo" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
+         <a href="https://www.instagram.com/reel/DPJ3RiKCX7D/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
+       </div>
+</div>
+<!-- NEWS-ITEM:mg406sifb0xv:END -->
 <!-- NEWS-END -->
       <div class="news-empty" id="news-empty">Пока здесь пусто.</div>
+    </div>
+  </div>
+
+  <div id="collaborations" class="tab-content">
+    <div class="post">
+      <h1 style="text-align:center">С кем я сотрудничаю</h1>
+      <p style="text-align:center">Я горжусь нашими партнерами и компаниями, с которыми я сотрудничаю для создания качественного контента.</p>
+      
+      <div class="partners-grid">
+        <!-- Карточка Biggeek -->
+        <a href="https://biggeek.ru" target="_blank" class="partner-card">
+          <div class="partner-header">
+            <img src="https://d1fdloi71mui9q.cloudfront.net/dsFrotreTXaf6929s3z6_xuOhhq8Q9U8hn1at" alt="Biggeek" class="partner-logo">
+            <h3 class="partner-name">Biggeek</h3>
+          </div>
+          <div class="partner-description">
+            Интернет-магазин техники и гаджетов с широким ассортиментом товаров для технологических энтузиастов.
+          </div>
+          <div class="partner-links">
+            <span class="partner-link">Официальный сайт</span>
+          </div>
+        </a>
+
+        <!-- Карточка Realme -->
+        <a href="https://realme.com/ru" target="_blank" class="partner-card">
+          <div class="partner-header">
+            <img src="https://cdn1.sgliteasset.com/imt/images/collection/collection-12181/cached/79HZCfav64d209feda0ad_1691486718_420x420.jpg" alt="Realme" class="partner-logo">
+            <h3 class="partner-name">Realme</h3>
+          </div>
+          <div class="partner-description">
+            Производитель смартфонов и техники, предлагающий инновационные устройства по доступным ценам.
+          </div>
+          <div class="partner-links">
+            <span class="partner-link">Официальный сайт</span>
+          </div>
+        </a>
+
+        <!-- Карточка Yandex -->
+        <a href="https://t.me/yandex" target="_blank" class="partner-card">
+          <div class="partner-header">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj4nuwxA9VMyoFHRhJbvm5aoGfjRkvMialqehB94-XWg&s=10" alt="Yandex" class="partner-logo">
+            <h3 class="partner-name">Yandex</h3>
+          </div>
+          <div class="partner-description">
+            Крупнейшая российская технологическая компания, разрабатывающая поисковые системы и IT-сервисы.
+          </div>
+          <div class="partner-links">
+            <span class="partner-link">Официальный сайт</span>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
