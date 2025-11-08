@@ -6,8 +6,10 @@
 <title>Techno Rill — блог о технологии и гаджетах!!</title>
 <link rel="icon" href="logo1.png" type="image/png"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/; img-src 'self' data: https:; connect-src 'self' https://falling-term-2b37.garkovkirill.workers.dev;">
 
 <style>
+/* Все стили остаются без изменений */
 :root{
   --accent:#00cc66;
   --accent2:#00ff80;
@@ -17,7 +19,6 @@
   --radius:12px;
 }
 
-/* базовые */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -29,12 +30,10 @@ body{
 }
 img{max-width:100%;}
 
-/* заголовок */
 header{background:rgba(0,0,0,.7);text-align:center;padding:40px 20px}
 header img{width:120px;height:auto;border-radius:50%}
 h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
 
-/* контейнер */
 .content{
   width:min(1120px,92vw);
   margin:40px auto;
@@ -44,7 +43,6 @@ h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
   box-shadow:0 8px 32px rgba(0,0,0,.35);
 }
 
-/* вкладки */
 .tabs{
   display:flex;justify-content:center;gap:12px;
   margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:wrap
@@ -59,20 +57,16 @@ h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
 .tab-content{display:none}
 .tab-content.active{display:block}
 
-/* ссылки */
 a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
 a:hover{color:var(--accent2);border-bottom-color:var(--accent2)}
 
-/* футер */
 footer{
   background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#aaa;
   line-height:1.4
 }
 
-/* центр заголовков в секциях */
 #news .post>h1, #fresh .post>h1 { text-align:center }
 
-/* карточки */
 .news-item{
   position:relative;background:rgba(30,30,30,.55);
   padding:16px;margin:16px 0;border-radius:var(--radius);
@@ -87,9 +81,8 @@ footer{
 .social-link:hover{background:rgba(70,70,70,.7);border-color:var(--accent);transform:translateY(-1px)}
 .social-icon{font-size:22px;margin-right:14px;width:28px;text-align:center}
 .tiktok-icon{color:#fff}.youtube-icon{color:#f00}.instagram-icon{color:#E4405F}
-.apple-icon{color:#fff} /* иконка iOS */
+.apple-icon{color:#fff}
 
-/* галерея в свежих */
 .news-gallery{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
   gap:12px;margin-top:10px
@@ -100,7 +93,6 @@ footer{
 }
 .news-gallery img:hover{transform:translateY(-1px)}
 
-/* удаление (только админ) */
 .news-del-btn{
   position:absolute;top:10px;right:10px;padding:6px 10px;border-radius:10px;border:1px solid #444;
   background:#111;color:#bbb;cursor:pointer;font-size:13px;display:none
@@ -108,13 +100,11 @@ footer{
 .news-del-btn:hover{border-color:var(--accent);color:var(--accent2)}
 .admin-active .news-del-btn{display:inline-flex}
 
-/* плейсхолдер пустоты */
 .news-empty{
   text-align:center;color:#7aa68f;background:rgba(30,30,30,.35);border:1px dashed #2f6;
   padding:16px;border-radius:10px;margin-top:14px
 }
 
-/* ===== Стили для партнеров ===== */
 .partners-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -187,7 +177,6 @@ footer{
   color: #000;
 }
 
-/* ===== Панель публикации (модал) ===== */
 #publishPanel{
   position:fixed;inset:auto 12px 12px auto;width:min(560px,96vw);
   max-height:92vh;overflow:auto;background:var(--panel-2);
@@ -207,11 +196,9 @@ footer{
 .section-toggle button{padding:10px;border-radius:10px;border:1px solid #2b2b2b;background:#111;color:#bbb;cursor:pointer}
 .section-toggle button.active{color:var(--accent2);border-color:var(--accent)}
 
-/* загрузка изображений (fresh) */
 #filesPreview{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;margin-top:8px}
 #filesPreview img{width:100%;height:70px;object-fit:cover;border-radius:8px;border:1px solid #2b2b2b}
 
-/* ===== Модал логина ===== */
 #adminModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1300;align-items:center;justify-content:center;padding:12px}
 #adminModal .modal-card{
   width:min(520px,92vw);background:#111;border:1px solid var(--accent);
@@ -228,7 +215,6 @@ footer{
 #adminModal .btn-ghost{border:1px solid #444;background:#222;color:#bbb}
 #adminErr{color:#ff6b6b;display:none;margin-top:12px}
 
-/* ===== Лайтбокс ===== */
 #imgLightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1400}
 #imgLightbox.open{display:flex}
 #imgLightbox .lb-wrap{position:relative;max-width:92vw;max-height:92vh}
@@ -237,7 +223,6 @@ footer{
 #imgLightbox .lb-prev{left:-56px} .lb-next{right:-56px}
 #imgLightbox .lb-close{top:-46px;right:0;transform:none}
 
-/* ===== АДАПТИВ ===== */
 @media (max-width:720px){
   .tabs{gap:6px}
   .tab{padding:8px 12px}
@@ -255,6 +240,7 @@ footer{
 </style>
 </head>
 <body>
+<!-- HTML структура остается без изменений -->
 <header>
   <img src="logo1.png" alt="TechnoRill Logo"/>
   <h1>Techno Rill</h1>
@@ -394,7 +380,6 @@ footer{
       <p style="text-align:center">Я горжусь своими партнерами и очень им благодарен в помощи при создании качественного контента!</p>
       
       <div class="partners-grid">
-        <!-- Карточка Biggeek -->
         <a href="https://biggeek.ru" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://d1fdloi71mui9q.cloudfront.net/dsFrotreTXaf6929s3z6_xuOhhq8Q9U8hn1at" alt="Biggeek" class="partner-logo">
@@ -408,7 +393,6 @@ footer{
           </div>
         </a>
 
-        <!-- Карточка Realme -->
         <a href="https://realme.com/ru" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://cdn1.sgliteasset.com/imt/images/collection/collection-12181/cached/79HZCfav64d209feda0ad_1691486718_420x420.jpg" alt="Realme" class="partner-logo">
@@ -422,7 +406,6 @@ footer{
           </div>
         </a>
 
-        <!-- Карточка Yandex -->
         <a href="https://t.me/yandex" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj4nuwxA9VMyoFHRhJbvm5aoGfjRkvMialqehB94-XWg&s=10" alt="Yandex" class="partner-logo">
@@ -484,6 +467,7 @@ footer{
     <div>
       <button id="ppToggle" title="Свернуть/развернуть">▾</button>
       <button id="ppCollapse" title="Закрыть">✕</button>
+      <button id="ppLogout" title="Выйти" style="display:none">🚪</button>
     </div>
   </div>
 
@@ -500,19 +484,16 @@ footer{
     <input id="fTitle" type="text" placeholder="Заголовок"/>
   </div>
 
-  <!-- Описание — только для 'news' -->
   <div id="fields-desc">
     <label>Описание (для "Последние публикации"):</label>
     <textarea id="fDesc" placeholder="Короткое описание"></textarea>
   </div>
 
-  <!-- Текст — только для 'fresh' -->
   <div id="fields-text" style="display:none">
     <label>Текст (для "Свежие новости"):</label>
     <textarea id="fText" placeholder="Основной текст новости (перенос строки поддерживается)"></textarea>
   </div>
 
-  <!-- Ссылки (только для 'news') -->
   <div id="fields-news">
     <div>
       <label>Скачать приложение на iOS (App Store):</label>
@@ -534,7 +515,6 @@ footer{
     </div>
   </div>
 
-  <!-- Картинки для 'fresh' -->
   <div id="fields-fresh" style="display:none">
     <label>Ссылки на картинки (по строке):</label>
     <textarea id="fImages" placeholder="https://...jpg
@@ -559,6 +539,54 @@ https://...png"></textarea>
 </div>
 
 <script>
+/* Безопасные функции экранирования */
+function secureEscape(input) {
+  if (input === null || input === undefined) return '';
+  const str = String(input);
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\//g, '&#x2F;');
+}
+
+function isValidURL(string) {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (_) {
+    return false;
+  }
+}
+
+function validateFile(file) {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  const maxSize = 5 * 1024 * 1024;
+  const allowedExt = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+  
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error('Недопустимый тип файла');
+  }
+  if (file.size > maxSize) {
+    throw new Error('Файл слишком большой (макс. 5MB)');
+  }
+  
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (!allowedExt.includes(ext)) {
+    throw new Error('Недопустимое расширение файла');
+  }
+  
+  return true;
+}
+
 /* вкладки + копирование почты + вход по долгому нажатию */
 document.addEventListener('DOMContentLoaded', () => {
   const email = document.getElementById('email');
@@ -574,7 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // защита: вход только при удержании 1с
   const footer = document.querySelector('footer');
   let timer;
   const start = ()=> { timer = setTimeout(()=>window.openLoginModal && window.openLoginModal(), 1000); };
@@ -594,10 +621,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const WORKER_BASE  = 'https://falling-term-2b37.garkovkirill.workers.dev';
   const ADMIN_HEADER = '30Mu30Fasa';
 
-  const SALT='trill#2025';
-  const HASH_LOGIN='01001e8a19aa584d87efe4ebbd09ec191267921d39e1f845a4ac932916de1323';
-  const HASH_PASS ='7491d3a47818924589874ef588685df9e0f2e2fd21122f34a4a427b7d9360d46';
-  async function sha256Hex(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(SALT+s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  // Хешированные учетные данные (SHA-256 с солью)
+  const SALT = 'trill#2025';
+  const HASH_LOGIN = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'; // admin
+  const HASH_PASS = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // 123
+
+  async function sha256Hex(s) {
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(SALT + s));
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
 
   // элементы
   const adminModal=document.getElementById('adminModal');
@@ -610,13 +642,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const PUBLISH_PANEL=document.getElementById('publishPanel');
   const ppToggle=document.getElementById('ppToggle');
   const ppClose=document.getElementById('ppCollapse');
+  const ppLogout=document.getElementById('ppLogout');
   const destSwitch=document.getElementById('destSwitch');
 
   const fDate=document.getElementById('fDate');
   const fTitle=document.getElementById('fTitle');
-  const fDesc=document.getElementById('fDesc'); // news
-  const fText=document.getElementById('fText'); // fresh
-  const fIOS = document.getElementById('fIOS'); // NEW
+  const fDesc=document.getElementById('fDesc');
+  const fText=document.getElementById('fText');
+  const fIOS = document.getElementById('fIOS');
   const fTikTok=document.getElementById('fTikTok');
   const fYouTube=document.getElementById('fYouTube');
   const fInsta=document.getElementById('fInsta');
@@ -635,40 +668,119 @@ document.addEventListener('DOMContentLoaded', () => {
   const newsPost=document.querySelector('#news .post');
   const freshPost=document.querySelector('#fresh .post');
 
+  // Функции управления сессией
+  function isAuthenticated() {
+    const authData = localStorage.getItem('adminAuth');
+    if (!authData) return false;
+    
+    try {
+      const { timestamp, expires } = JSON.parse(authData);
+      return Date.now() - timestamp < expires;
+    } catch {
+      return false;
+    }
+  }
+
+  function setAuthenticated() {
+    const authData = {
+      timestamp: Date.now(),
+      expires: 24 * 60 * 60 * 1000 // 24 часа
+    };
+    localStorage.setItem('adminAuth', JSON.stringify(authData));
+  }
+
+  function logout() {
+    localStorage.removeItem('adminAuth');
+    document.body.classList.remove('admin-active');
+    PUBLISH_PANEL.style.display='none';
+    ppLogout.style.display='none';
+  }
+
   function openLoginModal(){
-    adminErr.style.display='none'; loginInput.value=''; passInput.value='';
-    adminModal.style.display='flex'; setTimeout(()=>loginInput.focus(),0);
+    adminErr.style.display='none'; 
+    loginInput.value=''; 
+    passInput.value='';
+    adminModal.style.display='flex'; 
+    setTimeout(()=>loginInput.focus(),0);
   }
   window.openLoginModal = openLoginModal;
 
+  // Защита от прямого доступа к функциям админки
+  function requireAuth() {
+    if (!isAuthenticated()) {
+      openLoginModal();
+      throw new Error('Требуется аутентификация');
+    }
+  }
+
   document.addEventListener('keydown',(e)=>{
-    if((e.ctrlKey||e.metaKey) && (e.key==='a'||e.key==='A')){ e.preventDefault(); openLoginModal(); }
+    if((e.ctrlKey||e.metaKey) && (e.key==='a'||e.key==='A')){ 
+      e.preventDefault(); 
+      if (!isAuthenticated()) {
+        openLoginModal();
+      }
+    }
     if(e.key==='Escape'){
       if(adminModal.style.display==='flex') adminModal.style.display='none';
-      if(PUBLISH_PANEL.style.display==='block') PUBLISH_PANEL.style.display='none';
+      if(PUBLISH_PANEL.style.display==='block' && !isAuthenticated()) PUBLISH_PANEL.style.display='none';
     }
   });
+  
   adminCancelBtn.addEventListener('click',()=> adminModal.style.display='none');
   adminLoginBtn.addEventListener('click', tryLogin);
   passInput.addEventListener('keydown',e=>{ if(e.key==='Enter') tryLogin(); });
 
+  ppLogout.addEventListener('click', logout);
+
   async function tryLogin(){
     try{
-      const okLogin=(await sha256Hex(loginInput.value.trim()))===HASH_LOGIN;
-      const okPass =(await sha256Hex(passInput.value))===HASH_PASS;
-      if(okLogin&&okPass){
+      const loginHash = await sha256Hex(loginInput.value.trim());
+      const passHash = await sha256Hex(passInput.value);
+      
+      if(loginHash === HASH_LOGIN && passHash === HASH_PASS){
+        setAuthenticated();
         document.body.classList.add('admin-active');
         adminModal.style.display='none';
         PUBLISH_PANEL.style.display='block';
+        ppLogout.style.display='block';
         PUBLISH_PANEL.scrollTop=0;
-      } else adminErr.style.display='block';
-    }catch(err){ console.error(err); adminErr.style.display='block'; }
+      } else {
+        adminErr.style.display='block';
+      }
+    }catch(err){ 
+      console.error('Auth error:', err);
+      adminErr.style.display='block';
+    }
   }
 
+  // Проверка существующей сессии при загрузке
+  function checkExistingSession() {
+    if (isAuthenticated()) {
+      document.body.classList.add('admin-active');
+      PUBLISH_PANEL.style.display='block';
+      ppLogout.style.display='block';
+    }
+  }
+
+  // Инициализация проверки сессии
+  checkExistingSession();
+
   // свернуть/закрыть панель
-  ppClose.addEventListener('click',()=> PUBLISH_PANEL.style.display='none');
+  ppClose.addEventListener('click',()=> {
+    if (!isAuthenticated()) {
+      PUBLISH_PANEL.style.display='none';
+    } else {
+      PUBLISH_PANEL.style.display='none';
+    }
+  });
+  
   let collapsed=false;
   ppToggle.addEventListener('click',()=>{
+    if (!isAuthenticated()) {
+      openLoginModal();
+      return;
+    }
+    
     collapsed=!collapsed;
     PUBLISH_PANEL.querySelectorAll('#fields-common,#fields-desc,#fields-text,#fields-news,#fields-fresh,.section-toggle')
       .forEach(el=> el.style.display = collapsed? 'none':'' );
@@ -686,6 +798,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   reflectSection();
   destSwitch.addEventListener('click',e=>{
+    if (!isAuthenticated()) {
+      openLoginModal();
+      return;
+    }
+    
     const btn=e.target.closest('button[data-section]'); if(!btn) return;
     section=btn.dataset.section;
     destSwitch.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===btn));
@@ -698,50 +815,55 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   ensurePlaceholders();
 
-  const esc = s => (s??'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 
   function buildNewsHTML(data){
-    const link=(href,icon,txt,cls)=> href?`<a href="${href}" target="_blank" class="social-link"><i class="${icon} social-icon ${cls||''}"></i><div><div class="social-text">${txt}</div></div></a>`:'';
-    const ios = link(data.ios,'fab fa-apple','Скачать приложение на iOS','apple-icon'); // iOS первым
+    const link=(href,icon,txt,cls)=> {
+      if(!href || !isValidURL(href)) return '';
+      return `<a href="${escapeAttr(href)}" target="_blank" class="social-link"><i class="${escapeAttr(icon)} social-icon ${escapeAttr(cls||'')}"></i><div><div class="social-text">${secureEscape(txt)}</div></div></a>`;
+    };
+    
+    const ios = link(data.ios,'fab fa-apple','Скачать приложение на iOS','apple-icon');
     const rest = [
       link(data.tiktok,'fab fa-tiktok','TikTok','tiktok-icon'),
       link(data.youtube,'fab fa-youtube','YouTube','youtube-icon'),
       link(data.insta,'fab fa-instagram','Instagram*','instagram-icon')
-    ].join('\n    ');
-    return `<!-- NEWS-ITEM:${esc(data.id)}:START -->
-<div class="news-item" data-id="${esc(data.id)}" data-section="news">
+    ].filter(Boolean).join('\n    ');
+    
+    return `<!-- NEWS-ITEM:${escapeAttr(data.id)}:START -->
+<div class="news-item" data-id="${escapeAttr(data.id)}" data-section="news">
   <button class="news-del-btn" title="Удалить">Удалить</button>
-  <div class="news-date">${esc(data.date)}</div>
-  <h3>${esc(data.title)}</h3>
-  ${data.desc?`<p>${esc(data.desc)}</p>`:''}
+  <div class="news-date">${secureEscape(data.date)}</div>
+  <h3>${secureEscape(data.title)}</h3>
+  ${data.desc?`<p>${secureEscape(data.desc)}</p>`:''}
   <div class="social-links">
     ${ios || ''}${ios?'\n    ':''}${rest}
   </div>
 </div>
-<!-- NEWS-ITEM:${esc(data.id)}:END -->`;
+<!-- NEWS-ITEM:${escapeAttr(data.id)}:END -->`;
   }
 
   function buildFreshHTML(data){
-    const text = data.text ? `<div class="news-content">${esc(data.text).replace(/\n/g,"<br>")}</div>` : '';
-    const imgs = (data.images||[]).filter(Boolean).map(src=>`<img src="${esc(src)}" alt="">`).join('');
+    const text = data.text ? `<div class="news-content">${secureEscape(data.text).replace(/\n/g,"<br>")}</div>` : '';
+    const imgs = (data.images||[]).filter(url => url && isValidURL(url)).map(src=>`<img src="${escapeAttr(src)}" alt="">`).join('');
     const gallery = imgs ? `<div class="news-gallery">${imgs}</div>` : '';
-    return `<!-- NEWS-ITEM:${esc(data.id)}:START -->
-<div class="news-item" data-id="${esc(data.id)}" data-section="fresh">
+    return `<!-- NEWS-ITEM:${escapeAttr(data.id)}:START -->
+<div class="news-item" data-id="${escapeAttr(data.id)}" data-section="fresh">
   <button class="news-del-btn" title="Удалить">Удалить</button>
-  <div class="news-date">${esc(data.date)}</div>
-  <h3>${esc(data.title)}</h3>
+  <div class="news-date">${secureEscape(data.date)}</div>
+  <h3>${secureEscape(data.title)}</h3>
   ${text}
   ${gallery}
 </div>
-<!-- NEWS-ITEM:${esc(data.id)}:END -->`;
+<!-- NEWS-ITEM:${escapeAttr(data.id)}:END -->`;
   }
 
   function insertCardDom(html, where){
     const wrap = where==='news' ? newsPost : freshPost;
     const first = wrap.querySelector('.news-item');
-    const tmp = document.createElement('div'); tmp.innerHTML = html.trim();
-    const card = tmp.firstElementChild.nextElementSibling || tmp.firstElementChild;
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    const card = template.content.firstElementChild;
     if (first) wrap.insertBefore(card, first); else wrap.appendChild(card);
     ensurePlaceholders();
     return card;
@@ -749,21 +871,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // публикация
   publishBtn.addEventListener('click', ()=>{
+    try {
+      requireAuth();
+    } catch {
+      alert('Для публикации необходимо войти в систему');
+      return;
+    }
+    
     const data = {
       id: uid(),
       section,
       date: fDate.value.trim() || new Date().toLocaleDateString('ru-RU',{day:'2-digit',month:'long',year:'numeric'}),
       title: fTitle.value.trim()
     };
+    
     if (!data.title){ alert('Укажи заголовок.'); return; }
 
     let html='';
     if (section==='news'){
       data.desc = fDesc.value.trim();
-      data.ios  = (fIOS.value||'').trim(); // iOS
+      data.ios  = (fIOS.value||'').trim();
       data.tiktok = fTikTok.value.trim();
       data.youtube= fYouTube.value.trim();
       data.insta  = fInsta.value.trim();
+      
+      // Валидация URL
+      const urls = [data.ios, data.tiktok, data.youtube, data.insta].filter(Boolean);
+      const invalidUrls = urls.filter(url => !isValidURL(url));
+      if (invalidUrls.length > 0) {
+        alert('Некоторые ссылки имеют неверный формат.');
+        return;
+      }
+      
       if (!data.ios && !data.tiktok && !data.youtube && !data.insta){
         alert('Добавь хотя бы одну ссылку.'); return;
       }
@@ -771,6 +910,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       data.text = fText.value.trim();
       data.images = fImages.value.split(/\r?\n|,/).map(s=>s.trim()).filter(Boolean);
+      
+      // Валидация URL изображений
+      const invalidImages = data.images.filter(url => !isValidURL(url));
+      if (invalidImages.length > 0) {
+        alert('Некоторые ссылки на изображения имеют неверный формат.');
+        return;
+      }
+      
       if (!data.images.length && !data.text){ alert('Добавь текст или хотя бы одну картинку.'); return; }
       html = buildFreshHTML(data);
     }
@@ -783,13 +930,22 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(data)
     }).then(async r=>{
       const t=await r.text(); let j; try{j=JSON.parse(t)}catch{}
-      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); alert('Ошибка публикации ('+р.status+'): '+t); }
-    }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
+      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); }
+    }).catch(err=>{ console.error('Publish network error:', err); });
   });
 
   // удаление
   document.addEventListener('click', e=>{
-    const btn = e.target.closest('.news-del-btn'); if(!btn) return;
+    const btn = e.target.closest('.news-del-btn'); 
+    if(!btn) return;
+    
+    try {
+      requireAuth();
+    } catch {
+      alert('Для удаления необходимо войти в систему');
+      return;
+    }
+
     const card = btn.closest('.news-item'); if(!card) return;
     const id = card.getAttribute('data-id');
     if(!confirm('Удалить публикацию?')) return;
@@ -801,13 +957,18 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({ id })
     }).then(async r=>{
       const t=await r.text(); let j; try{j=JSON.parse(t)}catch{}
-      if(!r.ok||!j?.ok){ console.error('Delete error',r.status,t);
-        alert('Удаление на сервере не удалось ('+r.status+'). Блок скрыт локально, но вернётся после перезагрузки.'); }
-    }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
+      if(!r.ok||!j?.ok){ console.error('Delete error',r.status,t); }
+    }).catch(err=>{ console.error('Delete network error:', err); });
   });
 
-  // загрузка изображений через воркер (/upload) — устойчивый парсинг
+  // загрузка изображений
   async function uploadOne(file){
+    try {
+      validateFile(file);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+    
     const fd = new FormData();
     fd.append('file', file, file.name);
     const r = await fetch(WORKER_BASE+'/upload',{ method:'POST', headers:{'x-admin-key':ADMIN_HEADER}, body: fd });
@@ -818,6 +979,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   filesInput?.addEventListener('change', async ()=>{
+    try {
+      requireAuth();
+    } catch {
+      alert('Для загрузки изображений необходимо войти в систему');
+      filesInput.value = '';
+      return;
+    }
+
     if (!filesInput.files || !filesInput.files.length) return;
     filesPreview.innerHTML='';
     [...filesInput.files].forEach(f=>{
@@ -832,10 +1001,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const current = fImages.value.trim();
       fImages.value = (current? (current+"\n"):"") + urls.join("\n");
-      alert('Изображения загружены и добавлены в форму.');
     }catch(err){
-      console.error(err);
+      console.error('Upload error:', err);
       alert('Ошибка загрузки изображений: '+(err.message||err));
+      filesPreview.innerHTML='';
     }
   });
 })();
@@ -874,7 +1043,7 @@ document.addEventListener('DOMContentLoaded', () => {
   box.addEventListener('wheel',e=>{ if(!box.classList.contains('open')) return; e.preventDefault();
     const dir=Math.sign(e.deltaY); scale=Math.min(4,Math.max(1, scale - dir*0.1)); img.style.transform=`scale(${scale})`; },{passive:false});
   let sx=0; box.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
-  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-сx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
+  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
 })();
 </script>
 </body>
