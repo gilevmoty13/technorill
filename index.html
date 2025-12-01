@@ -26,16 +26,78 @@ body{
   color:#ccc;
   background:#000 url('logo.png') center/contain no-repeat fixed;
   -webkit-tap-highlight-color: transparent;
+  position:relative;
+  overflow-x:hidden;
 }
+
+/* холст снега */
+#snow-canvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:50;
+}
+
+/* лёгкое новогоднее сияние */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-40px 0 auto 0;
+  height:140px;
+  background:
+    radial-gradient(circle at 10% 0, rgba(0,255,180,.30), transparent 60%),
+    radial-gradient(circle at 90% 0, rgba(0,220,120,.25), transparent 55%);
+  opacity:.45;
+  pointer-events:none;
+  z-index:-1; /* <-- ВАЖНО: чтобы зелёная полоса не перекрывала контент */
+}
+
+/* мягкое свечение вокруг основного блока */
+.content::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+  border:1px solid rgba(0,255,160,.18);
+  box-shadow:0 0 18px rgba(0,255,160,.16);
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* немного подсветки активной вкладки */
+.tab.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+  box-shadow:0 0 10px rgba(0,255,160,.35);
+  background:linear-gradient(to top, rgba(0,40,25,.9), rgba(0,0,0,0));
+}
+
+/* базовые */
 img{max-width:100%;}
 
 /* заголовок */
-header{background:rgba(0,0,0,.7);text-align:center;padding:40px 20px}
-header img{width:120px;height:auto;border-radius:50%}
-h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
+header{
+  background:rgba(0,0,0,.78);
+  text-align:center;
+  padding:40px 20px 34px;
+  position:relative;
+  overflow:hidden;
+}
+header img{
+  width:120px;
+  height:auto;
+  border-radius:50%;
+  box-shadow:0 0 18px rgba(0,255,160,.32);
+}
+h1{
+  margin:20px 0 0;
+  font-size:clamp(24px,4vw,40px);
+  color:var(--accent);
+}
 
 /* контейнер */
 .content{
+  position:relative;
   width:min(1120px,92vw);
   margin:40px auto;
   background:var(--panel);
@@ -54,7 +116,6 @@ h1{margin:20px 0 0;font-size:clamp(24px,4vw,40px);color:var(--accent)}
   border-bottom:3px solid transparent;transition:.2s;
   border-radius:8px 8px 0 0;font-weight:600;font-size:clamp(14px,1.8vw,16px)
 }
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab:hover{color:var(--accent2)}
 .tab-content{display:none}
 .tab-content.active{display:block}
@@ -66,7 +127,9 @@ a:hover{color:var(--accent2);border-bottom-color:var(--accent2)}
 /* футер */
 footer{
   background:rgba(0,0,0,.7);text-align:center;padding:20px;color:#aaa;
-  line-height:1.4
+  line-height:1.4;
+  position:relative;
+  z-index:20;
 }
 
 /* центр заголовков в секциях */
@@ -286,10 +349,8 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">29 октября 2025</div>
   <h3>Что в итоге показал Яндекс?</h3>
-  
   <div class="news-content">Яндекс делает переход от голосового помощника к интеллектуальному агенту, который способен действовать сам.Это направление, в котором сейчас движется весь рынок ИИ. Первые устройства появятся уже в следующем году.</div>
   <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155642_orig-1.png" alt=""></div>
-  
 </div>
 <!-- NEWS-ITEM:mhc6ho2zhy9o:END -->
 <!-- NEWS-ITEM:mhc6fuq9xvd4:START -->
@@ -297,10 +358,8 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">29 октября 2025</div>
   <h3>Функция «Моя память» станет центром экосистемы</h3>
-  
   <div class="news-content">Алиса превращает голосовые команды в структурированные задачи и заметки. Всё хранится в одном месте и доступно с любых устройств — от компьютера до умной колонки или браслета.</div>
   <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155515_orig.png" alt=""></div>
-  
 </div>
 <!-- NEWS-ITEM:mhc6fuq9xvd4:END -->
 <!-- NEWS-ITEM:mhc6bfo7iiyk:START -->
@@ -308,10 +367,8 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">29 октября 2025</div>
   <h3>Появятся носимые устройства с Алисой</h3>
-  
   <div class="news-content">Главная идея — управление голосом без смартфона.Ты просто говоришь: «Алиса, запиши идею для ролика», и она мгновенно сохраняет её в твоей «Памяти».Все данные автоматически синхронизируются с чатом, браузером и другими сервисами Яндекса.Это шаг к экосистеме, где голос заменяет касания экрана.</div>
   <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155147_orig.png" alt=""></div>
-  
 </div>
 <!-- NEWS-ITEM:mhc6bfo7iiyk:END -->
 <!-- NEWS-ITEM:mhc69q5cajam:START -->
@@ -319,10 +376,12 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">29 октября 2025</div>
   <h3>Алиса теперь — полноценный ИИ-ассистент</h3>
-  
   <div class="news-content">Яндекс обновил Алису: теперь она не просто отвечает голосом, а показывает изображения, видео и карточки прямо в ответах.Ассистент научился понимать контекст, строить логические связи и помогать в работе, учёбе и повседневных делах.В будущем Алиса сможет выполнять действия — искать товары, бронировать услуги и делать покупки.</div>
-  <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155021_orig.png" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155025_orig-1.png" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155029_orig.jpg" alt=""></div>
-  
+  <div class="news-gallery">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155021_orig.png" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155025_orig-1.png" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251029155029_orig.jpg" alt="">
+  </div>
 </div>
 <!-- NEWS-ITEM:mhc69q5cajam:END -->
 <!-- NEWS-ITEM:mgibjmjw03jz:START -->
@@ -330,10 +389,11 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">8 октября 2025</div>
   <h3>🚀 Samsung готовит One UI 8.5</h3>
-  
   <div class="news-content">Samsung уже тестирует One UI 8.5, и обновление обещает стать самым "умным" в истории Galaxy.<br><br>💠 Главные фишки:<br>• Новый режим Privacy Display — затемняет экран по бокам, чтобы никто не подсматривал.<br>• Авто-фильтр звонков — система сможет отвечать на неизвестные номера и показывать текст разговора.<br>• Обновлённая панель быстрых настроек — полная кастомизация и прозрачный дизайн.<br>• Новые анимации Always On Display и улучшенные визуальные эффекты по всей системе.</div>
-  <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251008182504_1000055669.jpg" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251008182505_1000055670.jpg" alt=""></div>
-  
+  <div class="news-gallery">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251008182504_1000055669.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/10/20251008182505_1000055670.jpg" alt="">
+  </div>
 </div>
 <!-- NEWS-ITEM:mgibjmjw03jz:END -->
 <!-- NEWS-ITEM:mg6wkhlm3da5:START -->
@@ -341,10 +401,12 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">30 сентября 2025</div>
   <h3>Xiaomi выпустил линейку Xiaomi 17</h3>
-  
   <div class="news-content">Смартфон с экстрадисплеем и батареей 7000 мА·ч<br>● В 2025 году Xiaomi анонсировал серию Xiaomi 17, в том числе версии Pro и Pro Max, оснащённые двумя дисплеями — основной + дополнительный экран на задней стороне. <br>● Устройства работают под управлением HyperOS 3 на базе Android 16, а внутри — чип Snapdragon 8 Elite Gen 5 (3 нм). <br>● Модели серии получили аккумуляторы аж на 7000 мА·ч (в стандартной модели) и улучшенные камеры, включая сенсор Light Fusion 950L.</div>
-  <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184017_1000054424.jpg" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184019_1000054426.webp" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184020_1000054425.jpg" alt=""></div>
-  
+  <div class="news-gallery">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184017_1000054424.jpg" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184019_1000054426.webp" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250930184020_1000054425.jpg" alt="">
+  </div>
 </div>
 <!-- NEWS-ITEM:mg6wkhlm3da5:END -->
 <!-- NEWS-ITEM:mg41v3g6nffc:START -->
@@ -352,10 +414,12 @@ footer{
   <button class="news-del-btn" title="Удалить">Удалить</button>
   <div class="news-date">28 сентября 2025</div>
   <h3>📺 iPhone 17 Pro впервые использован в прямой трансляции спортивного матча</h3>
-  
-  <div class="news-content">На телешоу Friday Night Baseball Apple использовал iPhone 17 Pro как одну из камер при прямой трансляции бейсбольного матча между «Бостон Рэд Сокс» и «Детройт Тайгерс».  ￼<br><br>iPhone размещали в разных нестандартных точках — внутри «Green Monster» (известной конструкции на стадионе в Бостоне), в бункере, в раздевалках и др.  ￼<br>Для зрителей на экране появлялись специальные сигналы, когда кадры снимаются именно с iPhone.  ￼<br><br>Это первый известный случай, когда iPhone выступил как часть телетрансляционного оборудования живого спортивного события.  ￼</div>
-  <div class="news-gallery"><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184515_2Tm76SWdrDte6jijq8gECj-1024-75.jpg.webp" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184516_pLTdQ29P88qz3wAUy3z2hW-1200-80.jpg.webp" alt=""><img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184517_WU7brKPHjxQWpx2gZdCfLE-1200-80.jpg.webp" alt=""></div>
-  
+  <div class="news-content">На телешоу Friday Night Baseball Apple использовал iPhone 17 Pro как одну из камер при прямой трансляции бейсбольного матча между «Бостон Рэд Сокс» и «Детройт Тайгерс».  <br><br>iPhone размещали в разных нестандартных точках — внутри «Green Monster» (известной конструкции на стадионе в Бостоне), в бункере, в раздевалках и др.  <br>Для зрителей на экране появлялись специальные сигналы, когда кадры снимаются именно с iPhone.  <br><br>Это первый известный случай, когда iPhone выступил как часть телетрансляционного оборудования живого спортивного события.  </div>
+  <div class="news-gallery">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184515_2Tm76SWdrDte6jijq8gECj-1024-75.jpg.webp" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184516_pLTdQ29P88qz3wAUy3z2hW-1200-80.jpg.webp" alt="">
+    <img src="https://raw.githubusercontent.com/gilevmoty13/technorill/main/uploads/2025/09/20250928184517_WU7brKPHjxQWpx2gZdCfLE-1200-80.jpg.webp" alt="">
+  </div>
 </div>
 <!-- NEWS-ITEM:mg41v3g6nffc:END -->
 <!-- FRESH-END -->
@@ -373,14 +437,20 @@ footer{
   <div class="news-date">20 Ноября 2025</div>
   <h3>Melody Ringtones - поможет решить баг из iOS 26!</h3>
   <p>В этом видео я помогу решить тебе баг с рингтоном в iOS26!</p>
-  
-  
   <div class="social-links">
-         <a href="https://apps.apple.com/md/app/melody-ringtones/id6743745293" target="_blank" class="social-link"><i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div></a>
-         <a href="https://www.tiktok.com/@technorill/video/7578497524571409686" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/VvteJoe2iJI" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DRrl9UIjLfj/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://apps.apple.com/md/app/melody-ringtones/id6743745293" target="_blank" class="social-link">
+      <i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div>
+    </a>
+    <a href="https://www.tiktok.com/@technorill/video/7578497524571409686" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/VvteJoe2iJI" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DRrl9UIjLfj/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:milqdjw1a6vc:END -->
 <!-- NEWS-ITEM:miep8pc9jc4j:START -->
@@ -391,14 +461,17 @@ footer{
   <p>Артикул Озон: 2833020801
 
 Привет! В этом видео я тебе покажу первый студийный микро от Maono!</p>
-  
-  
   <div class="social-links">
-         
-         <a href="https://www.tiktok.com/@technorill/video/7576674216481721622?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/MKlRlgkqg1c" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DRe7hcnAHnt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://www.tiktok.com/@technorill/video/7576674216481721622?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/MKlRlgkqg1c" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DRe7hcnAHnt/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:miep8pc9jc4j:END -->
 <!-- NEWS-ITEM:mibikfmslcwu:START -->
@@ -407,14 +480,17 @@ footer{
   <div class="news-date">23 ноября 2025</div>
   <h3>Unboxing iPhone 17 - что изменилось?</h3>
   <p>Привет! Сегодня я тебе покажу и немного расскажу о новом iPhone 17!</p>
-  
-  
   <div class="social-links">
-         
-         <a href="https://www.tiktok.com/@technorill/video/7575848160048827670?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/TN_kzfYnVoQ" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DRZMscDFXM3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://www.tiktok.com/@technorill/video/7575848160048827670?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/TN_kzfYnVoQ" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DRZMscDFXM3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:mibikfmslcwu:END -->
 <!-- NEWS-ITEM:mi1x1yex22c3:START -->
@@ -423,14 +499,20 @@ footer{
   <div class="news-date">16 ноября 2025</div>
   <h3>Решение бага iOS 26!</h3>
   <p>Привет! Сейчас я расскажу тебе, как решить проблему с одим из багов в новой iOS 26.1!</p>
-  
-  
   <div class="social-links">
-         <a href="https://apps.apple.com/md/app/nota-ringtones/id6698645894" target="_blank" class="social-link"><i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div></a>
-         <a href="https://www.tiktok.com/@technorill/video/7573356368699084054" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/dk9sxnQncdo" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DRH6GSZDqbq/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://apps.apple.com/md/app/nota-ringtones/id6698645894" target="_blank" class="social-link">
+      <i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div>
+    </a>
+    <a href="https://www.tiktok.com/@technorill/video/7573356368699084054" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/dk9sxnQncdo" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DRH6GSZDqbq/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:mi1x1yex22c3:END -->
 <!-- NEWS-ITEM:mhtfzs6ckh6p:START -->
@@ -439,14 +521,20 @@ footer{
   <div class="news-date">10 ноября 2025</div>
   <h3>iPhone рингтон за 30 секунд прямо из видео!</h3>
   <p>Привет! В этом видео я тебе расскажу, как tik tok видео превратить в рингтон для iPhone!</p>
-  
-  
   <div class="social-links">
-         <a href="https://apps.apple.com/us/app/tik-ringtones/id6476932750" target="_blank" class="social-link"><i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div></a>
-         <a href="https://www.tiktok.com/@technorill/video/7571155476184993047?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/1e2aOUGNYN0?feature=share" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DQ4otF8kSqw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://apps.apple.com/us/app/tik-ringtones/id6476932750" target="_blank" class="social-link">
+      <i class="fab fa-apple social-icon apple-icon"></i><div><div class="social-text">Скачать приложение на iOS</div></div>
+    </a>
+    <a href="https://www.tiktok.com/@technorill/video/7571155476184993047?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/1e2aOUGNYN0?feature=share" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DQ4otF8kSqw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:mhtfzs6ckh6p:END -->
 <!-- NEWS-ITEM:mhm476t2ywj8:START -->
@@ -455,14 +543,17 @@ footer{
   <div class="news-date">5 ноября 2025</div>
   <h3>Алиса становится агентом! Яндекс делает шаг в будущее.</h3>
   <p>Привет! В этом видео я расскажу тебе про новое обновление от Яндекса, которое сделало Алису ещё умнее!</p>
-  
-  
   <div class="social-links">
-         
-         <a href="https://www.tiktok.com/@technorill/video/7569252422296636674?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link"><i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div></a>
-         <a href="https://youtube.com/shorts/yipGz305-3I?feature=share" target="_blank" class="social-link"><i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div></a>
-         <a href="https://www.instagram.com/reel/DQrbnyflOVe/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link"><i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div></a>
-       </div>
+    <a href="https://www.tiktok.com/@technorill/video/7569252422296636674?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+      <i class="fab fa-tiktok social-icon tiktok-icon"></i><div><div class="social-text">TikTok</div></div>
+    </a>
+    <a href="https://youtube.com/shorts/yipGz305-3I?feature=share" target="_blank" class="social-link">
+      <i class="fab fa-youtube social-icon youtube-icon"></i><div><div class="social-text">YouTube</div></div>
+    </a>
+    <a href="https://www.instagram.com/reel/DQrbnyflOVe/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="social-link">
+      <i class="fab fa-instagram social-icon instagram-icon"></i><div><div class="social-text">Instagram*</div></div>
+    </a>
+  </div>
 </div>
 <!-- NEWS-ITEM:mhm476t2ywj8:END -->
 <!-- NEWS-END -->
@@ -474,48 +565,32 @@ footer{
     <div class="post">
       <h1 style="text-align:center">Спонсоры</h1>
       <p style="text-align:center">Я горжусь своими партнерами и очень им благодарен в помощи при создании качественного контента!</p>
-      
       <div class="partners-grid">
-        <!-- Карточка Biggeek -->
         <a href="https://biggeek.ru" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://d1fdloi71mui9q.cloudfront.net/dsFrotreTXaf6929s3z6_xuOhhq8Q9U8hn1at" alt="Biggeek" class="partner-logo">
             <h3 class="partner-name">Big Geek</h3>
           </div>
-          <div class="partner-description">
-            Самый дружелюбный магазин гаджетов с широким ассортиментом товаров!
-          </div>
-          <div class="partner-links">
-            <span class="partner-link">Официальный сайт</span>
-          </div>
+          <div class="partner-description">Самый дружелюбный магазин гаджетов с широким ассортиментом товаров!</div>
+          <div class="partner-links"><span class="partner-link">Официальный сайт</span></div>
         </a>
 
-        <!-- Карточка Realme -->
         <a href="https://realme.com/ru" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://cdn1.sgliteasset.com/imt/images/collection/collection-12181/cached/79HZCfav64d209feda0ad_1691486718_420x420.jpg" alt="Realme" class="partner-logo">
             <h3 class="partner-name">Realme</h3>
           </div>
-          <div class="partner-description">
-            Производитель смартфонов и техники, предлагающий инновационные устройства по доступным ценам.
-          </div>
-          <div class="partner-links">
-            <span class="partner-link">Официальный сайт</span>
-          </div>
+          <div class="partner-description">Производитель смартфонов и техники, предлагающий инновационные устройства по доступным ценам.</div>
+          <div class="partner-links"><span class="partner-link">Официальный сайт</span></div>
         </a>
 
-        <!-- Карточка Yandex -->
         <a href="https://t.me/yandex" target="_blank" class="partner-card">
           <div class="partner-header">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj4nuwxA9VMyoFHRhJbvm5aoGfjRkvMialqehB94-XWg&s=10" alt="Yandex" class="partner-logo">
             <h3 class="partner-name">Яндекс</h3>
           </div>
-          <div class="partner-description">
-            Крупнейшая российская технологическая компания, разрабатывающая поисковые системы, IT-сервисы и устройства умного дома.
-          </div>
-          <div class="partner-links">
-            <span class="partner-link">Официальный ТГК</span>
-          </div>
+          <div class="partner-description">Крупнейшая российская технологическая компания, разрабатывающая поисковые системы, IT-сервисы и устройства умного дома.</div>
+          <div class="partner-links"><span class="partner-link">Официальный ТГК</span></div>
         </a>
       </div>
     </div>
@@ -527,7 +602,7 @@ footer{
       <p>Привет! Меня зовут Кирилл и я ведущий данного канала.</p>
       <p><strong>Почта:</strong>
         <span id="email" style="color:var(--accent);cursor:pointer;border-bottom:1px dashed var(--accent)">garkovivan8430@gmail.com</span>
-        <span style="margin-left:5px;font-size:.9ем;color:#888">(кликните чтобы скопировать)</span>
+        <span style="margin-left:5px;font-size:.9em;color:#888">(кликните чтобы скопировать)</span>
       </p>
       <p><strong>По вопросам писать:</strong>
         <a href="https://t.me/kiril_podderzka_Not_Bot" target="_blank">t.me/kiril_podderzka_Not_Bot</a>
@@ -865,7 +940,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(data)
     }).then(async r=>{
       const t=await r.text(); let j; try{j=JSON.parse(t)}catch{}
-      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); alert('Ошибка публикации ('+р.status+'): '+t); }
+      if(!r.ok||!j?.ok){ console.error('Publish error',r.status,t); alert('Ошибка публикации ('+r.status+'): '+t); }
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
@@ -888,7 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(err=>{ console.error(err); alert('Сетевая ошибка: '+(err?.message||err)); });
   });
 
-  // загрузка изображений через воркер (/upload) — устойчивый парсинг
+  // загрузка изображений через воркер (/upload)
   async function uploadOne(file){
     const fd = new FormData();
     fd.append('file', file, file.name);
@@ -953,11 +1028,89 @@ document.addEventListener('DOMContentLoaded', () => {
   box.addEventListener('click',e=>{ if(e.target===box) close(); });
   document.addEventListener('keydown',e=>{ if(!box.classList.contains('open')) return;
     if(e.key==='Escape') close(); if(e.key==='ArrowLeft') step(-1); if(e.key==='ArrowRight') step(1); });
+
   box.addEventListener('wheel',e=>{ if(!box.classList.contains('open')) return; e.preventDefault();
     const dir=Math.sign(e.deltaY); scale=Math.min(4,Math.max(1, scale - dir*0.1)); img.style.transform=`scale(${scale})`; },{passive:false});
-  let sx=0; box.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
-  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-сx; if(Math.abs(dx)>40) step(dx>0?-1:1)},{passive:true});
+
+  let sx=0;
+  box.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
+  box.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx; /* тут была опечатка "сx" */
+    if(Math.abs(dx)>40) step(dx>0?-1:1);
+  },{passive:true});
 })();
 </script>
+
+<!-- Пушистый редкий снег -->
+<script>
+(function(){
+  const canvas = document.createElement('canvas');
+  canvas.id = 'snow-canvas';
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let flakes = [];
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function createFlakes() {
+    const count = width < 768 ? 45 : 90; // редкий снег
+    flakes = [];
+    for (let i = 0; i < count; i++) {
+      flakes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: 2 + Math.random() * 4,              // размер хлопьев
+        vy: 0.6 + Math.random() * 1.1,         // скорость падения
+        vx: -0.3 + Math.random() * 0.6,        // лёгкий боковой снос
+        alpha: 0.45 + Math.random() * 0.45     // прозрачность
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = '#ffffff';
+
+    for (const f of flakes) {
+      ctx.globalAlpha = f.alpha;
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      f.y += f.vy;
+      f.x += f.vx;
+
+      if (f.y > height + 12) {
+        f.y = -12;
+        f.x = Math.random() * width;
+      }
+      if (f.x < -12) f.x = width + 12;
+      if (f.x > width + 12) f.x = -12;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  createFlakes();
+  draw();
+
+  window.addEventListener('resize', () => {
+    resize();
+    createFlakes();
+  });
+})();
+</script>
+
 </body>
 </html>
