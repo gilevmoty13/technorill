@@ -30,28 +30,6 @@ body{
   overflow-x:hidden;
 }
 
-/* холст снега */
-#snow-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:50;
-}
-
-/* лёгкое новогоднее сияние */
-body::before{
-  content:"";
-  position:fixed;
-  inset:-40px 0 auto 0;
-  height:140px;
-  background:
-    radial-gradient(circle at 10% 0, rgba(0,255,180,.30), transparent 60%),
-    radial-gradient(circle at 90% 0, rgba(0,220,120,.25), transparent 55%);
-  opacity:.45;
-  pointer-events:none;
-  z-index:-1; /* <-- ВАЖНО: чтобы зелёная полоса не перекрывала контент */
-}
-
 /* мягкое свечение вокруг основного блока */
 .content::before{
   content:"";
@@ -979,77 +957,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const dx=e.changedTouches[0].clientX-sx; /* тут была опечатка "сx" */
     if(Math.abs(dx)>40) step(dx>0?-1:1);
   },{passive:true});
-})();
-</script>
-
-<!-- Пушистый редкий снег -->
-<script>
-(function(){
-  const canvas = document.createElement('canvas');
-  canvas.id = 'snow-canvas';
-  document.body.prepend(canvas);
-  const ctx = canvas.getContext('2d');
-
-  let width = window.innerWidth;
-  let height = window.innerHeight;
-  let flakes = [];
-
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function createFlakes() {
-    const count = width < 768 ? 45 : 90; // редкий снег
-    flakes = [];
-    for (let i = 0; i < count; i++) {
-      flakes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: 2 + Math.random() * 4,              // размер хлопьев
-        vy: 0.6 + Math.random() * 1.1,         // скорость падения
-        vx: -0.3 + Math.random() * 0.6,        // лёгкий боковой снос
-        alpha: 0.45 + Math.random() * 0.45     // прозрачность
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = '#ffffff';
-
-    for (const f of flakes) {
-      ctx.globalAlpha = f.alpha;
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      ctx.fill();
-
-      f.y += f.vy;
-      f.x += f.vx;
-
-      if (f.y > height + 12) {
-        f.y = -12;
-        f.x = Math.random() * width;
-      }
-      if (f.x < -12) f.x = width + 12;
-      if (f.x > width + 12) f.x = -12;
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  createFlakes();
-  draw();
-
-  window.addEventListener('resize', () => {
-    resize();
-    createFlakes();
-  });
 })();
 </script>
 
